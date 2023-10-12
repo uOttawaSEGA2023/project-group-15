@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PatientSignUp">
+
+
+    <EditText
+        android:id="@+id/editTextFirstName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="44dp"
+        android:ems="10"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <EditText
+        android:id="@+id/editTextLastName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextFirstName" />
+
+    <EditText
+        android:id="@+id/editTextEmailAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextLastName" />
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEmailAddress" />
+
+    <EditText
+        android:id="@+id/editTextPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:inputType="phone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
+
+    <EditText
+        android:id="@+id/editTextPostalAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:inputType="textPostalAddress"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPhone" />
+
+    <EditText
+        android:id="@+id/editTextHealthNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPostalAddress" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="56dp"
+        android:text="Please enter your information"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewFirstName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:text="First Name"
+        app:layout_constraintBottom_toTopOf="@+id/editTextFirstName"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewLastName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="4dp"
+        android:text="Last Name"
+        app:layout_constraintBottom_toTopOf="@+id/editTextLastName"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:text="Email"
+        app:layout_constraintBottom_toTopOf="@+id/editTextEmailAddress"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:text="Password"
+        app:layout_constraintBottom_toTopOf="@+id/editTextPassword"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewPhoneNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:text="Phone Number"
+        app:layout_constraintBottom_toTopOf="@+id/editTextPhone"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:text="Address"
+        app:layout_constraintBottom_toTopOf="@+id/editTextPostalAddress"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewHealthNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:text="Health Card Number"
+        app:layout_constraintBottom_toTopOf="@+id/editTextHealthNumber"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="20dp"
+        android:onClick="onClickSignUp"
+        android:text="Sign Up"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextHealthNumber" />
+
+    <TextView
+        android:id="@+id/textViewFirstNameError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="*Please enter first name"
+        android:textColor="#f01616"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/editTextFirstName"
+        app:layout_constraintBottom_toTopOf="@+id/editTextFirstName" />
+
+    <TextView
+        android:id="@+id/textViewLastNameError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="*Please enter last name"
+        android:textColor="#f01616"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/editTextLastName"
+        app:layout_constraintBottom_toTopOf="@+id/editTextLastName" />
+
+    <TextView
+        android:id="@+id/textViewEmailError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="*Please enter email"
+        android:textColor="#f01616"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/editTextEmailAddress"
+        app:layout_constraintBottom_toTopOf="@+id/editTextEmailAddress" />
+
+    <TextView
+        android:id="@+id/textViewPasswordError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="*Please enter password"
+        android:textColor="#f01616"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/editTextPassword"
+        app:layout_constraintBottom_toTopOf="@+id/editTextPassword" />
+
+    <TextView
+        android:id="@+id/textViewPhoneNumberError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="*Please enter phone number"
+        android:textColor="#f01616"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/editTextPhone"
+        app:layout_constraintBottom_toTopOf="@+id/editTextPhone" />
+
+    <TextView
+        android:id="@+id/textViewAddressError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="*Please enter address"
+        android:textColor="#f01616"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/editTextPostalAddress"
+        app:layout_constraintBottom_toTopOf="@+id/editTextPostalAddress" />
+
+    <TextView
+        android:id="@+id/textViewHealthNumberError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="*Please enter health card number"
+        android:textColor="#f01616"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/editTextHealthNumber"
+        app:layout_constraintBottom_toTopOf="@+id/editTextHealthNumber" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

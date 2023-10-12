@@ -8,6 +8,11 @@ import android.widget.*;
 
 import android.os.Bundle;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -15,10 +20,13 @@ import java.util.*;
 
 public class PatientSignUp extends AppCompatActivity {
 
+    private FirebaseAuth auth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_sign_up);
+        auth = FirebaseAuth.getInstance();
+
     }
 
     public void onClickSignUp(View view) {
@@ -62,9 +70,9 @@ public class PatientSignUp extends AppCompatActivity {
             DatabaseReference databaseRef = database.getReference("Patients");
             databaseRef.push().setValue(patient);
 
-            //Go to next screen
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class); //TODO set to sign in page
-            startActivity(intent);
+            //Authenticate user
+            userAuthentication(patient);
+
         }
 
     }
@@ -161,7 +169,7 @@ public class PatientSignUp extends AppCompatActivity {
             text = findViewById(R.id.textViewPasswordError);
             text.setVisibility(view.INVISIBLE);
         }
-        if (user.phoneNumber == -1) {
+        if (user.phoneNumber == -1 || user.phoneNumber < 100000000 || user.phoneNumber > 999999999) {
             //Set visibility of error message to visible
             TextView text = findViewById(R.id.textViewPhoneNumberError);
             text.setVisibility(view.VISIBLE);
@@ -200,7 +208,7 @@ public class PatientSignUp extends AppCompatActivity {
             text = findViewById(R.id.textViewAddressError);
             text.setVisibility(view.INVISIBLE);
         }
-        if (user.healthCardNumber == -1) {
+        if (user.healthCardNumber == -1 || user.healthCardNumber < 1000000000) {
             //Set visibility of error message to visible
             TextView text = findViewById(R.id.textViewHealthNumberError);
             text.setVisibility(view.VISIBLE);
@@ -221,6 +229,48 @@ public class PatientSignUp extends AppCompatActivity {
         }
         return isValid;
 
+    }
+
+    /*
+    Authenticate user info
+     */
+    private void userAuthentication(Patient patient) {
+        auth.createUserWithEmailAndPassword(patient.email, patient.password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(Task<AuthResult> task) {
+                        //Check if authentication was successful
+                        if (task.isSuccessful()) {
+                            //Verify email
+                            emailVerification();
+
+                        } else {
+                            // If unsuccessful, display a message to the user.
+                            Toast.makeText(PatientSignUp.this, "This email already has an account",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+    /*
+    Send email to user to verify their email
+     */
+    private void emailVerification() {
+        FirebaseUser user = auth.getCurrentUser();
+        //Send email to user
+        user.sendEmailVerification()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(Task<Void> task) {
+                        //Send message to user that email has been sent and change screen
+                        Toast.makeText(getApplicationContext(), "Verification email sent",
+                                Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class); //TODO switch to sign in screen
+                        startActivity(intent);
+
+                    }
+                });
     }
 
 }

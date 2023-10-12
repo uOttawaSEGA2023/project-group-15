@@ -9,4 +9,7 @@ public class Patient extends User {
         this.healthCardNumber = healthCardNumber;
     }
 
+    public int getHealthCardNumber() {
+        return healthCardNumber;
+    }
 }

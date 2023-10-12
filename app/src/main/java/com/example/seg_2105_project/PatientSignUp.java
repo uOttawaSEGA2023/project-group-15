@@ -8,6 +8,9 @@ import android.widget.*;
 
 import android.os.Bundle;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.*;
 
 public class PatientSignUp extends AppCompatActivity {
@@ -53,8 +56,12 @@ public class PatientSignUp extends AppCompatActivity {
 
         //Validate input
         if (inputValid(view, patient)) {
-            //TODO Write to database
-            
+
+            //Write to database
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference databaseRef = database.getReference("Patients");
+            databaseRef.push().setValue(patient);
+
             //Go to next screen
             Intent intent = new Intent(getApplicationContext(), MainActivity.class); //TODO set to sign in page
             startActivity(intent);

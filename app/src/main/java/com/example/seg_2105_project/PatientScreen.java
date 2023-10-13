@@ -7,7 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-public class PatientScreen extends AppCompatActivity {
+public class
+PatientScreen extends AppCompatActivity {
 
     TextView welcomeMessage;
     String name;///patient name;

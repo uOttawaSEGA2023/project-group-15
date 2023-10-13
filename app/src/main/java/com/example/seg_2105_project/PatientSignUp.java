@@ -265,7 +265,7 @@ public class PatientSignUp extends AppCompatActivity {
                         //Send message to user that email has been sent and change screen
                         Toast.makeText(getApplicationContext(), "Verification email sent",
                                 Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class); //TODO switch to sign in screen
+                        Intent intent = new Intent(getApplicationContext(), SignIn.class); //TODO switch to sign in screen
                         startActivity(intent);
 
                     }

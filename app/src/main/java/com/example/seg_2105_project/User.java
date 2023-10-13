@@ -2,12 +2,12 @@ package com.example.seg_2105_project;
 
 public class User {
 
-    String firstName;
-    String lastName;
-    String email;
-    String password;
-    int phoneNumber;
-    String address;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String password;
+    private int phoneNumber;
+    private String address;
 
     public User(String firstName, String lastName, String email, String password, int phoneNumber, String address) {
 

@@ -87,7 +87,7 @@ public class PatientSignUp extends AppCompatActivity {
         boolean isValid = true;
 
         //Check if each input is correct or empty
-        if (user.firstName.equals("")) {
+        if (user.getFirstName().equals("")) {
             //Set visibility of error message to visible
             TextView text = findViewById(R.id.textViewFirstNameError);
             text.setVisibility(view.VISIBLE);
@@ -107,7 +107,7 @@ public class PatientSignUp extends AppCompatActivity {
             text.setVisibility(view.INVISIBLE);
 
         }
-        if (user.lastName.equals("")) {
+        if (user.getLastName().equals("")) {
             //Set visibility of error message to visible
             TextView text = findViewById(R.id.textViewLastNameError);
             text.setVisibility(view.VISIBLE);
@@ -127,7 +127,7 @@ public class PatientSignUp extends AppCompatActivity {
             text.setVisibility(view.INVISIBLE);
 
         }
-        if (user.email.equals("") || !user.email.contains("@")) {
+        if (user.getEmail().equals("") || !user.getEmail().contains("@")) {
             //Set visibility of error message to visible
             TextView text = findViewById(R.id.textViewEmailError);
             text.setVisibility(view.VISIBLE);
@@ -150,7 +150,7 @@ public class PatientSignUp extends AppCompatActivity {
             text = findViewById(R.id.textViewEmailError);
             text.setVisibility(view.INVISIBLE);
         }
-        if (user.password.equals("")) {
+        if (user.getPassword().equals("")) {
             //Set visibility of error message to visible
             TextView text = findViewById(R.id.textViewPasswordError);
             text.setVisibility(view.VISIBLE);
@@ -169,7 +169,7 @@ public class PatientSignUp extends AppCompatActivity {
             text = findViewById(R.id.textViewPasswordError);
             text.setVisibility(view.INVISIBLE);
         }
-        if (user.phoneNumber == -1 || user.phoneNumber < 100000000 || user.phoneNumber > 999999999) {
+        if (user.getPhoneNumber() == -1 || user.getPhoneNumber() < 100000000 || user.getPhoneNumber() > 999999999) {
             //Set visibility of error message to visible
             TextView text = findViewById(R.id.textViewPhoneNumberError);
             text.setVisibility(view.VISIBLE);
@@ -189,7 +189,7 @@ public class PatientSignUp extends AppCompatActivity {
             text.setVisibility(view.INVISIBLE);
 
         }
-        if (user.address.equals("")) {
+        if (user.getAddress().equals("")) {
             //Set visibility of error message to visible
             TextView text = findViewById(R.id.textViewAddressError);
             text.setVisibility(view.VISIBLE);
@@ -208,7 +208,7 @@ public class PatientSignUp extends AppCompatActivity {
             text = findViewById(R.id.textViewAddressError);
             text.setVisibility(view.INVISIBLE);
         }
-        if (user.healthCardNumber == -1 || user.healthCardNumber < 1000000000) {
+        if (user.getHealthCardNumber() == -1 || user.getHealthCardNumber() < 1000000000) {
             //Set visibility of error message to visible
             TextView text = findViewById(R.id.textViewHealthNumberError);
             text.setVisibility(view.VISIBLE);
@@ -235,14 +235,13 @@ public class PatientSignUp extends AppCompatActivity {
     Authenticate user info
      */
     private void userAuthentication(Patient patient) {
-        auth.createUserWithEmailAndPassword(patient.email, patient.password)
+        auth.createUserWithEmailAndPassword(patient.getEmail(), patient.getPassword())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(Task<AuthResult> task) {
                         //Check if authentication was successful
                         if (task.isSuccessful()) {
-                            //Verify email
-                            emailVerification();
+                            verifyEmail();
 
                         } else {
                             // If unsuccessful, display a message to the user.
@@ -256,7 +255,7 @@ public class PatientSignUp extends AppCompatActivity {
     /*
     Send email to user to verify their email
      */
-    private void emailVerification() {
+    private void verifyEmail() {
         FirebaseUser user = auth.getCurrentUser();
         //Send email to user
         user.sendEmailVerification()

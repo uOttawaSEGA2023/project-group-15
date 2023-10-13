@@ -42,22 +42,26 @@ public class SignIn extends AppCompatActivity {
             pswd.setError("Cannot be left blank");
         }
 
-        //Authenticate user info
-        auth.signInWithEmailAndPassword(email.getText().toString(), pswd.getText().toString())
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            //send user to next screen
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                            Toast.makeText(SignIn.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                        } else {
-                            //don't change to next screen until valid login provided
-                            Toast.makeText(SignIn.this, "Login Unsuccessful", Toast.LENGTH_SHORT).show();
+        if (validLogin) {
+            //Authenticate user info
+            auth.signInWithEmailAndPassword(email.getText().toString(), pswd.getText().toString())
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                //send user to next screen
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                Toast.makeText(SignIn.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                            } else {
+                                //don't change to next screen until valid login provided
+                                Toast.makeText(SignIn.this, "Login Unsuccessful", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
 
-                });
+                    });
+        }
+        else { validLogin = true; }
+
 
     }
 }

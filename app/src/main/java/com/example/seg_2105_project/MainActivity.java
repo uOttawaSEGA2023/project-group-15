@@ -11,7 +11,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //TODO set screen to sign in/sign up option page
-        Intent intent = new Intent(getApplicationContext(), PatientSignUp.class);
+        Intent intent = new Intent(getApplicationContext(), SignIn.class);
         startActivity(intent);
     }
 }

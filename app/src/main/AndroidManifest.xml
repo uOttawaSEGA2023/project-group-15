@@ -13,6 +13,15 @@
         android:theme="@style/Theme.SEG_2105_Project"
         tools:targetApi="31">
         <activity
+            android:name=".AdminScreen"
+            android:exported="false" />
+        <activity
+            android:name=".DoctorScreen"
+            android:exported="false" />
+        <activity
+            android:name=".PatientScreen"
+            android:exported="false" />
+        <activity
             android:name=".SignIn"
             android:exported="false" />
         <activity

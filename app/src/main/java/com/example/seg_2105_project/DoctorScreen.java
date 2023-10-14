@@ -21,7 +21,7 @@ public class DoctorScreen extends AppCompatActivity {
         welcomeMessage = findViewById(R.id.welcomeMessage);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         name = user.getDisplayName();
-        welcomeMessage.setText("Welcome, " + name + "!");
+        welcomeMessage.setText(" You are logged in as a doctor");
     }
 
     public void onClickSignOutButton(View view) {

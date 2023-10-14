@@ -91,6 +91,7 @@ public class SignIn extends AppCompatActivity {
                                 } else {
                                     intent = new Intent(getApplicationContext(), DoctorScreen.class);
                                 }
+                                startActivity(intent);
                                // Toast.makeText(SignIn.this, "Login Successful", Toast.LENGTH_SHORT).show();
                             } else {
                                 //don't change to next screen until valid login provided

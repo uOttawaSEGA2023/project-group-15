@@ -18,11 +18,11 @@ public class WelcomeScreen extends AppCompatActivity {
         signInButton = findViewById(R.id.button);
     }
 
-    public void onClick_SingIn(View view){
+    public void onClickSignIn(View view){
         startActivity(new Intent(getApplicationContext(),SignIn.class));
     }
 
-    public void onClick_SignUp(View view){
+    public void onClickSignUp(View view){
         startActivity(new Intent(getApplicationContext(),SignUpPage.class));
     }
 }

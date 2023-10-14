@@ -215,5 +215,88 @@
         app:layout_constraintStart_toStartOf="@+id/address_enter"
         app:layout_constraintTop_toBottomOf="@+id/specialty" />
 
+    <TextView
+        android:id="@+id/textViewLastNameError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="12dp"
+        android:text="*Please enter your last name"
+        android:textColor="#f01616"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/last_name_enter"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewFirstNameError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="*Please enter your first name"
+        android:textColor="#f01616"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/first_name"
+        app:layout_constraintStart_toStartOf="@+id/first_name" />
+
+    <TextView
+        android:id="@+id/textViewAddressError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="*Please enter your address"
+        android:textColor="#f01616"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/address"
+        app:layout_constraintStart_toStartOf="@+id/address" />
+
+    <TextView
+        android:id="@+id/textViewPasswordError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="*Please enter your password"
+        android:textColor="#f01616"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/account_pass"
+        app:layout_constraintStart_toStartOf="@+id/account_pass" />
+
+    <TextView
+        android:id="@+id/textViewEmailError"
+        android:layout_width="166dp"
+        android:layout_height="38dp"
+        android:text="*Please enter your email address"
+        android:visibility="invisible"
+        android:textColor="#f01616"
+
+        app:layout_constraintBottom_toBottomOf="@+id/email_address"
+        app:layout_constraintStart_toStartOf="@+id/email_address" />
+
+    <TextView
+        android:id="@+id/textViewPhoneNumberError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="*Please enter your number"
+        android:textColor="#f01616"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/phone_number"
+        app:layout_constraintStart_toStartOf="@+id/phone_number" />
+
+    <TextView
+        android:id="@+id/textViewEmployeeNumberError"
+        android:layout_width="161dp"
+        android:layout_height="38dp"
+        android:text="*Please enter your employee number"
+        android:textColor="#f01616"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/employee_num"
+        app:layout_constraintStart_toStartOf="@+id/employee_num" />
+
+    <TextView
+        android:id="@+id/textViewSpecialtyError"
+        android:layout_width="161dp"
+        android:layout_height="38dp"
+        android:text="*Please enter your specialties"
+        android:textColor="#f01616"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/specialty"
+        app:layout_constraintStart_toStartOf="@+id/specialty" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

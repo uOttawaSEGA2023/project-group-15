@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class DoctorScreen extends AppCompatActivity {
 
     TextView welcomeMessage;
@@ -16,6 +19,8 @@ public class DoctorScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_screen);
         welcomeMessage = findViewById(R.id.welcomeMessage);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        name = user.getDisplayName();
         welcomeMessage.setText("Welcome, " + name + "!");
     }
 

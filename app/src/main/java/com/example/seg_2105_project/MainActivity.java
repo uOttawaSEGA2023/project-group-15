@@ -10,7 +10,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //TODO set screen to sign in/sign up option page
         Intent intent = new Intent(getApplicationContext(), WelcomeScreen.class);
         startActivity(intent);
     }

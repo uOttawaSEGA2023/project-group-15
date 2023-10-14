@@ -66,11 +66,6 @@ public class PatientSignUp extends AppCompatActivity {
         //Validate input
         if (inputValid(view, patient)) {
 
-            //Write to database
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference databaseRef = database.getReference("Patients");
-            databaseRef.push().setValue(patient);
-
             //Authenticate user
             userAuthentication(patient);
 
@@ -278,6 +273,11 @@ public class PatientSignUp extends AppCompatActivity {
                                 public void onComplete(Task<Void> task) {}
                             });
                         }
+
+                        //Write to database
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference databaseRef = database.getReference("Patients");
+                        databaseRef.push().setValue(patient);
 
                         Intent intent = new Intent(getApplicationContext(), SignIn.class);
                         startActivity(intent);

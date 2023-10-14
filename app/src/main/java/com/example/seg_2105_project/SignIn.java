@@ -49,7 +49,7 @@ public class SignIn extends AppCompatActivity {
                         @Override
                         public void onComplete(Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                //send user to next screen
+                                //send user to corresponding user screen
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                 Toast.makeText(SignIn.this, "Login Successful", Toast.LENGTH_SHORT).show();
                             } else {

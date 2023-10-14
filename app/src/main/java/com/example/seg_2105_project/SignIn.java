@@ -24,6 +24,7 @@ public class SignIn extends AppCompatActivity {
     EditText pswd;
     Button signInButton;
     private boolean validLogin = true;
+    private boolean admin = false;
     FirebaseAuth auth;
     DataSnapshot patientDataSnapshot;
     DataSnapshot doctorDataSnapshot;
@@ -83,9 +84,14 @@ public class SignIn extends AppCompatActivity {
                         @Override
                         public void onComplete(Task<AuthResult> task) {
                             if (task.isSuccessful()) {
+                                Intent intent;
                                 //send user to corresponding user screen
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                Toast.makeText(SignIn.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                                if(getDoctor(email.toString(), pswd.toString()) == null && !admin){
+                                    intent = new Intent(getApplicationContext(), PatientScreen.class);
+                                } else {
+                                    intent = new Intent(getApplicationContext(), DoctorScreen.class);
+                                }
+                               // Toast.makeText(SignIn.this, "Login Successful", Toast.LENGTH_SHORT).show();
                             } else {
                                 //don't change to next screen until valid login provided
                                 Toast.makeText(SignIn.this, "Login Unsuccessful", Toast.LENGTH_SHORT).show();
@@ -101,11 +107,11 @@ public class SignIn extends AppCompatActivity {
     /*
     Reads through the database for patients and return Patient object if found
      */
-    private Patient getPatient(User user) {
+    private Patient getPatient(String email, String password) {
 
         for(DataSnapshot patients : patientDataSnapshot.getChildren()) {
             Patient p = patients.getValue(Patient.class);
-            if (p.getEmail().equals(user.getEmail()) && p.getPassword().equals(user.getPassword())) {
+            if (p.getEmail().equals(email) && p.getPassword().equals(password)) {
                 return p;
             }
         }
@@ -115,17 +121,16 @@ public class SignIn extends AppCompatActivity {
     /*
     Reads through the database for doctors and return Doctor object if found
      */
-    private Doctor getDoctor(User user) {
+    private Doctor getDoctor(String email, String password) {
 
         for(DataSnapshot doctors : doctorDataSnapshot.getChildren()) {
             Doctor d = doctors.getValue(Doctor.class);
-            if (d.getEmail().equals(user.getEmail()) && d.getPassword().equals(user.getPassword())) {
+            if (d.getEmail().equals(email) && d.getPassword().equals(password)) {
                 return d;
             }
         }
         return null;
 
     }
-
 
 }

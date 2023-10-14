@@ -4,7 +4,6 @@ public class Doctor extends User {
     long employee_number;
     String[] specialties;
 
-
     public Doctor(String firstName, String lastName, String email, String password, int phoneNumber, String address, long employee_number, String[] specialties) {
         super(firstName, lastName, email, password, phoneNumber, address);
         this.employee_number = employee_number;

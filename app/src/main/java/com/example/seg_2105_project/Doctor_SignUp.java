@@ -90,47 +90,47 @@ public class Doctor_SignUp extends AppCompatActivity {
         //Check if each input is correct or empty
         if (user.getFirstName().equals("")) {
             //Set visibility of error message to visible
-            TextView text = findViewById(R.id.first_name);
+            TextView text = findViewById(R.id.textViewFirstNameError);
             text.setVisibility(view.VISIBLE);
 
             //Set visibility of label to invisible
-            text = findViewById(R.id.first_name_enter);
+            text = findViewById(R.id.first_name);
             text.setVisibility(view.INVISIBLE);
 
             isValid = false;
         }
         else {
             //Reset visibilities
-            TextView text = findViewById(R.id.first_name_enter);
+            TextView text = findViewById(R.id.first_name);
             text.setVisibility(view.VISIBLE);
 
-            text = findViewById(R.id.first_name);
+            text = findViewById(R.id.textViewFirstNameError);
             text.setVisibility(view.INVISIBLE);
 
         }
         if (user.getLastName().equals("")) {
             //Set visibility of error message to visible
-            TextView text = findViewById(R.id.last_name);
+            TextView text = findViewById(R.id.textViewLastNameError);
             text.setVisibility(view.VISIBLE);
 
             //Set visibility of label to invisible
-            text = findViewById(R.id.last_name_enter);
+            text = findViewById(R.id.last_name);
             text.setVisibility(view.INVISIBLE);
 
             isValid = false;
         }
         else {
             //Reset visibilities
-            TextView text = findViewById(R.id.last_name_enter);
+            TextView text = findViewById(R.id.last_name);
             text.setVisibility(view.VISIBLE);
 
-            text = findViewById(R.id.last_name);
+            text = findViewById(R.id.textViewLastNameError);
             text.setVisibility(view.INVISIBLE);
 
         }
         if (user.getEmail().equals("") || !user.getEmail().contains("@")) {
             //Set visibility of error message to visible
-            TextView text = findViewById(R.id.email_address_enter);
+            TextView text = findViewById(R.id.textViewEmailError);
             text.setVisibility(view.VISIBLE);
 
             //Set visibility of label to invisible
@@ -148,12 +148,12 @@ public class Doctor_SignUp extends AppCompatActivity {
             TextView text = findViewById(R.id.email_address);
             text.setVisibility(view.VISIBLE);
 
-            text = findViewById(R.id.email_address_enter);
+            text = findViewById(R.id.textViewEmailError);
             text.setVisibility(view.INVISIBLE);
         }
         if (user.getPassword().equals("")) {
             //Set visibility of error message to visible
-            TextView text = findViewById(R.id.account_password_enter);
+            TextView text = findViewById(R.id.textViewPasswordError);
             text.setVisibility(view.VISIBLE);
 
             //Set visibility of label to invisible
@@ -167,12 +167,12 @@ public class Doctor_SignUp extends AppCompatActivity {
             TextView text = findViewById(R.id.account_pass);
             text.setVisibility(view.VISIBLE);
 
-            text = findViewById(R.id.account_password_enter);
+            text = findViewById(R.id.textViewPasswordError);
             text.setVisibility(view.INVISIBLE);
         }
         if (user.getPhoneNumber() == -1 || user.getPhoneNumber()< 100000000 || user.getPhoneNumber() > 999999999) {
             //Set visibility of error message to visible
-            TextView text = findViewById(R.id.phone_number_enter);
+            TextView text = findViewById(R.id.textViewPhoneNumberError);
             text.setVisibility(view.VISIBLE);
 
             //Set visibility of label to invisible
@@ -186,13 +186,13 @@ public class Doctor_SignUp extends AppCompatActivity {
             TextView text = findViewById(R.id.phone_number);
             text.setVisibility(view.VISIBLE);
 
-            text = findViewById(R.id.phone_number_enter);
+            text = findViewById(R.id.textViewPhoneNumberError);
             text.setVisibility(view.INVISIBLE);
 
         }
         if (user.getAddress().equals("")) {
             //Set visibility of error message to visible
-            TextView text = findViewById(R.id.address_enter);
+            TextView text = findViewById(R.id.textViewAddressError);
             text.setVisibility(view.VISIBLE);
 
             //Set visibility of label to invisible
@@ -206,12 +206,12 @@ public class Doctor_SignUp extends AppCompatActivity {
             TextView text = findViewById(R.id.address);
             text.setVisibility(view.VISIBLE);
 
-            text = findViewById(R.id.address_enter);
+            text = findViewById(R.id.textViewAddressError);
             text.setVisibility(view.INVISIBLE);
         }
         if (user.get_employee_number()== -1 || user.get_employee_number() < 1000000000) {
             //Set visibility of error message to visible
-            TextView text = findViewById(R.id.employee_num_enter);
+            TextView text = findViewById(R.id.textViewEmployeeNumberError);
             text.setVisibility(view.VISIBLE);
 
             //Set visibility of label to invisible
@@ -225,12 +225,12 @@ public class Doctor_SignUp extends AppCompatActivity {
             TextView text = findViewById(R.id.employee_num);
             text.setVisibility(view.VISIBLE);
 
-            text = findViewById(R.id.employee_num_enter);
+            text = findViewById(R.id.textViewEmployeeNumberError);
             text.setVisibility(view.INVISIBLE);
         }
-        if (user.get_specialties().equals("")) {
+        if (user.get_specialties()[0].equals("")) {
             //Set visibility of error message to visible
-            TextView text = findViewById(R.id.specialty_enter);
+            TextView text = findViewById(R.id.textViewSpecialtyError);
             text.setVisibility(view.VISIBLE);
 
             //Set visibility of label to invisible
@@ -244,7 +244,7 @@ public class Doctor_SignUp extends AppCompatActivity {
             TextView text = findViewById(R.id.specialty);
             text.setVisibility(view.VISIBLE);
 
-            text = findViewById(R.id.specialty_enter);
+            text = findViewById(R.id.textViewSpecialtyError);
             text.setVisibility(view.INVISIBLE);
         }
         return isValid;

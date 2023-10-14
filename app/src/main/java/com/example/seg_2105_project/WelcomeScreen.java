@@ -5,17 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
 public class WelcomeScreen extends AppCompatActivity {
-    Button signUpButton;
-    Button signInButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_screen);
-        signUpButton = findViewById(R.id.button2);
-        signInButton = findViewById(R.id.button);
     }
 
     public void onClickSignIn(View view){

@@ -24,7 +24,7 @@
         android:layout_marginStart="120dp"
         android:layout_marginEnd="120dp"
         android:layout_marginBottom="43dp"
-        android:onClick="onClicksignUp"
+        android:onClick="onClickSignUp"
         android:text="Sign up"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/account_pass"
@@ -40,7 +40,7 @@
         android:ems="10"
         android:inputType="text"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        app:layout_constraintBottom_toBottomOf="@+id/email_adress"
+        app:layout_constraintBottom_toBottomOf="@+id/email_address"
         app:layout_constraintEnd_toEndOf="@+id/email_address_enter"
         app:layout_constraintStart_toStartOf="@+id/first_name"
         app:layout_constraintTop_toTopOf="@+id/first_name" />
@@ -81,7 +81,7 @@
         app:layout_constraintStart_toEndOf="@+id/last_name" />
 
     <TextView
-        android:id="@+id/email_adress"
+        android:id="@+id/email_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="13dp"

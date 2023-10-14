@@ -297,4 +297,3 @@ public class Doctor_SignUp extends AppCompatActivity {
     }
 
 }
-}

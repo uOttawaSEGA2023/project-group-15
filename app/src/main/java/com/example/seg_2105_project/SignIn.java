@@ -67,6 +67,11 @@ public class SignIn extends AppCompatActivity {
         });
 
     }
+
+    /*
+    Method is called when sign in button is clicked. It verifies the information inputted by the user
+    and outputs error messages accordingly and
+     */
     public void onClickSignInButton(View view) {
         //email is left blank
         if (email.getText().toString().equals("")) {

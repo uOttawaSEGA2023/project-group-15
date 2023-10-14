@@ -71,11 +71,6 @@ public class Doctor_SignUp extends AppCompatActivity {
         //Validate input
         if (inputValid(view, doctor)) {
 
-            //Write to database
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference databaseRef = database.getReference("Doctors");
-            databaseRef.push().setValue(doctor);
-
             //Authenticate user
             userAuthentication(doctor);
 
@@ -301,6 +296,11 @@ public class Doctor_SignUp extends AppCompatActivity {
                                 public void onComplete(Task<Void> task) {}
                             });
                         }
+
+                        //Write to database
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference databaseRef = database.getReference("Doctors");
+                        databaseRef.push().setValue(doctor);
 
                         Intent intent = new Intent(getApplicationContext(), SignIn.class); //TODO switch to sign in screen
                         startActivity(intent);

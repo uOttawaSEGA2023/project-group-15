@@ -13,10 +13,13 @@ public class WelcomeScreen extends AppCompatActivity {
         setContentView(R.layout.activity_welcome_screen);
     }
 
+    //method to direct user to the Sign In page
     public void onClickSignIn(View view){
         startActivity(new Intent(getApplicationContext(),SignIn.class));
     }
 
+
+    //method to direct user to the Sign Up page
     public void onClickSignUp(View view){
         startActivity(new Intent(getApplicationContext(),SignUpPage.class));
     }

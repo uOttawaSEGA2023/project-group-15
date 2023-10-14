@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -265,7 +266,7 @@ public class Doctor_SignUp extends AppCompatActivity {
                     public void onComplete(Task<AuthResult> task) {
                         //Check if authentication was successful
                         if (task.isSuccessful()) {
-                            verifyEmail();
+                            verifyEmail(doctor);
 
                         } else {
                             // If unsuccessful, display a message to the user.
@@ -279,7 +280,7 @@ public class Doctor_SignUp extends AppCompatActivity {
     /*
     Send email to user to verify their email
      */
-    private void verifyEmail() {
+    private void verifyEmail(Doctor doctor) {
         FirebaseUser user = auth.getCurrentUser();
         //Send email to user
         user.sendEmailVerification()
@@ -289,6 +290,18 @@ public class Doctor_SignUp extends AppCompatActivity {
                         //Send message to user that email has been sent and change screen
                         Toast.makeText(getApplicationContext(), "Verification email sent",
                                 Toast.LENGTH_SHORT).show();
+
+                        //Set user's name in their profile
+                        if(user != null){
+                            UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
+                                    .setDisplayName(doctor.getFirstName()).build();
+
+                            user.updateProfile(profileUpdate).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(Task<Void> task) {}
+                            });
+                        }
+
                         Intent intent = new Intent(getApplicationContext(), SignIn.class); //TODO switch to sign in screen
                         startActivity(intent);
 

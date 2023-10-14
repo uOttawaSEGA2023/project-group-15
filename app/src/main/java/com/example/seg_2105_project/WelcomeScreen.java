@@ -22,8 +22,7 @@ public class WelcomeScreen extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(),SignIn.class));
     }
 
-    /*public void onClick_SignUp(View view){
-        startActivity(new Intent(getApplicationContext(),SignUp.class));
-    Remember to add it with the correct name for the sign up screen once connor finishes it
-    }*/
+    public void onClick_SignUp(View view){
+        startActivity(new Intent(getApplicationContext(),SignUpPage.class));
+    }
 }

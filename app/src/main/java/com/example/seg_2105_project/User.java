@@ -1,5 +1,11 @@
 package com.example.seg_2105_project;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class User {
 
     private String firstName;
@@ -43,5 +49,6 @@ public class User {
     public String getAddress() {
         return address;
     }
+
 }
 

@@ -22,7 +22,7 @@ public class AdminScreen extends AppCompatActivity {
         welcomeMessage = findViewById(R.id.welcomeMessage);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         name = user.getDisplayName();
-        welcomeMessage.setText("Welcome, " + name + "!");
+        welcomeMessage.setText("Welcome, you are signed in as Administrator!");
     }
 
     public void onClickSignOutButton(View view) {

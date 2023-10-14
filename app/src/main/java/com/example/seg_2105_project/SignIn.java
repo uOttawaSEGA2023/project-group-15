@@ -26,7 +26,6 @@ public class SignIn extends AppCompatActivity {
     TextView signInError;
     Button signInButton;
     private boolean validLogin = true;
-    private boolean admin = false;
     FirebaseAuth auth;
     DataSnapshot patientDataSnapshot;
     DataSnapshot doctorDataSnapshot;
@@ -80,6 +79,8 @@ public class SignIn extends AppCompatActivity {
             pswd.setError("Cannot be left blank");
         }
 
+
+
         if (validLogin) {
             //Authenticate user info
             auth.signInWithEmailAndPassword(email.getText().toString(), pswd.getText().toString())
@@ -89,7 +90,10 @@ public class SignIn extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 Intent intent;
                                 //send user to corresponding user screen
-                                if(getDoctor(email.getText().toString(), pswd.getText().toString()) == null && !admin){
+                                if(email.getText().toString().equals(Administrator.email) && pswd.getText().toString().equals(Administrator.password)){
+                                    intent = new Intent(getApplicationContext(), AdminScreen.class);
+                                }
+                                else if(getDoctor(email.getText().toString(), pswd.getText().toString()) == null){
                                     intent = new Intent(getApplicationContext(), PatientScreen.class);
                                 } else {
                                     intent = new Intent(getApplicationContext(), DoctorScreen.class);

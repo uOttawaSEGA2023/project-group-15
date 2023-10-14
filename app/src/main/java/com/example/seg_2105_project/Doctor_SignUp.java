@@ -302,7 +302,7 @@ public class Doctor_SignUp extends AppCompatActivity {
                         DatabaseReference databaseRef = database.getReference("Doctors");
                         databaseRef.push().setValue(doctor);
 
-                        Intent intent = new Intent(getApplicationContext(), SignIn.class); //TODO switch to sign in screen
+                        Intent intent = new Intent(getApplicationContext(), SignIn.class);
                         startActivity(intent);
 
                     }

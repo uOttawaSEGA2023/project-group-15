@@ -233,6 +233,7 @@ public class PatientSignUp extends AppCompatActivity {
 
     /*
     Authenticate user info
+    @param patient Object that contains information on user for authentication
      */
     private void userAuthentication(Patient patient) {
         auth.createUserWithEmailAndPassword(patient.getEmail(), patient.getPassword())
@@ -265,7 +266,7 @@ public class PatientSignUp extends AppCompatActivity {
                         //Send message to user that email has been sent and change screen
                         Toast.makeText(getApplicationContext(), "Verification email sent",
                                 Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(), SignIn.class); //TODO switch to sign in screen
+                        Intent intent = new Intent(getApplicationContext(), SignIn.class);
                         startActivity(intent);
 
                     }

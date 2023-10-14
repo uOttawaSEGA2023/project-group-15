@@ -13,9 +13,11 @@ public class SignUpPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_page);
 
+        // Initialize buttons
         Button patientButton = findViewById(R.id.button1);
         Button doctorButton = findViewById(R.id.button2);
 
+        // Set click listeners for buttons
         patientButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -31,12 +33,16 @@ public class SignUpPage extends AppCompatActivity {
         });
     }
 
+    // Method called when "Patient" button is clicked
     public void onClick_PatientSignUp(View view) {
+        // Start the PatientSignUp
         Intent intent = new Intent(this, PatientSignUp.class);
         startActivity(intent);
     }
 
+    // Method called when "Doctor" button is clicked
     public void onClick_DoctorSignUp(View view) {
+        // Start the DoctorSignUp
         Intent intent = new Intent(this, Doctor_SignUp.class);
         startActivity(intent);
     }

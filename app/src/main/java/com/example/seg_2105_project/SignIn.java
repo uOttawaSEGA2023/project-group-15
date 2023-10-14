@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 public class SignIn extends AppCompatActivity {
     EditText email;
     EditText pswd;
+    TextView signInError;
     Button signInButton;
     private boolean validLogin = true;
     private boolean admin = false;
@@ -36,6 +38,7 @@ public class SignIn extends AppCompatActivity {
         email = (EditText) findViewById(R.id.emailAddress);
         pswd = (EditText) findViewById(R.id.password);
         signInButton = (Button) findViewById(R.id.signInButton);
+        signInError = (TextView) findViewById(R.id.signInError);
 
         auth = FirebaseAuth.getInstance();
 
@@ -86,7 +89,7 @@ public class SignIn extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 Intent intent;
                                 //send user to corresponding user screen
-                                if(getDoctor(email.toString(), pswd.toString()) == null && !admin){
+                                if(getDoctor(email.getText().toString(), pswd.getText().toString()) == null && !admin){
                                     intent = new Intent(getApplicationContext(), PatientScreen.class);
                                 } else {
                                     intent = new Intent(getApplicationContext(), DoctorScreen.class);
@@ -95,7 +98,7 @@ public class SignIn extends AppCompatActivity {
                                // Toast.makeText(SignIn.this, "Login Successful", Toast.LENGTH_SHORT).show();
                             } else {
                                 //don't change to next screen until valid login provided
-                                Toast.makeText(SignIn.this, "Login Unsuccessful", Toast.LENGTH_SHORT).show();
+                                signInError.setVisibility(view.VISIBLE);
                             }
                         }
 

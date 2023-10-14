@@ -30,7 +30,7 @@
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textColor="@color/black"
-            android:textSize="48sp"></TextView>
+            android:textSize="48sp" />
 
     </LinearLayout>
 

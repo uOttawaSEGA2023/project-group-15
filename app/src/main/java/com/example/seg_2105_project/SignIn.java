@@ -69,8 +69,9 @@ public class SignIn extends AppCompatActivity {
     }
 
     /*
-    Method is called when sign in button is clicked. It verifies the information inputted by the user
-    and outputs error messages accordingly and
+    Method is called when sign in button is clicked. It verifies the information inputted by the
+    user,outputs error messages accordingly and redirects to corresponding app homepage when the
+    sign in is successful.
      */
     public void onClickSignInButton(View view) {
         //email is left blank

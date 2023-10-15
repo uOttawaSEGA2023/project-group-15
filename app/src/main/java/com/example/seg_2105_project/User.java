@@ -12,10 +12,10 @@ public class User {
     private String lastName;
     private String email;
     private String password;
-    private int phoneNumber;
+    private long phoneNumber;
     private String address;
 
-    public User(String firstName, String lastName, String email, String password, int phoneNumber, String address) {
+    public User(String firstName, String lastName, String email, String password, long phoneNumber, String address) {
 
         this.firstName = firstName;
         this.lastName = lastName;
@@ -42,7 +42,7 @@ public class User {
         return password;
     }
 
-    public int getPhoneNumber() {
+    public long getPhoneNumber() {
         return phoneNumber;
     }
 

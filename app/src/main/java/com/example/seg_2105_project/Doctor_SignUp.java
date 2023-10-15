@@ -18,6 +18,8 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 public class Doctor_SignUp extends AppCompatActivity {
 
     private FirebaseAuth auth;
@@ -56,10 +58,13 @@ public class Doctor_SignUp extends AppCompatActivity {
         int employeeNumber;
 
         input = findViewById(R.id.specialty_enter);
-        String specialtiesStr = input.getText().toString();
-        String[] specialties;
-        specialties = specialtiesStr.split(",");
+        String[] specialtiesArr = input.getText().toString().split(",");
+        ArrayList<String> specialties = new ArrayList<String>();
 
+        //Add specialties from array to list
+        for (int i = 0; i < specialtiesArr.length; i ++) {
+            specialties.add(specialtiesArr[i]);
+        }
 
         //Check if numerical text views are empty
         phoneNumber =  !phoneNumberStr.equals("")  ? Long.parseLong(phoneNumberStr)  : -1;
@@ -228,7 +233,7 @@ public class Doctor_SignUp extends AppCompatActivity {
             text = findViewById(R.id.textViewEmployeeNumberError);
             text.setVisibility(view.INVISIBLE);
         }
-        if (user.get_specialties()[0].equals("")) {
+        if (user.get_specialties().get(0).equals("")) {
             //Set visibility of error message to visible
             TextView text = findViewById(R.id.textViewSpecialtyError);
             text.setVisibility(view.VISIBLE);

@@ -272,7 +272,7 @@ public class PatientSignUp extends AppCompatActivity {
 
                             user.updateProfile(profileUpdate).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
-                                public void onComplete(Task<Void> task) {}
+                                public void onComplete(Task<Void> task) { }
                             });
                         }
 

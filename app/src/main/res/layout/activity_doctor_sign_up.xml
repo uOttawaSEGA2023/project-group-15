@@ -280,8 +280,8 @@
 
     <TextView
         android:id="@+id/textViewEmployeeNumberError"
-        android:layout_width="161dp"
-        android:layout_height="38dp"
+        android:layout_width="167dp"
+        android:layout_height="54dp"
         android:text="*Please enter your employee number (9 digits)"
         android:textColor="#f01616"
         android:visibility="invisible"

@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 
 public class DoctorScreen extends AppCompatActivity {
 
@@ -19,9 +20,17 @@ public class DoctorScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_screen);
         welcomeMessage = findViewById(R.id.welcomeMessage);
+
+        //Get user profile
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        name = user.getDisplayName();
-        welcomeMessage.setText(" You are logged in as a doctor");
+        if (user != null) {
+            for (UserInfo profile : user.getProviderData()) {
+                name = profile.getDisplayName();
+            }
+        }
+
+        welcomeMessage.setText( "Welcome " + name + "! You are logged in as a doctor ");
+
     }
 
     public void onClickSignOutButton(View view) {

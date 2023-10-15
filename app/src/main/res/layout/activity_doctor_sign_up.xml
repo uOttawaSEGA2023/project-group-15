@@ -173,11 +173,12 @@
         android:id="@+id/employee_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="48dp"
         android:text="Employee number"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintBaseline_toBaselineOf="@+id/specialty"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/specialty"
+        app:layout_constraintTop_toBottomOf="@+id/phone_number_enter" />
 
     <EditText
         android:id="@+id/employee_num_enter"
@@ -190,15 +191,16 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintBaseline_toBaselineOf="@+id/specialty_enter"
         app:layout_constraintEnd_toStartOf="@+id/specialty_enter"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/specialty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="52dp"
-        android:text="Specialty"
+        android:layout_width="164dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="28dp"
+        android:text="Specialties (separate using commas)"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintStart_toStartOf="@+id/address_enter"
         app:layout_constraintTop_toBottomOf="@+id/address_enter" />
@@ -262,8 +264,8 @@
         android:layout_width="166dp"
         android:layout_height="38dp"
         android:text="*Please enter your email address"
-        android:visibility="invisible"
         android:textColor="#f01616"
+        android:visibility="invisible"
 
         app:layout_constraintBottom_toBottomOf="@+id/email_address"
         app:layout_constraintStart_toStartOf="@+id/email_address" />

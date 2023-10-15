@@ -13,7 +13,7 @@ public class Doctor extends User {
         this.specialties = specialties;
     }
 
-    public long get_employee_number() {
+    public int get_employee_number() {
         return employee_number;
 
     }

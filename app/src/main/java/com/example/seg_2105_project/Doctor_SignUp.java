@@ -49,7 +49,7 @@ public class Doctor_SignUp extends AppCompatActivity {
 
         input = findViewById(R.id.phone_number_enter);
         String phoneNumberStr = input.getText().toString();
-        int phoneNumber;
+        long phoneNumber;
 
         input = findViewById(R.id.employee_num_enter);
         String employeeNumberStr = input.getText().toString();
@@ -62,7 +62,7 @@ public class Doctor_SignUp extends AppCompatActivity {
 
 
         //Check if numerical text views are empty
-        phoneNumber =  !phoneNumberStr.equals("")  ? Integer.parseInt(phoneNumberStr)  : -1;
+        phoneNumber =  !phoneNumberStr.equals("")  ? Long.parseLong(phoneNumberStr)  : -1;
         employeeNumber = !employeeNumberStr.equals("")  ? Integer.parseInt(employeeNumberStr)  : -1;
 
         //Create patient object
@@ -170,7 +170,7 @@ public class Doctor_SignUp extends AppCompatActivity {
             text = findViewById(R.id.textViewPasswordError);
             text.setVisibility(view.INVISIBLE);
         }
-        if (user.getPhoneNumber() == -1 || user.getPhoneNumber()< 100000000 || user.getPhoneNumber() > 999999999) {
+        if (user.getPhoneNumber() == -1 || user.getPhoneNumber() < 1000000000 || user.getPhoneNumber() > Long.parseLong("9999999999")) {
             //Set visibility of error message to visible
             TextView text = findViewById(R.id.textViewPhoneNumberError);
             text.setVisibility(view.VISIBLE);

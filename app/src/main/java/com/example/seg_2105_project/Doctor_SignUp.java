@@ -175,7 +175,8 @@ public class Doctor_SignUp extends AppCompatActivity {
             text = findViewById(R.id.textViewPasswordError);
             text.setVisibility(view.INVISIBLE);
         }
-        if (user.getPhoneNumber() == -1 || user.getPhoneNumber() < 1000000000 || user.getPhoneNumber() > Long.parseLong("9999999999")) {
+        if (user.getPhoneNumber() == -1 || user.getPhoneNumber() < 1000000000
+                || user.getPhoneNumber() > Long.parseLong("9999999999")) {
             //Set visibility of error message to visible
             TextView text = findViewById(R.id.textViewPhoneNumberError);
             text.setVisibility(view.VISIBLE);

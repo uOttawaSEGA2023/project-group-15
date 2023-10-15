@@ -206,7 +206,7 @@ public class PatientSignUp extends AppCompatActivity {
             text.setVisibility(view.INVISIBLE);
         }
         if (user.getHealthCardNumber() == -1 || user.getHealthCardNumber() < 1000000000
-                || user.getHealthCardNumber() < Long.parseLong("9999999999")) {
+                || user.getHealthCardNumber() > Long.parseLong("9999999999")) {
             //Set visibility of error message to visible
             TextView text = findViewById(R.id.textViewHealthNumberError);
             text.setVisibility(view.VISIBLE);

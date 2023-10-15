@@ -202,23 +202,23 @@
 
     <TextView
         android:id="@+id/textViewPasswordError"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="*Please enter password"
+        android:layout_width="209dp"
+        android:layout_height="36dp"
+        android:text="*Please enter password (at least 6 characters)"
         android:textColor="#f01616"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/editTextPassword"
-        app:layout_constraintBottom_toTopOf="@+id/editTextPassword" />
+        app:layout_constraintBottom_toTopOf="@+id/editTextPassword"
+        app:layout_constraintEnd_toEndOf="@+id/editTextPassword" />
 
     <TextView
         android:id="@+id/textViewPhoneNumberError"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="207dp"
+        android:layout_height="34dp"
         android:text="*Please enter phone number (9 digits)"
         android:textColor="#f01616"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/editTextPhone"
-        app:layout_constraintBottom_toTopOf="@+id/editTextPhone" />
+        app:layout_constraintBottom_toTopOf="@+id/editTextPhone"
+        app:layout_constraintEnd_toEndOf="@+id/editTextPhone" />
 
     <TextView
         android:id="@+id/textViewAddressError"
@@ -232,13 +232,13 @@
 
     <TextView
         android:id="@+id/textViewHealthNumberError"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="211dp"
+        android:layout_height="36dp"
         android:text="*Please enter health card number (10 digits)"
         android:textColor="#f01616"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/editTextHealthNumber"
-        app:layout_constraintBottom_toTopOf="@+id/editTextHealthNumber" />
+        app:layout_constraintBottom_toTopOf="@+id/editTextHealthNumber"
+        app:layout_constraintEnd_toEndOf="@+id/editTextHealthNumber" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

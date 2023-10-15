@@ -146,7 +146,7 @@ public class PatientSignUp extends AppCompatActivity {
             text = findViewById(R.id.textViewEmailError);
             text.setVisibility(view.INVISIBLE);
         }
-        if (user.getPassword().equals("")) {
+        if (user.getPassword().equals("") || user.getPassword().length() < 6) {
             //Set visibility of error message to visible
             TextView text = findViewById(R.id.textViewPasswordError);
             text.setVisibility(view.VISIBLE);

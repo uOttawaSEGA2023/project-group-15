@@ -229,8 +229,8 @@
 
     <TextView
         android:id="@+id/textViewFirstNameError"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="164dp"
+        android:layout_height="40dp"
         android:text="*Please enter your first name"
         android:textColor="#f01616"
         android:visibility="invisible"
@@ -249,9 +249,9 @@
 
     <TextView
         android:id="@+id/textViewPasswordError"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="*Please enter your password"
+        android:layout_width="187dp"
+        android:layout_height="37dp"
+        android:text="*Please enter your password (at least 6 characters)"
         android:textColor="#f01616"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/account_pass"

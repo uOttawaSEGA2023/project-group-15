@@ -46,4 +46,13 @@ public class Patient extends User {
 
     }
 
+    /*
+    Displays all the information of this patient
+     */
+    @Override
+    public String display() {
+        return super.display() +
+                "\nHealth Card Number: " + healthCardNumber;
+    }
+
 }

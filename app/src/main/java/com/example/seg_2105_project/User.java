@@ -61,5 +61,21 @@ public class User {
         this.registrationStatus = registrationStatus;
     }
 
+    public String toString() {
+        return getFirstName() + " " + getLastName();
+    }
+
+    /*
+    Displays all the information of this user
+     */
+    public String display() {
+
+        return "Name: " + this.toString() +
+                "\nEmail: " + this.email +
+                "\nPhone Number: " + this.phoneNumber +
+                "\nAddress: " + this.address;
+
+    }
+
 }
 

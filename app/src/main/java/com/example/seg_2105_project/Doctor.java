@@ -52,5 +52,20 @@ public class Doctor extends User {
 
     }
 
+    /*
+    Displays all information of this doctor
+     */
+    @Override
+    public String display() {
+        String display = super.display() + "\nEmployee Number: " + this.employee_number;
+        if (specialties != null && !specialties.isEmpty()) {
+            for (int i = 0; i < specialties.size(); i++) {
+                display += specialties.get(i);
+            }
+        }
+        return display;
+
+    }
+
 
 }

@@ -6,7 +6,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
 
     enum RegistrationStatus { APPROVED, REJECTED, PENDING }
 
@@ -70,7 +72,7 @@ public class User {
      */
     public String display() {
 
-        return "Name: " + this.toString() +
+        return "Name: " + this +
                 "\nEmail: " + this.email +
                 "\nPhone Number: " + this.phoneNumber +
                 "\nAddress: " + this.address;

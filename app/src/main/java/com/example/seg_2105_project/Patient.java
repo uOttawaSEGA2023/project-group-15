@@ -20,9 +20,9 @@ public class Patient extends User {
 
     /*
     Gives a list of patients with a certain registration status from firebase
-    @param  status                      Registration status of doctors
+    @param  status                      Registration status of patients
     @param  dataSnapshot                DataSnapshot of patient information in firebase
-    @return                             An ArrayList of doctors
+    @return                             An ArrayList of patients
     @throws IllegalArguementException   if dataSnapshot is null or doesn't contain a snapshot for the patients
      */
     public static ArrayList<User> getPatients(RegistrationStatus status, DataSnapshot dataSnapshot) {
@@ -33,7 +33,7 @@ public class Patient extends User {
         if (dataSnapshot.exists() && dataSnapshot.getRef().getKey().equals("Patients")) {
             for (DataSnapshot patient : dataSnapshot.getChildren()) {
                 Patient p = patient.getValue(Patient.class);
-                //Check registration status of doctor and add it to list if it matches
+                //Check registration status of patient and add it to list if it matches
                 if (p.getRegistrationStatus() == status) {
                     patients.add(p);
                 }

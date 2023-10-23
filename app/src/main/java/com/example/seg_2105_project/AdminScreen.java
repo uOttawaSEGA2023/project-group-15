@@ -31,4 +31,13 @@ public class AdminScreen extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+    public void onClickInboxRegistrations(View view) {
+        //redirect to inbox registrations
+    }
+
+    public void onClickRejectedRegistrations(View view) {
+        Intent intent = new Intent(getApplicationContext(), RejectedRegistrations.class);
+        startActivity(intent);
+    }
 }

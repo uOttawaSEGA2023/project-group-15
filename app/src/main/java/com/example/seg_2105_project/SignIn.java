@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -85,15 +86,18 @@ public class SignIn extends AppCompatActivity {
             pswd.setError("Cannot be left blank");
         }
 
-
-
         if (validLogin) {
             //Authenticate user info
             auth.signInWithEmailAndPassword(email.getText().toString(), pswd.getText().toString())
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
+
+                            //Check if email is verified
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            boolean isVerified = user.isEmailVerified();
+
+                            if (task.isSuccessful() && isVerified) {
                                 Intent intent;
                                 //send user to corresponding user screen
                                 if(email.getText().toString().equals(Administrator.email) && pswd.getText().toString().equals(Administrator.password)){

@@ -214,7 +214,7 @@
         android:id="@+id/textViewPhoneNumberError"
         android:layout_width="207dp"
         android:layout_height="34dp"
-        android:text="*Please enter phone number (9 digits)"
+        android:text="*Please enter phone number (10 digits)"
         android:textColor="#f01616"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/editTextPhone"

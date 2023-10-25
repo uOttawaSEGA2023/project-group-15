@@ -175,7 +175,8 @@ public class Doctor_SignUp extends AppCompatActivity {
             text = findViewById(R.id.textViewPasswordError);
             text.setVisibility(view.INVISIBLE);
         }
-        if (user.getPhoneNumber() == -1 || user.getPhoneNumber() < 1000000000 || user.getPhoneNumber() > Long.parseLong("9999999999")) {
+        if (user.getPhoneNumber() == -1 || user.getPhoneNumber() < 1000000000
+                || user.getPhoneNumber() > Long.parseLong("9999999999")) {
             //Set visibility of error message to visible
             TextView text = findViewById(R.id.textViewPhoneNumberError);
             text.setVisibility(view.VISIBLE);
@@ -214,7 +215,8 @@ public class Doctor_SignUp extends AppCompatActivity {
             text = findViewById(R.id.textViewAddressError);
             text.setVisibility(view.INVISIBLE);
         }
-        if (user.get_employee_number()== -1 || user.get_employee_number() < 1000000000) {
+        if (user.get_employee_number()== -1 || user.get_employee_number() < 100000000
+                || user.get_employee_number() > 999999999) {
             //Set visibility of error message to visible
             TextView text = findViewById(R.id.textViewEmployeeNumberError);
             text.setVisibility(view.VISIBLE);
@@ -298,7 +300,7 @@ public class Doctor_SignUp extends AppCompatActivity {
 
                             user.updateProfile(profileUpdate).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
-                                public void onComplete(Task<Void> task) {}
+                                public void onComplete(Task<Void> task) { }
                             });
                         }
 

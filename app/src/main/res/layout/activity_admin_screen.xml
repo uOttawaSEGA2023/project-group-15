@@ -8,10 +8,10 @@
 
     <TextView
         android:id="@+id/welcomeMessage"
-        android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="528dp"
+        android:gravity="center"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,9 +23,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="88dp"
-        android:text="Sign Out"
         android:onClick="onClickSignOutButton"
+        android:text="Sign Out"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/inboxRegistrations"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="329dp"
+        android:onClick="onClickInboxRegistrations"
+        android:text="Inbox for Registrations"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/rejectedRegistrations"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:onClick="onClickRejectedRegistrations"
+        android:text="Rejected Registrations"
+        app:layout_constraintEnd_toEndOf="@+id/inboxRegistrations"
+        app:layout_constraintTop_toBottomOf="@+id/inboxRegistrations" />
 </androidx.constraintlayout.widget.ConstraintLayout>

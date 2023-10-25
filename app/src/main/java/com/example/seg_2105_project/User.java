@@ -6,7 +6,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
+
+    enum RegistrationStatus { APPROVED, REJECTED, PENDING }
 
     private String firstName;
     private String lastName;
@@ -14,6 +18,7 @@ public class User {
     private String password;
     private long phoneNumber;
     private String address;
+    private RegistrationStatus registrationStatus;
 
     public User(String firstName, String lastName, String email, String password, long phoneNumber, String address) {
 
@@ -23,6 +28,7 @@ public class User {
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.address = address;
+        this.registrationStatus = RegistrationStatus.PENDING;
 
     }
 
@@ -50,6 +56,27 @@ public class User {
 
     public String getAddress() {
         return address;
+    }
+    public RegistrationStatus getRegistrationStatus() { return registrationStatus; }
+
+    public void setRegistrationStatus(RegistrationStatus registrationStatus) {
+        this.registrationStatus = registrationStatus;
+    }
+
+    public String toString() {
+        return getFirstName() + " " + getLastName();
+    }
+
+    /*
+    Displays all the information of this user
+     */
+    public String display() {
+
+        return "Name: " + this +
+                "\nEmail: " + this.email +
+                "\nPhone Number: " + this.phoneNumber +
+                "\nAddress: " + this.address;
+
     }
 
 }

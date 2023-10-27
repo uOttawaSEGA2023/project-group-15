@@ -68,7 +68,8 @@ public class Doctor_SignUp extends AppCompatActivity {
 
         //Check if numerical text views are empty
         phoneNumber =  !phoneNumberStr.equals("")  ? Long.parseLong(phoneNumberStr)  : -1;
-        employeeNumber = !employeeNumberStr.equals("")  ? Integer.parseInt(employeeNumberStr)  : -1;
+        employeeNumber = !employeeNumberStr.equals("")  && Long.parseLong(employeeNumberStr) < 999999999
+                        ? Integer.parseInt(employeeNumberStr)  : -1;
 
         //Create patient object
         Doctor doctor = new Doctor(firstName, lastName, email, password, phoneNumber, address, employeeNumber, specialties);

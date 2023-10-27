@@ -26,9 +26,6 @@
             android:name=".RegistrationsInbox"
             android:exported="false" />
         <activity
-            android:name=".RegistrationsInbox"
-            android:exported="false" />
-        <activity
             android:name=".RejectedRegistrations"
             android:exported="false" />
         <activity

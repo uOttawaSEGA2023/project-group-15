@@ -42,9 +42,7 @@ public class RegistrationsInbox extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError error) {}
         });
 
         doctorRef.addValueEventListener(new ValueEventListener() {
@@ -65,9 +63,9 @@ public class RegistrationsInbox extends AppCompatActivity {
             public void onItemClick(AdapterView parent, View view, int position, long id) {
                 User selectedUser = (User) listView.getItemAtPosition(position);
 
-                //Intent intent = new Intent(getApplicationContext(), _____.class);
-                //intent.putExtra("User", selectedUser);
-                //startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), UserInfoDisplay.class);
+                intent.putExtra("User", selectedUser);
+                startActivity(intent);
             }
         });
     }

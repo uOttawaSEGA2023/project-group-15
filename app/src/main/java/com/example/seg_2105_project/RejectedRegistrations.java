@@ -63,9 +63,9 @@ public class RejectedRegistrations extends AppCompatActivity {
             public void onItemClick(AdapterView parent, View view, int position, long id) {
                 User selectedUser = (User) listView.getItemAtPosition(position);
                 //pass selectedUser to next screen
-                /*Intent intent = new Intent(getApplicationContext(), _____.class);
+                Intent intent = new Intent(getApplicationContext(), UserInfoDisplay.class);
                 intent.putExtra("User", selectedUser);
-                startActivity(intent);*/
+                startActivity(intent);
             }
         });
     }

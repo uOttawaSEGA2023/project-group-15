@@ -50,8 +50,8 @@ public class Patient extends User {
 
     }
 
-    public void setRegistrationStatus(RegistrationStatus registrationStatus) {
-        super.setRegistrationStatus(registrationStatus);
+    public void updateRegistrationStatus(User.RegistrationStatus registrationStatus) {
+        super.updateRegistrationStatus(registrationStatus);
 
         //Get firebase reference
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();

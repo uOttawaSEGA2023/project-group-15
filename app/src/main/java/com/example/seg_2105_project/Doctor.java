@@ -56,12 +56,12 @@ public class Doctor extends User {
 
     }
 
-    public void setRegistrationStatus(RegistrationStatus registrationStatus) {
-        super.setRegistrationStatus(registrationStatus);
+    public void updateRegistrationStatus(User.RegistrationStatus registrationStatus) {
+        super.updateRegistrationStatus(registrationStatus);
 
         //Get firebase reference
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference ref = firebaseDatabase.getReference("Patients");
+        DatabaseReference ref = firebaseDatabase.getReference("Doctors");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -90,10 +90,10 @@ public class Doctor extends User {
      */
     @Override
     public String display() {
-        String display = super.display() + "\nEmployee Number: " + this.employee_number;
-        if (specialties != null && !specialties.isEmpty()) {
-            for (int i = 0; i < specialties.size(); i++) {
-                display += specialties.get(i);
+        String display = super.display() + "\nEmployee Number: " + get_employee_number();
+        if (get_specialties() != null && !get_specialties().isEmpty()) {
+            for (int i = 0; i < get_specialties().size(); i++) {
+                display += get_specialties().get(i);
             }
         }
         return display;

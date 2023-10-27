@@ -59,12 +59,12 @@ public class User implements Serializable {
     }
     public RegistrationStatus getRegistrationStatus() { return registrationStatus; }
 
-    public void setRegistrationStatus(RegistrationStatus registrationStatus) {
-        this.registrationStatus = registrationStatus;
-    }
-
     public String toString() {
         return getFirstName() + " " + getLastName();
+    }
+
+    public void updateRegistrationStatus(RegistrationStatus registrationStatus) {
+        this.registrationStatus = registrationStatus;
     }
 
     /*

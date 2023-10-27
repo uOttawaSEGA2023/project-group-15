@@ -17,6 +17,9 @@
         android:theme="@style/Theme.SEG_2105_Project"
         tools:targetApi="31">
         <activity
+            android:name=".RejectedUserInfoDisplay"
+            android:exported="false" />
+        <activity
             android:name=".UserInfoDisplay"
             android:exported="false" />
         <activity

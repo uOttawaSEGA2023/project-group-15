@@ -5,46 +5,29 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class UserInfoDisplay extends AppCompatActivity {
+public class RejectedUserInfoDisplay extends AppCompatActivity {
 
-    Button backButton;
+    Button backButton2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_info_display);
+        setContentView(R.layout.activity_rejected_user_info_display);
 
-        backButton = (Button) findViewById(R.id.backButton);
+        backButton2 = (Button) findViewById(R.id.backButton2);
 
         Intent intent = getIntent();
         User user = (User) getIntent().getSerializableExtra("User");
 
-        //Intent intent = new Intent(getApplicationContext(), User.class);
-        //intent.putExtra("User", selectedUser);
-        //startActivity(intent);
-
-        TextView userInfo = (TextView) findViewById(R.id.infoDisplayText);
+        TextView userInfo = (TextView) findViewById(R.id.infoDisplayText2);
         userInfo.setText(user.display());
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(
-                    "status notification",
-                    "Status Notification Channel",
-                    NotificationManager.IMPORTANCE_DEFAULT
-            );
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
 
     }
 
@@ -52,26 +35,18 @@ public class UserInfoDisplay extends AppCompatActivity {
     /*Method is called when the back button is clicked
     Returns admin to the registrations inbox.*/
     public void onClickBackButton(View view) {
-        startActivity(new Intent(getApplicationContext(), RegistrationsInbox.class));
+        startActivity(new Intent(getApplicationContext(), RejectedRegistrations.class));
     }
+
 
     /*Method is called when request accept button is clicked
      */
     public void onClickAccept(View view) {
         User user = (User) getIntent().getSerializableExtra("User");
         sendNotification(user);
-
         //user.setRegistrationStatus(User.RegistrationStatus.valueOf("APPROVED"));
     }
-    /*Method is called when request reject button is clicked
-     */
-    public void onClickReject(View view) {
-        User user = (User) getIntent().getSerializableExtra("User");
-        sendNotification(user);
-        //user.setRegistrationStatus(User.RegistrationStatus.valueOf("REJECTED"));
-    }
-    /*Method sends a notification to the users screen indicating status of registration **Note the users notifications for the app must be enabled for this to work
-     */
+
     public void sendNotification(User user) {
         String content;
         if (user.getRegistrationStatus() == User.RegistrationStatus.APPROVED) {
@@ -91,6 +66,4 @@ public class UserInfoDisplay extends AppCompatActivity {
         }
         managerCompat.notify(1, builder.build());
     }
-
-
 }

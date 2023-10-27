@@ -1,9 +1,15 @@
 package com.example.seg_2105_project;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
+import android.app.Notification;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,7 +26,7 @@ public class UserInfoDisplay extends AppCompatActivity {
         backButton = (Button) findViewById(R.id.backButton);
 
         Intent intent = getIntent();
-        User user = (User)getIntent().getSerializableExtra("User");
+        User user = (User) getIntent().getSerializableExtra("User");
 
         //Intent intent = new Intent(getApplicationContext(), User.class);
         //intent.putExtra("User", selectedUser);
@@ -49,11 +55,50 @@ public class UserInfoDisplay extends AppCompatActivity {
     }
 
 
-
     /*Method is called when the back button is clicked
     Returns admin to the registrations inbox.*/
     public void onClickBackButton(View view) {
-        startActivity(new Intent(getApplicationContext(),RegistrationsInbox.class));
+        startActivity(new Intent(getApplicationContext(), RegistrationsInbox.class));
+    }
+
+    /*Method is called when request accept button is clicked
+     */
+    public void onClickAccept(View view) {
+        User user = (User) getIntent().getSerializableExtra("User");
+        sendNotification(user);
+        //user.setRegistrationStatus(User.RegistrationStatus.valueOf("APPROVED"));
+    }
+
+    public void onClickReject(View view) {
+        User user = (User) getIntent().getSerializableExtra("User");
+        sendNotification(user);
+        //user.setRegistrationStatus(User.RegistrationStatus.valueOf("REJECTED"));
+    }
+
+    public void sendNotification(User user) {
+        String content;
+        if (user.getRegistrationStatus().equals("APPROVED")) {
+            content = "Congratulations! Your registration request has been approved";
+        } else {
+            content = "Your registration request has been rejected";
+        }
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(UserInfoDisplay.this, "status notification");
+        builder.setContentTitle("HAMS profile status");
+        builder.setContentText(content);
+
+        NotificationManagerCompat managerCompat = NotificationManagerCompat.from(UserInfoDisplay.this);
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        managerCompat.notify(1, builder.build());
     }
 
 }

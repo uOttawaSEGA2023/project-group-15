@@ -1,6 +1,10 @@
 package com.example.seg_2105_project;
 
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -43,6 +47,34 @@ public class Patient extends User {
             throw new IllegalArgumentException("dataSnapshot should not be null and should be from the Patient path");
         }
         return patients;
+
+    }
+
+    public void setRegistrationStatus(RegistrationStatus registrationStatus) {
+
+        //Get firebase reference
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference ref = firebaseDatabase.getReference("Patients");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                //Search through patients
+                for (DataSnapshot patient : dataSnapshot.getChildren()) {
+                    Patient p = patient.getValue(Patient.class);
+                    if (p.getEmail().equals(getEmail())) {
+                        //Change status
+                        DatabaseReference reference = patient.getRef();
+                        reference.child("registrationStatus").setValue(registrationStatus);
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
 
     }
 

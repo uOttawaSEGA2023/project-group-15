@@ -57,6 +57,7 @@ public class Doctor extends User {
     }
 
     public void setRegistrationStatus(RegistrationStatus registrationStatus) {
+        super.setRegistrationStatus(registrationStatus);
 
         //Get firebase reference
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();

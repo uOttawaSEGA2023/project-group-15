@@ -8,7 +8,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
 
-public abstract class User implements Serializable {
+public class User implements Serializable {
 
     enum RegistrationStatus { APPROVED, REJECTED, PENDING }
 
@@ -59,7 +59,9 @@ public abstract class User implements Serializable {
     }
     public RegistrationStatus getRegistrationStatus() { return registrationStatus; }
 
-    public abstract void setRegistrationStatus(RegistrationStatus registrationStatus);
+    public void setRegistrationStatus(RegistrationStatus registrationStatus) {
+        this.registrationStatus = registrationStatus;
+    }
 
     public String toString() {
         return getFirstName() + " " + getLastName();

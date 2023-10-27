@@ -56,6 +56,9 @@ public class Doctor extends User {
 
     }
 
+    /*
+     * Acts as a setter and changes the registration status in Firebase
+     */
     public void updateRegistrationStatus(User.RegistrationStatus registrationStatus) {
         super.updateRegistrationStatus(registrationStatus);
 

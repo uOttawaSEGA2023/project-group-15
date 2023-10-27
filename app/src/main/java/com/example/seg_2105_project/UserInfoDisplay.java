@@ -60,15 +60,16 @@ public class UserInfoDisplay extends AppCompatActivity {
     public void onClickAccept(View view) {
         User user = (User) getIntent().getSerializableExtra("User");
         sendNotification(user);
-
-        //user.setRegistrationStatus(User.RegistrationStatus.valueOf("APPROVED"));
+        //user.updateRegistrationStatus(User.RegistrationStatus.APPROVED);
+        //redirect page
     }
     /*Method is called when request reject button is clicked
      */
     public void onClickReject(View view) {
         User user = (User) getIntent().getSerializableExtra("User");
         sendNotification(user);
-        //user.setRegistrationStatus(User.RegistrationStatus.valueOf("REJECTED"));
+        //user.updateRegistrationStatus(User.RegistrationStatus.REJECTED);
+        //redirect page
     }
     /*Method sends a notification to the users screen indicating status of registration **Note the users notifications for the app must be enabled for this to work
      */

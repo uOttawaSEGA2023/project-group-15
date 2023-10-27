@@ -63,6 +63,9 @@ public class User implements Serializable {
         return getFirstName() + " " + getLastName();
     }
 
+    /*
+     * Acts as a setter for registration status
+     */
     public void updateRegistrationStatus(RegistrationStatus registrationStatus) {
         this.registrationStatus = registrationStatus;
     }

@@ -32,7 +32,7 @@ public class RegistrationsInbox extends AppCompatActivity {
         DatabaseReference patientRef = db.getReference("Patients");
         DatabaseReference doctorRef = db.getReference("Doctors");
 
-        //retrieve data
+        //retrieve data for patients
         patientRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -45,6 +45,7 @@ public class RegistrationsInbox extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {}
         });
 
+        //retrieve data for doctors
         doctorRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -70,12 +71,22 @@ public class RegistrationsInbox extends AppCompatActivity {
         });
     }
 
+    /**
+     * Adds all the pending users to the list view in the layout
+     */
     private void loadListView(){
         ListView listView = findViewById(R.id.listViewRegistrationRequests);
         ArrayAdapter<User> arrayAdapterDoctor = new ArrayAdapter<User>(getApplicationContext(),
                 android.R.layout.simple_list_item_single_choice, usersList);
         listView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
         listView.setAdapter(arrayAdapterDoctor);
+    }
+
+    /**
+     * Redirects to the admin screen when the back button is clicked
+     */
+    private void onClickBackButton(View view){
+        startActivity(new Intent(getApplicationContext(), AdminScreen.class));
     }
 
 

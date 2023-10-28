@@ -50,13 +50,16 @@ public class UserInfoDisplay extends AppCompatActivity {
     }
 
 
-    /*Method is called when the back button is clicked
-    Returns admin to the registrations inbox.*/
+    /**
+     * Method is called when the back button is clicked
+     * Returns admin to the registrations inbox.
+     */
     public void onClickBackButton(View view) {
         startActivity(new Intent(getApplicationContext(), RegistrationsInbox.class));
     }
 
-    /*Method is called when request accept button is clicked
+    /**
+     * Method is called when request accept button is clicked
      */
     public void onClickAccept(View view) {
         User user = (User) getIntent().getSerializableExtra("User");
@@ -64,7 +67,8 @@ public class UserInfoDisplay extends AppCompatActivity {
         user.updateRegistrationStatus(User.RegistrationStatus.APPROVED);
         startActivity(new Intent(getApplicationContext(), RegistrationsInbox.class));
     }
-    /*Method is called when request reject button is clicked
+    /**
+     * Method is called when request reject button is clicked
      */
     public void onClickReject(View view) {
         User user = (User) getIntent().getSerializableExtra("User");
@@ -72,7 +76,9 @@ public class UserInfoDisplay extends AppCompatActivity {
         user.updateRegistrationStatus(User.RegistrationStatus.REJECTED);
         startActivity(new Intent(getApplicationContext(), RegistrationsInbox.class));
     }
-    /*Method sends a notification to the users screen indicating status of registration **Note the users notifications for the app must be enabled for this to work
+    /**
+     * Method sends a notification to the users screen indicating status of registration
+     * Note: the users notifications for the app must be enabled for this to work
      */
     public void sendNotification(User user) {
         String content;

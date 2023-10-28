@@ -32,14 +32,16 @@ public class RejectedUserInfoDisplay extends AppCompatActivity {
     }
 
 
-    /*Method is called when the back button is clicked
-    Returns admin to the registrations inbox.*/
+    /**Method is called when the back button is clicked
+     *Returns admin to the registrations inbox.
+     */
     public void onClickBackButton(View view) {
         startActivity(new Intent(getApplicationContext(), RejectedRegistrations.class));
     }
 
 
-    /*Method is called when request accept button is clicked
+    /**
+     * Method is called when request accept button is clicked
      */
     public void onClickAccept(View view) {
         User user = (User) getIntent().getSerializableExtra("User");
@@ -48,6 +50,10 @@ public class RejectedUserInfoDisplay extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), RejectedRegistrations.class));
     }
 
+    /**
+     * Method sends a notification to the users screen indicating status of registration
+     * Note: the users notifications for the app must be enabled for this to work
+     */
     public void sendNotification(User user) {
         String content;
         if (user.getRegistrationStatus() == User.RegistrationStatus.APPROVED) {

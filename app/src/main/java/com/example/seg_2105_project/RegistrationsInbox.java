@@ -85,8 +85,9 @@ public class RegistrationsInbox extends AppCompatActivity {
     /**
      * Redirects to the admin screen when the back button is clicked
      */
-    private void onClickBackButton(View view){
-        startActivity(new Intent(getApplicationContext(), AdminScreen.class));
+    public void onClickBackButton(View view){
+        Intent intent = new Intent(getApplicationContext(), AdminScreen.class);
+        startActivity(intent);
     }
 
 

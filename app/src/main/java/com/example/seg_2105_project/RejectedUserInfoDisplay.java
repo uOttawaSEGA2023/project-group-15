@@ -43,9 +43,9 @@ public class RejectedUserInfoDisplay extends AppCompatActivity {
      */
     public void onClickAccept(View view) {
         User user = (User) getIntent().getSerializableExtra("User");
-        sendNotification(user);
-        //user.updateRegistrationStatus(User.RegistrationStatus.APPROVED);
-        //redirect page
+        //sendNotification(user);
+        user.updateRegistrationStatus(User.RegistrationStatus.APPROVED);
+        startActivity(new Intent(getApplicationContext(), RejectedRegistrations.class));
     }
 
     public void sendNotification(User user) {

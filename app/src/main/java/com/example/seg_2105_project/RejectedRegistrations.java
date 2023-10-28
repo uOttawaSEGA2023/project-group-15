@@ -70,6 +70,11 @@ public class RejectedRegistrations extends AppCompatActivity {
         });
     }
 
+    public void onClickBackButton(View view) {
+        Intent intent = new Intent(getApplicationContext(), AdminScreen.class);
+        startActivity(intent);
+    }
+
     /*
     Populate list view with users
      */

@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+
 public class UserInfoDisplay extends AppCompatActivity {
 
     Button backButton;
@@ -60,15 +61,12 @@ public class UserInfoDisplay extends AppCompatActivity {
     public void onClickAccept(View view) {
         User user = (User) getIntent().getSerializableExtra("User");
         sendNotification(user);
-
-        user.setRegistrationStatus(User.RegistrationStatus.valueOf("APPROVED"));
     }
     /*Method is called when request reject button is clicked
      */
     public void onClickReject(View view) {
         User user = (User) getIntent().getSerializableExtra("User");
         sendNotification(user);
-        user.setRegistrationStatus(User.RegistrationStatus.valueOf("REJECTED"));
     }
     /*Method sends a notification to the users screen indicating status of registration **Note the users notifications for the app must be enabled for this to work
      */
@@ -91,6 +89,13 @@ public class UserInfoDisplay extends AppCompatActivity {
         }
         managerCompat.notify(1, builder.build());
     }
+
+    public void sendEmail(User user) {
+
+    }
+
+
+
 
 
 }

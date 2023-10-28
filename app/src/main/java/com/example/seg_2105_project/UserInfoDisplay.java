@@ -100,12 +100,4 @@ public class UserInfoDisplay extends AppCompatActivity {
         managerCompat.notify(1, builder.build());
     }
 
-    public void sendEmail(User user) {
-
-    }
-
-
-
-
-
 }

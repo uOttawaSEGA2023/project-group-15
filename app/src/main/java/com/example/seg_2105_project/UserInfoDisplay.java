@@ -25,9 +25,12 @@ public class UserInfoDisplay extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info_display);
 
+        //initialize the back button
         backButton = (Button) findViewById(R.id.backButton);
 
         User user = (User) getIntent().getSerializableExtra("User");
+
+        //display stored information of selected user
         TextView userInfo = (TextView) findViewById(R.id.infoDisplayText);
         userInfo.setText(user.display());
 

@@ -21,10 +21,13 @@ public class RejectedUserInfoDisplay extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rejected_user_info_display);
 
+        //initialize the back button
         backButton2 = (Button) findViewById(R.id.backButton2);
 
         Intent intent = getIntent();
         User user = (User) getIntent().getSerializableExtra("User");
+
+        //call display method to get the stored information of selected rejected user
 
         TextView userInfo = (TextView) findViewById(R.id.infoDisplayText2);
         userInfo.setText(user.display());
@@ -33,7 +36,7 @@ public class RejectedUserInfoDisplay extends AppCompatActivity {
 
 
     /**Method is called when the back button is clicked
-     *Returns admin to the registrations inbox.
+     *Returns admin to the rejected registrations inbox.
      */
     public void onClickBackButton(View view) {
         startActivity(new Intent(getApplicationContext(), RejectedRegistrations.class));

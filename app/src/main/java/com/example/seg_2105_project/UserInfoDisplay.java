@@ -27,13 +27,7 @@ public class UserInfoDisplay extends AppCompatActivity {
 
         backButton = (Button) findViewById(R.id.backButton);
 
-        Intent intent = getIntent();
         User user = (User) getIntent().getSerializableExtra("User");
-
-        //Intent intent = new Intent(getApplicationContext(), User.class);
-        //intent.putExtra("User", selectedUser);
-        //startActivity(intent);
-
         TextView userInfo = (TextView) findViewById(R.id.infoDisplayText);
         userInfo.setText(user.display());
 
@@ -63,8 +57,8 @@ public class UserInfoDisplay extends AppCompatActivity {
      */
     public void onClickAccept(View view) {
         User user = (User) getIntent().getSerializableExtra("User");
-        //sendNotification(user);
         user.updateRegistrationStatus(User.RegistrationStatus.APPROVED);
+        sendNotification(user);
         startActivity(new Intent(getApplicationContext(), RegistrationsInbox.class));
     }
     /**
@@ -72,8 +66,8 @@ public class UserInfoDisplay extends AppCompatActivity {
      */
     public void onClickReject(View view) {
         User user = (User) getIntent().getSerializableExtra("User");
-        //sendNotification(user);
         user.updateRegistrationStatus(User.RegistrationStatus.REJECTED);
+        sendNotification(user);
         startActivity(new Intent(getApplicationContext(), RegistrationsInbox.class));
     }
     /**

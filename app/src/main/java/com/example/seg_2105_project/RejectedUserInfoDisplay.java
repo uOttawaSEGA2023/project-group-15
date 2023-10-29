@@ -45,8 +45,8 @@ public class RejectedUserInfoDisplay extends AppCompatActivity {
      */
     public void onClickAccept(View view) {
         User user = (User) getIntent().getSerializableExtra("User");
-        //sendNotification(user);
         user.updateRegistrationStatus(User.RegistrationStatus.APPROVED);
+        sendNotification(user);
         startActivity(new Intent(getApplicationContext(), RejectedRegistrations.class));
     }
 
@@ -55,12 +55,7 @@ public class RejectedUserInfoDisplay extends AppCompatActivity {
      * Note: the users notifications for the app must be enabled for this to work
      */
     public void sendNotification(User user) {
-        String content;
-        if (user.getRegistrationStatus() == User.RegistrationStatus.APPROVED) {
-            content = "Congratulations! Your registration request has been approved";
-        } else {
-            content = "Your registration request has been rejected";
-        }
+        String content = "Congratulations! Your registration request has been approved";
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "status notification")
                 .setContentTitle("HAMS profile status")
@@ -72,5 +67,6 @@ public class RejectedUserInfoDisplay extends AppCompatActivity {
             return;
         }
         managerCompat.notify(1, builder.build());
+
     }
 }

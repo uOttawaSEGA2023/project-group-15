@@ -81,6 +81,15 @@ public class Patient extends User {
         });
 
     }
+    public static Patient getPatient(String email, String password, DataSnapshot dataSnapshot) {
+        for (DataSnapshot patientSnapshot : dataSnapshot.getChildren()) {
+            Patient patient = patientSnapshot.getValue(Patient.class);
+            if (patient.getEmail().equals(email) && patient.getPassword().equals(password)) {
+                return patient;
+            }
+        }
+        return null;
+    }
 
     /*
     Displays all the information of this patient

@@ -87,6 +87,15 @@ public class Doctor extends User {
         });
 
     }
+    public static Doctor getDoctor(String email, String password, DataSnapshot dataSnapshot) {
+        for (DataSnapshot doctorSnapshot : dataSnapshot.getChildren()) {
+            Doctor doctor = doctorSnapshot.getValue(Doctor.class);
+            if (doctor.getEmail().equals(email) && doctor.getPassword().equals(password)) {
+                return doctor;
+            }
+        }
+        return null;
+    }
 
     /*
     Displays all information of this doctor

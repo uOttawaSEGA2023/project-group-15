@@ -151,7 +151,7 @@ public class SignIn extends AppCompatActivity {
                                                 /*
                                                 Display rejection message
                                                  */
-                                                signInError.setText("Your registration was rejected. Contact the Administrator at (613)-614-6123");
+                                                signInError.setText("Your registration was rejected. Contact the\nAdministrator at (613)-614-6123");
                                                 signInError.setVisibility(View.VISIBLE);
                                             } else {
 

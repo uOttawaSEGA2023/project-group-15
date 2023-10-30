@@ -87,6 +87,10 @@ public class Doctor extends User {
         });
 
     }
+
+    /*
+    Reads through the database for doctors and return Doctor object if found
+     */
     public static Doctor getDoctor(String email, String password, DataSnapshot dataSnapshot) {
         for (DataSnapshot doctorSnapshot : dataSnapshot.getChildren()) {
             Doctor doctor = doctorSnapshot.getValue(Doctor.class);

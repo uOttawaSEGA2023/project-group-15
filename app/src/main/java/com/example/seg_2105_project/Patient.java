@@ -81,6 +81,9 @@ public class Patient extends User {
         });
 
     }
+    /*
+    Reads through the database for patients and return Patient object if found
+     */
     public static Patient getPatient(String email, String password, DataSnapshot dataSnapshot) {
         for (DataSnapshot patientSnapshot : dataSnapshot.getChildren()) {
             Patient patient = patientSnapshot.getValue(Patient.class);

@@ -35,19 +35,19 @@ public class SignIn extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-        email = (EditText) findViewById(R.id.emailAddress);
-        pswd = (EditText) findViewById(R.id.password);
-        signInButton = (Button) findViewById(R.id.signInButton);
-        signInError = (TextView) findViewById(R.id.signInError);
+        email = findViewById(R.id.emailAddress);
+        pswd = findViewById(R.id.password);
+        signInButton = findViewById(R.id.signInButton);
+        signInError = findViewById(R.id.signInError);
 
         auth = FirebaseAuth.getInstance();
 
-        // Get a reference to database
+        // Get a reference to the database
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference patientRef = database.getReference("Patients");
         DatabaseReference doctorRef = database.getReference("Doctors");
 
-        //Read data
+        // Read data
         patientRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -66,89 +66,102 @@ public class SignIn extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
-
     }
 
-    /*
-    Method is called when sign in button is clicked. It verifies the information inputted by the
-    user,outputs error messages accordingly and redirects to corresponding app homepage when the
-    sign in is successful.
-     */
     public void onClickSignInButton(View view) {
-        //email is left blank
-        if (email.getText().toString().equals("")) {
+        signInError.setVisibility(View.GONE);  // Hide any previous error message
+        if (email.getText().toString().isEmpty()) {
             validLogin = false;
             email.setError("Cannot be left blank");
         }
-        //password is left blank
-        if (pswd.getText().toString().equals("")) {
+        if (pswd.getText().toString().isEmpty()) {
             validLogin = false;
             pswd.setError("Cannot be left blank");
         }
 
         if (validLogin) {
-            //Authenticate user info
             auth.signInWithEmailAndPassword(email.getText().toString(), pswd.getText().toString())
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(Task<AuthResult> task) {
-
-                            //Check if email is verified
-                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                            boolean isVerified = user.isEmailVerified();
-
-                            if (task.isSuccessful() && isVerified) {
-                                Intent intent;
-                                //send user to corresponding user screen
-                                if(email.getText().toString().equals(Administrator.email) && pswd.getText().toString().equals(Administrator.password)){
-                                    intent = new Intent(getApplicationContext(), AdminScreen.class);
+                            if (task.isSuccessful()) {
+                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                if (user != null) {
+                                    if (isAdmin(user.getEmail())) {
+                                        Intent intent = new Intent(getApplicationContext(), AdminScreen.class);
+                                        startActivity(intent);
+                                    } else if (isDoctorApproved(user.getEmail())) {
+                                        Intent intent = new Intent(getApplicationContext(), DoctorScreen.class);
+                                        startActivity(intent);
+                                    } else if (isPatientApproved(user.getEmail())) {
+                                        Intent intent = new Intent(getApplicationContext(), PatientScreen.class);
+                                        startActivity(intent);
+                                    } else if (isPatientRejected(user.getEmail()) || isDoctorRejected(user.getEmail())) {
+                                        signInError.setText("Your registration was rejected. Contact the Administrator at (613)-614-6123");
+                                        signInError.setVisibility(View.VISIBLE);
+                                    } else {
+                                        signInError.setText("Your registration has not been approved yet.");
+                                        signInError.setVisibility(View.VISIBLE);
+                                    }
                                 }
-                                else if(getDoctor(email.getText().toString(), pswd.getText().toString()) == null){
-                                    intent = new Intent(getApplicationContext(), PatientScreen.class);
-                                } else {
-                                    intent = new Intent(getApplicationContext(), DoctorScreen.class);
-                                }
-                                startActivity(intent);
-                               // Toast.makeText(SignIn.this, "Login Successful", Toast.LENGTH_SHORT).show();
                             } else {
-                                //don't change to next screen until valid login provided
-                                signInError.setVisibility(view.VISIBLE);
+                                // Handle invalid email or password
+                                signInError.setText("Invalid email or password");
+                                signInError.setVisibility(View.VISIBLE);
                             }
                         }
-
                     });
+        } else {
+            validLogin = true;
         }
-        else { validLogin = true; }
-
     }
 
-    /*
-    Reads through the database for patients and return Patient object if found
-     */
-    private Patient getPatient(String email, String password) {
 
-        for(DataSnapshot patients : patientDataSnapshot.getChildren()) {
-            Patient p = patients.getValue(Patient.class);
-            if (p.getEmail().equals(email) && p.getPassword().equals(password)) {
-                return p;
+    private boolean isPatientRejected(String email) {
+        for (DataSnapshot patient : patientDataSnapshot.getChildren()) {
+            Patient p = patient.getValue(Patient.class);
+            if (p.getEmail().equals(email) && p.getRegistrationStatus() == User.RegistrationStatus.REJECTED) {
+                return true;
             }
         }
-        return null;
-
+        return false;
     }
-    /*
-    Reads through the database for doctors and return Doctor object if found
-     */
-    private Doctor getDoctor(String email, String password) {
 
-        for(DataSnapshot doctors : doctorDataSnapshot.getChildren()) {
-            Doctor d = doctors.getValue(Doctor.class);
-            if (d.getEmail().equals(email) && d.getPassword().equals(password)) {
-                return d;
+    private boolean isDoctorRejected(String email) {
+        for (DataSnapshot doctor : doctorDataSnapshot.getChildren()) {
+            Doctor d = doctor.getValue(Doctor.class);
+            if (d.getEmail().equals(email) && d.getRegistrationStatus() == User.RegistrationStatus.REJECTED) {
+                return true;
             }
         }
-        return null;
-
+        return false;
     }
 
+
+    private boolean isPatientApproved(String email) {
+        for (DataSnapshot patient : patientDataSnapshot.getChildren()) {
+            Patient p = patient.getValue(Patient.class);
+            if (p.getEmail().equals(email) && p.getRegistrationStatus() == User.RegistrationStatus.APPROVED) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isDoctorApproved(String email) {
+        for (DataSnapshot doctor : doctorDataSnapshot.getChildren()) {
+            Doctor d = doctor.getValue(Doctor.class);
+            if (d.getEmail().equals(email) && d.getRegistrationStatus() == User.RegistrationStatus.APPROVED) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isAdmin(String email) {
+        if (email.equals(Administrator.email) && pswd.getText().toString().equals(Administrator.password)) {
+            return true;
+        }
+        return false;
+    }
 }

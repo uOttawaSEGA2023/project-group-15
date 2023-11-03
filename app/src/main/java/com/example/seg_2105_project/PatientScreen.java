@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class
 PatientScreen extends AppCompatActivity {
@@ -23,7 +24,7 @@ PatientScreen extends AppCompatActivity {
         welcomeMessage = findViewById(R.id.welcomeMessage);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         name = user.getDisplayName();
-        welcomeMessage.setText( " You are logged in as a patient ");
+        welcomeMessage.setText( "Welcome " + name + "! You are logged in as a patient ");
 
     }
 

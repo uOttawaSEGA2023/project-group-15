@@ -7,12 +7,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,9 +24,9 @@ import com.google.firebase.database.ValueEventListener;
 public class SignIn extends AppCompatActivity {
     EditText email;
     EditText pswd;
+    TextView signInError;
     Button signInButton;
     private boolean validLogin = true;
-    private boolean admin = false;
     FirebaseAuth auth;
     DataSnapshot patientDataSnapshot;
     DataSnapshot doctorDataSnapshot;
@@ -33,105 +35,198 @@ public class SignIn extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-        email = (EditText) findViewById(R.id.emailAddress);
-        pswd = (EditText) findViewById(R.id.password);
-        signInButton = (Button) findViewById(R.id.signInButton);
+        email = findViewById(R.id.emailAddress);
+        pswd = findViewById(R.id.password);
+        signInButton = findViewById(R.id.signInButton);
+        signInError = findViewById(R.id.signInError);
 
         auth = FirebaseAuth.getInstance();
 
-        // Get a reference to database
+        /*
+        Get a reference to the database
+         */
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference patientRef = database.getReference("Patients");
         DatabaseReference doctorRef = database.getReference("Doctors");
 
-        //Read data
+        /*
+        Read data from Firebase for Patients and Doctors
+         */
         patientRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
+                /*
+                Store the snapshot of patient data
+                 */
                 patientDataSnapshot = dataSnapshot;
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {}
+            public void onCancelled(DatabaseError databaseError) {
+            }
         });
+
         doctorRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
+                /*
+                Store the snapshot of doctor data
+                 */
                 doctorDataSnapshot = dataSnapshot;
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {}
+            public void onCancelled(DatabaseError databaseError) {
+            }
         });
-
     }
+
+    /*
+    Method is called when sign-in button is clicked. It verifies the information inputted by the user,
+    outputs error messages accordingly, and redirects to the corresponding app homepage when the
+    sign-in is successful, or displays a rejection message if registration is rejected.
+    */
     public void onClickSignInButton(View view) {
-        //email is left blank
-        if (email.getText().toString().equals("")) {
+
+        /*
+        Hide any previous error message
+         */
+        signInError.setVisibility(View.GONE);
+
+        /*
+        Validate email and password input
+         */
+        if (email.getText().toString().isEmpty()) {
             validLogin = false;
             email.setError("Cannot be left blank");
         }
-        //password is left blank
-        if (pswd.getText().toString().equals("")) {
+        if (pswd.getText().toString().isEmpty()) {
             validLogin = false;
             pswd.setError("Cannot be left blank");
         }
 
         if (validLogin) {
-            //Authenticate user info
+
+            /*
+            Attempt to sign in using Firebase Authentication
+             */
             auth.signInWithEmailAndPassword(email.getText().toString(), pswd.getText().toString())
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                Intent intent;
-                                //send user to corresponding user screen
-                                if(getDoctor(email.toString(), pswd.toString()) == null && !admin){
-                                    intent = new Intent(getApplicationContext(), PatientScreen.class);
-                                } else {
-                                    intent = new Intent(getApplicationContext(), DoctorScreen.class);
+                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                if (user != null) {
+
+                                    /*
+                                    Check if the user is an administrator
+                                     */
+                                    if (isAdmin(user.getEmail())) {
+
+                                        /*
+                                        Redirect to the AdminScreen
+                                         */
+                                        Intent intent = new Intent(getApplicationContext(), AdminScreen.class);
+                                        startActivity(intent);
+                                    } else {
+
+                                        /*
+                                        Retrieve Doctor and Patient data from Firebase
+                                         */
+                                        Doctor doctor = Doctor.getDoctor(user.getEmail(), pswd.getText().toString(), doctorDataSnapshot);
+                                        Patient patient = Patient.getPatient(user.getEmail(), pswd.getText().toString(), patientDataSnapshot);
+
+                                        if (doctor != null) {
+                                            if (isApproved(doctor.getRegistrationStatus())) {
+
+                                                /*
+                                                Redirect to DoctorScreen when registration is approved
+                                                 */
+                                                Intent intent = new Intent(getApplicationContext(), DoctorScreen.class);
+                                                startActivity(intent);
+                                            } else if (isRejected(doctor.getRegistrationStatus())) {
+
+                                                /*
+                                                Display rejection message
+                                                 */
+                                                signInError.setText("Your registration was rejected. Contact the\nAdministrator at (613)-614-6123");
+                                                signInError.setVisibility(View.VISIBLE);
+                                            } else {
+
+                                                /*
+                                                Display message when registration is not approved
+                                                 */
+                                                signInError.setText("Your registration has not been approved yet.");
+                                                signInError.setVisibility(View.VISIBLE);
+                                            }
+                                        } else if (patient != null) {
+                                            if (isApproved(patient.getRegistrationStatus())) {
+
+                                                /*
+                                                Redirect to PatientScreen when registration is approved
+                                                 */
+                                                Intent intent = new Intent(getApplicationContext(), PatientScreen.class);
+                                                startActivity(intent);
+                                            } else if (isRejected(patient.getRegistrationStatus())) {
+
+                                                /*
+                                                Display rejection message
+                                                 */
+                                                signInError.setText("Your registration was rejected. Contact the\nAdministrator at (613)-614-6123");
+                                                signInError.setVisibility(View.VISIBLE);
+                                            } else {
+
+                                                /*
+                                                Display message when registration is not approved
+                                                 */
+                                                signInError.setText("Your registration has not been approved yet.");
+                                                signInError.setVisibility(View.VISIBLE);
+                                            }
+                                        } else {
+
+                                            /*
+                                            Display message when registration is not approved
+                                             */
+                                            signInError.setText("Your registration has not been approved yet.");
+                                            signInError.setVisibility(View.VISIBLE);
+                                        }
+                                    }
                                 }
-                                startActivity(intent);
-                               // Toast.makeText(SignIn.this, "Login Successful", Toast.LENGTH_SHORT).show();
                             } else {
-                                //don't change to next screen until valid login provided
-                                Toast.makeText(SignIn.this, "Login Unsuccessful", Toast.LENGTH_SHORT).show();
+
+                                /*
+                                Handle invalid email or password
+                                 */
+                                signInError.setText("Invalid email or password");
+                                signInError.setVisibility(View.VISIBLE);
                             }
                         }
-
                     });
+        } else {
+            validLogin = true;
         }
-        else { validLogin = true; }
-
     }
 
     /*
-    Reads through the database for patients and return Patient object if found
+    Check if the user is an administrator
      */
-    private Patient getPatient(String email, String password) {
-
-        for(DataSnapshot patients : patientDataSnapshot.getChildren()) {
-            Patient p = patients.getValue(Patient.class);
-            if (p.getEmail().equals(email) && p.getPassword().equals(password)) {
-                return p;
-            }
-        }
-        return null;
-
+    private boolean isAdmin(String email) {
+        return email.equals(Administrator.email);
     }
+
     /*
-    Reads through the database for doctors and return Doctor object if found
+    Check if the registration status is "Approved"
      */
-    private Doctor getDoctor(String email, String password) {
-
-        for(DataSnapshot doctors : doctorDataSnapshot.getChildren()) {
-            Doctor d = doctors.getValue(Doctor.class);
-            if (d.getEmail().equals(email) && d.getPassword().equals(password)) {
-                return d;
-            }
-        }
-        return null;
-
+    private boolean isApproved(User.RegistrationStatus status) {
+        return status == User.RegistrationStatus.APPROVED;
     }
 
+    /*
+    Check if the registration status is "Rejected"
+    */
+    private boolean isRejected(User.RegistrationStatus status) {
+        return status == User.RegistrationStatus.REJECTED;
+    }
 }

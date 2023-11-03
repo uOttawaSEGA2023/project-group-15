@@ -22,7 +22,7 @@ public class AdminScreen extends AppCompatActivity {
         welcomeMessage = findViewById(R.id.welcomeMessage);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         name = user.getDisplayName();
-        welcomeMessage.setText("Welcome, " + name + "!");
+        welcomeMessage.setText("Welcome, you are signed in as Administrator!");
     }
 
     public void onClickSignOutButton(View view) {
@@ -30,5 +30,15 @@ public class AdminScreen extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), WelcomeScreen.class);
         startActivity(intent);
 
+    }
+
+    public void onClickInboxRegistrations(View view) {
+        Intent intent = new Intent(getApplicationContext(), RegistrationsInbox.class);
+        startActivity(intent);
+    }
+
+    public void onClickRejectedRegistrations(View view) {
+        Intent intent = new Intent(getApplicationContext(), RejectedRegistrations.class);
+        startActivity(intent);
     }
 }

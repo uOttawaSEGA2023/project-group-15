@@ -50,26 +50,21 @@ public class PatientSignUp extends AppCompatActivity {
 
         input = findViewById(R.id.editTextPhone);
         String phoneNumberStr = input.getText().toString();
-        int phoneNumber;
+        long phoneNumber;
 
         input = findViewById(R.id.editTextHealthNumber);
         String healthNumberStr = input.getText().toString();
-        int healthNumber;
+        long healthNumber;
 
         //Check if numerical text views are empty
-        phoneNumber =  !phoneNumberStr.equals("")  ? Integer.parseInt(phoneNumberStr)  : -1;
-        healthNumber = !healthNumberStr.equals("") ? Integer.parseInt(healthNumberStr) : -1;
+        phoneNumber =  !phoneNumberStr.equals("")  ? Long.parseLong(phoneNumberStr)  : -1;
+        healthNumber = !healthNumberStr.equals("") ? Long.parseLong(healthNumberStr) : -1;
 
         //Create patient object
         Patient patient = new Patient(firstName, lastName, email, password, phoneNumber, address, healthNumber);
 
         //Validate input
         if (inputValid(view, patient)) {
-
-            //Write to database
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference databaseRef = database.getReference("Patients");
-            databaseRef.push().setValue(patient);
 
             //Authenticate user
             userAuthentication(patient);
@@ -151,7 +146,7 @@ public class PatientSignUp extends AppCompatActivity {
             text = findViewById(R.id.textViewEmailError);
             text.setVisibility(view.INVISIBLE);
         }
-        if (user.getPassword().equals("")) {
+        if (user.getPassword().equals("") || user.getPassword().length() < 6) {
             //Set visibility of error message to visible
             TextView text = findViewById(R.id.textViewPasswordError);
             text.setVisibility(view.VISIBLE);
@@ -170,7 +165,8 @@ public class PatientSignUp extends AppCompatActivity {
             text = findViewById(R.id.textViewPasswordError);
             text.setVisibility(view.INVISIBLE);
         }
-        if (user.getPhoneNumber() == -1 || user.getPhoneNumber() < 100000000 || user.getPhoneNumber() > 999999999) {
+        if (user.getPhoneNumber() == -1 || user.getPhoneNumber() < 1000000000
+                || user.getPhoneNumber() > (Long.parseLong("9999999999"))) {
             //Set visibility of error message to visible
             TextView text = findViewById(R.id.textViewPhoneNumberError);
             text.setVisibility(view.VISIBLE);
@@ -209,7 +205,8 @@ public class PatientSignUp extends AppCompatActivity {
             text = findViewById(R.id.textViewAddressError);
             text.setVisibility(view.INVISIBLE);
         }
-        if (user.getHealthCardNumber() == -1 || user.getHealthCardNumber() < 1000000000) {
+        if (user.getHealthCardNumber() == -1 || user.getHealthCardNumber() < 1000000000
+                || user.getHealthCardNumber() > Long.parseLong("9999999999")) {
             //Set visibility of error message to visible
             TextView text = findViewById(R.id.textViewHealthNumberError);
             text.setVisibility(view.VISIBLE);
@@ -275,9 +272,14 @@ public class PatientSignUp extends AppCompatActivity {
 
                             user.updateProfile(profileUpdate).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
-                                public void onComplete(Task<Void> task) {}
+                                public void onComplete(Task<Void> task) { }
                             });
                         }
+
+                        //Write to database
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference databaseRef = database.getReference("Patients");
+                        databaseRef.push().setValue(patient);
 
                         Intent intent = new Intent(getApplicationContext(), SignIn.class);
                         startActivity(intent);

@@ -6,16 +6,21 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
+
+    enum RegistrationStatus { APPROVED, REJECTED, PENDING }
 
     private String firstName;
     private String lastName;
     private String email;
     private String password;
-    private int phoneNumber;
+    private long phoneNumber;
     private String address;
+    private RegistrationStatus registrationStatus;
 
-    public User(String firstName, String lastName, String email, String password, int phoneNumber, String address) {
+    public User(String firstName, String lastName, String email, String password, long phoneNumber, String address) {
 
         this.firstName = firstName;
         this.lastName = lastName;
@@ -23,8 +28,11 @@ public class User {
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.address = address;
+        this.registrationStatus = RegistrationStatus.PENDING;
 
     }
+
+    public User() {}
 
     public String getFirstName() {
         return firstName;
@@ -42,12 +50,36 @@ public class User {
         return password;
     }
 
-    public int getPhoneNumber() {
+    public long getPhoneNumber() {
         return phoneNumber;
     }
 
     public String getAddress() {
         return address;
+    }
+    public RegistrationStatus getRegistrationStatus() { return registrationStatus; }
+
+    public String toString() {
+        return getFirstName() + " " + getLastName();
+    }
+
+    /*
+     * Acts as a setter for registration status
+     */
+    public void updateRegistrationStatus(RegistrationStatus registrationStatus) {
+        this.registrationStatus = registrationStatus;
+    }
+
+    /*
+    Displays all the information of this user
+     */
+    public String display() {
+
+        return "Name: " + this +
+                "\nEmail: " + this.email +
+                "\nPhone Number: " + this.phoneNumber +
+                "\nAddress: " + this.address;
+
     }
 
 }

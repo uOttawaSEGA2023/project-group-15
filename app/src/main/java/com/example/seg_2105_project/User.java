@@ -1,5 +1,7 @@
 package com.example.seg_2105_project;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -7,6 +9,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class User implements Serializable {
 
@@ -19,6 +22,7 @@ public class User implements Serializable {
     private long phoneNumber;
     private String address;
     private RegistrationStatus registrationStatus;
+    private ArrayList<Appointment> appointments;
 
     public User(String firstName, String lastName, String email, String password, long phoneNumber, String address) {
 
@@ -29,6 +33,7 @@ public class User implements Serializable {
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.registrationStatus = RegistrationStatus.PENDING;
+        this.appointments = new ArrayList<>();
 
     }
 
@@ -58,6 +63,7 @@ public class User implements Serializable {
         return address;
     }
     public RegistrationStatus getRegistrationStatus() { return registrationStatus; }
+    public ArrayList<Appointment> getAppointments() { return appointments; }
 
     public String toString() {
         return getFirstName() + " " + getLastName();
@@ -71,7 +77,69 @@ public class User implements Serializable {
     }
 
     /*
-    Displays all the information of this user
+     * Adds an appointment to the associated doctor and patient's list of appointments and updates Firebase
+     * @param  appointment  Appointment to be added to list and firebase
+     */
+    public void addAppointment(Appointment appointment) {
+
+        //Get associated patient and doctor
+        User doctor = appointment.getDoctor();
+        User patient = appointment.getPatient();
+
+        //Add appointment to lists
+        doctor.addAppointmentToList(appointment);
+        patient.addAppointmentToList(appointment);
+
+        //Update doctor in firebase
+        DatabaseReference doctorRef = FirebaseDatabase.getInstance().getReference("Doctors");
+        doctorRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //Look for doctor in Firebase
+                for (DataSnapshot doctorSnapshot : snapshot.getChildren()) {
+
+                    Doctor d = doctorSnapshot.getValue(Doctor.class);
+                    if (d.getEmail().equals(doctor.getEmail())) {
+                        //Update appointments
+                        DatabaseReference reference = doctorSnapshot.getRef();
+                        reference.child("appointments").setValue(doctor.getAppointments());
+                        break;
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
+
+        //Update patient in firebase
+        DatabaseReference patientRef = FirebaseDatabase.getInstance().getReference("Patient");
+        patientRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //Look for patient in Firebase
+                for (DataSnapshot patientSnapshot : snapshot.getChildren()) {
+
+                    Patient p = patientSnapshot.getValue(Patient.class);
+                    if (p.getEmail().equals(patient.getEmail())) {
+                        //Update appointments
+                        DatabaseReference reference = patientSnapshot.getRef();
+                        reference.child("appointments").setValue(patient.getAppointments());
+                        break;
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
+
+    }
+
+    /*
+    * Displays all the information of this user
      */
     public String display() {
 
@@ -80,6 +148,13 @@ public class User implements Serializable {
                 "\nPhone Number: " + this.phoneNumber +
                 "\nAddress: " + this.address;
 
+    }
+
+    /*
+    * Adds the appointment to the list
+     */
+    private void addAppointmentToList(Appointment a) {
+        this.appointments.add(a);
     }
 
 }

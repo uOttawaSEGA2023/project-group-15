@@ -13,7 +13,6 @@ import java.util.ArrayList;
 public class Doctor extends User {
     private int employee_number;
     private ArrayList<String> specialties;
-    private ArrayList<Appointment> appointments;
     private ArrayList<Shift> shifts;
     private boolean autoApprove;
 
@@ -22,7 +21,6 @@ public class Doctor extends User {
         super(firstName, lastName, email, password, phoneNumber, address);
         this.employee_number = employee_number;
         this.specialties = specialties;
-        this.appointments = new ArrayList<>();
         this.shifts = new ArrayList<>();
         this.autoApprove = false;
     }
@@ -30,7 +28,6 @@ public class Doctor extends User {
     /**GETTERS**/
     public int get_employee_number() { return employee_number; }
     public ArrayList<String> get_specialties() { return specialties; }
-    public ArrayList<Appointment> getAppointments() { return appointments; }
     public ArrayList<Shift> getShifts() { return shifts; }
     public boolean getAutoApprove() { return autoApprove; }
 
@@ -116,33 +113,11 @@ public class Doctor extends User {
     }
 
     /*
-     * Adds an appointment to this doctors list of appointments and updates Firebase
+    * Adds appointment to list and updates Firebase
      */
+    @Override
     public void addAppointment(Appointment a) {
-        this.appointments.add(a);
-
-        //Update firebase
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Doctors");
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //Look for this doctor in Firebase
-                for (DataSnapshot doctorSnapshot : snapshot.getChildren()) {
-
-                    Doctor doctor = doctorSnapshot.getValue(Doctor.class);
-                    if (doctor.getEmail().equals(getEmail())) {
-                        //Change appointments
-                        DatabaseReference reference = doctorSnapshot.getRef();
-                        reference.child("appointments").setValue(appointments);
-                        break;
-                    }
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {}
-        });
+        super.addAppointment(a);
 
     }
 

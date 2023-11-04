@@ -38,7 +38,7 @@ public class RejectedRegistrations extends AppCompatActivity {
         patientsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                users.addAll(Patient.getPatients(User.RegistrationStatus.REJECTED, snapshot));
+                users.addAll(Patient.getPatients(Status.REJECTED, snapshot));
                 loadListView();
             }
 
@@ -48,7 +48,7 @@ public class RejectedRegistrations extends AppCompatActivity {
         doctorsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                users.addAll(Doctor.getDoctors(User.RegistrationStatus.REJECTED, snapshot));
+                users.addAll(Doctor.getDoctors(Status.REJECTED, snapshot));
                 loadListView();
             }
 

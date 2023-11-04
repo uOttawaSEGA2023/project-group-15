@@ -37,7 +37,7 @@ public class RegistrationsInbox extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //adds all patients with pending status to list
-                usersList.addAll(Patient.getPatients(User.RegistrationStatus.PENDING, snapshot));
+                usersList.addAll(Patient.getPatients(Status.PENDING, snapshot));
                 loadListView();
             }
 
@@ -49,7 +49,7 @@ public class RegistrationsInbox extends AppCompatActivity {
         doctorRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                usersList.addAll(Doctor.getDoctors(User.RegistrationStatus.PENDING, snapshot));
+                usersList.addAll(Doctor.getDoctors(Status.PENDING, snapshot));
                 loadListView();
             }
 

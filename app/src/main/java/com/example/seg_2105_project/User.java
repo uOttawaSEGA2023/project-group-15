@@ -13,15 +13,13 @@ import java.util.ArrayList;
 
 public class User implements Serializable {
 
-    enum RegistrationStatus { APPROVED, REJECTED, PENDING }
-
     private String firstName;
     private String lastName;
     private String email;
     private String password;
     private long phoneNumber;
     private String address;
-    private RegistrationStatus registrationStatus;
+    private Status registrationStatus;
     private ArrayList<Appointment> appointments;
 
     public User(String firstName, String lastName, String email, String password, long phoneNumber, String address) {
@@ -32,7 +30,7 @@ public class User implements Serializable {
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.address = address;
-        this.registrationStatus = RegistrationStatus.PENDING;
+        this.registrationStatus = Status.PENDING;
         this.appointments = new ArrayList<>();
 
     }
@@ -62,7 +60,7 @@ public class User implements Serializable {
     public String getAddress() {
         return address;
     }
-    public RegistrationStatus getRegistrationStatus() { return registrationStatus; }
+    public Status getRegistrationStatus() { return registrationStatus; }
     public ArrayList<Appointment> getAppointments() { return appointments; }
 
     public String toString() {
@@ -72,7 +70,7 @@ public class User implements Serializable {
     /*
      * Acts as a setter for registration status
      */
-    public void updateRegistrationStatus(RegistrationStatus registrationStatus) {
+    public void updateRegistrationStatus(Status registrationStatus) {
         this.registrationStatus = registrationStatus;
     }
 

@@ -219,14 +219,14 @@ public class SignIn extends AppCompatActivity {
     /*
     Check if the registration status is "Approved"
      */
-    private boolean isApproved(User.RegistrationStatus status) {
-        return status == User.RegistrationStatus.APPROVED;
+    private boolean isApproved(Status status) {
+        return status == Status.APPROVED;
     }
 
     /*
     Check if the registration status is "Rejected"
     */
-    private boolean isRejected(User.RegistrationStatus status) {
-        return status == User.RegistrationStatus.REJECTED;
+    private boolean isRejected(Status status) {
+        return status == Status.REJECTED;
     }
 }

@@ -29,7 +29,7 @@ public class Patient extends User {
     @return                             An ArrayList of patients
     @throws IllegalArguementException   if dataSnapshot is null or doesn't contain a snapshot for the patients
      */
-    public static ArrayList<User> getPatients(RegistrationStatus status, DataSnapshot dataSnapshot) {
+    public static ArrayList<User> getPatients(Status status, DataSnapshot dataSnapshot) {
 
         ArrayList<User> patients = new ArrayList<User>();
 
@@ -53,7 +53,7 @@ public class Patient extends User {
     /*
     * Acts as a setter and changes the registration status in Firebase
      */
-    public void updateRegistrationStatus(User.RegistrationStatus registrationStatus) {
+    public void updateRegistrationStatus(Status registrationStatus) {
         super.updateRegistrationStatus(registrationStatus);
 
         //Get firebase reference

@@ -36,9 +36,9 @@ public class Doctor extends User {
     * @param  status                      Registration status of doctors
     * @param  dataSnapshot                DataSnapshot of doctor information in firebase
     * @return                             An ArrayList of doctors
-    * @throws IllegalArguementException   if dataSnapshot is null or doesn't contain a snapshot for the doctors
+    * @throws IllegalArgumentException   if dataSnapshot is null or doesn't contain a snapshot for the doctors
      */
-    public static ArrayList<User> getDoctors(RegistrationStatus status, DataSnapshot dataSnapshot) {
+    public static ArrayList<User> getDoctors(Status status, DataSnapshot dataSnapshot) {
 
         ArrayList<User> doctors = new ArrayList<User>();
 
@@ -65,7 +65,7 @@ public class Doctor extends User {
     /*
      * Acts as a setter and changes the registration status in Firebase
      */
-    public void updateRegistrationStatus(User.RegistrationStatus registrationStatus) {
+    public void updateRegistrationStatus(Status registrationStatus) {
         super.updateRegistrationStatus(registrationStatus);
 
         //Get firebase reference

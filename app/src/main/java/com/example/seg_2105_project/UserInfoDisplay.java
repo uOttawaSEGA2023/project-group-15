@@ -60,7 +60,7 @@ public class UserInfoDisplay extends AppCompatActivity {
      */
     public void onClickAccept(View view) {
         User user = (User) getIntent().getSerializableExtra("User");
-        user.updateRegistrationStatus(User.RegistrationStatus.APPROVED);
+        user.updateRegistrationStatus(Status.APPROVED);
         sendNotification(user);
         startActivity(new Intent(getApplicationContext(), RegistrationsInbox.class));
     }
@@ -69,7 +69,7 @@ public class UserInfoDisplay extends AppCompatActivity {
      */
     public void onClickReject(View view) {
         User user = (User) getIntent().getSerializableExtra("User");
-        user.updateRegistrationStatus(User.RegistrationStatus.REJECTED);
+        user.updateRegistrationStatus(Status.REJECTED);
         sendNotification(user);
         startActivity(new Intent(getApplicationContext(), RegistrationsInbox.class));
     }
@@ -79,7 +79,7 @@ public class UserInfoDisplay extends AppCompatActivity {
      */
     public void sendNotification(User user) {
         String content;
-        if (user.getRegistrationStatus() == User.RegistrationStatus.APPROVED) {
+        if (user.getRegistrationStatus() == Status.APPROVED) {
             content = "Congratulations! Your registration request has been approved";
         } else {
             content = "Your registration request has been rejected";

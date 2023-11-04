@@ -95,6 +95,7 @@ public class Doctor extends User {
             public void onCancelled(DatabaseError databaseError) {}
         });
 
+
     }
 
     /**OTHER METHODS**/

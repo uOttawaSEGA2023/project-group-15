@@ -1,6 +1,5 @@
 package com.example.seg_2105_project;
 
-import java.sql.Time;
 import java.util.*;
 
 public class Appointment {

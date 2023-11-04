@@ -3,10 +3,6 @@ package com.example.seg_2105_project;
 import androidx.annotation.NonNull;
 
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -31,68 +27,18 @@ public class Doctor extends User {
     public ArrayList<Shift> getShifts() { return shifts; }
     public boolean getAutoApprove() { return autoApprove; }
 
-    /*
-    * Gives a list of doctors with a certain registration status from firebase
-    * @param  status                      Registration status of doctors
-    * @param  dataSnapshot                DataSnapshot of doctor information in firebase
-    * @return                             An ArrayList of doctors
-    * @throws IllegalArgumentException   if dataSnapshot is null or doesn't contain a snapshot for the doctors
-     */
-    public static ArrayList<User> getDoctors(Status status, DataSnapshot dataSnapshot) {
-
-        ArrayList<User> doctors = new ArrayList<User>();
-
-        //Make sure dataSnapshot isn't null and contains the Doctor path
-        if (dataSnapshot.exists() && dataSnapshot.getRef().getKey().equals("Doctors")) {
-            for (DataSnapshot doctor : dataSnapshot.getChildren()) {
-                Doctor d = doctor.getValue(Doctor.class);
-                //Check registration status of doctor and add it to list if it matches
-                if (d.getRegistrationStatus() == status) {
-                    doctors.add(d);
-                }
-            }
-        }
-        else {
-            throw new IllegalArgumentException("dataSnapshot should not be null and should be from the Doctor path");
-        }
-        return doctors;
-
-    }
-
     /**SETTERS**/
-    public void setAutoApprove(boolean autoApprove) { this.autoApprove = autoApprove; }
+    public void setAutoApprove(boolean autoApprove) {
+        this.autoApprove = autoApprove;
+        updateFirebase("Doctors", "autoApprove", autoApprove, this);
+    }
 
     /*
      * Acts as a setter and changes the registration status in Firebase
      */
     public void updateRegistrationStatus(Status registrationStatus) {
         super.updateRegistrationStatus(registrationStatus);
-
-        //Get firebase reference
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference ref = firebaseDatabase.getReference("Doctors");
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                //Search through doctors
-                for (DataSnapshot doctor : dataSnapshot.getChildren()) {
-                    Doctor d = doctor.getValue(Doctor.class);
-                    if (d.getEmail().equals(getEmail())) {
-                        //Change status
-                        DatabaseReference reference = doctor.getRef();
-                        reference.child("registrationStatus").setValue(registrationStatus);
-                        break;
-                    }
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        });
-
-
+        updateFirebase("Doctors", "registrationStatus", registrationStatus, this);
     }
 
     /**OTHER METHODS**/
@@ -113,12 +59,11 @@ public class Doctor extends User {
     }
 
     /*
-    * Adds appointment to list and updates Firebase
+    * Adds shift to list
      */
-    @Override
-    public void addAppointment(Appointment a) {
-        super.addAppointment(a);
-
+    public void addShift(Shift shift) {
+        this.shifts.add(shift);
+        updateFirebase("Doctors", "shifts", shifts, this);
     }
 
     /**CLASS METHODS**/
@@ -134,6 +79,34 @@ public class Doctor extends User {
             }
         }
         return null;
+    }
+
+    /*
+     * Gives a list of doctors with a certain registration status from firebase
+     * @param  status                      Registration status of doctors
+     * @param  dataSnapshot                DataSnapshot of doctor information in firebase
+     * @return                             An ArrayList of doctors
+     * @throws IllegalArgumentException   if dataSnapshot is null or doesn't contain a snapshot for the doctors
+     */
+    public static ArrayList<User> getDoctors(Status status, DataSnapshot dataSnapshot) {
+
+        ArrayList<User> doctors = new ArrayList<User>();
+
+        //Make sure dataSnapshot isn't null and contains the Doctor path
+        if (dataSnapshot.exists() && dataSnapshot.getRef().getKey().equals("Doctors")) {
+            for (DataSnapshot doctor : dataSnapshot.getChildren()) {
+                Doctor d = doctor.getValue(Doctor.class);
+                //Check registration status of doctor and add it to list if it matches
+                if (d.getRegistrationStatus() == status) {
+                    doctors.add(d);
+                }
+            }
+        }
+        else {
+            throw new IllegalArgumentException("dataSnapshot should not be null and should be from the Doctor path");
+        }
+        return doctors;
+
     }
 
 

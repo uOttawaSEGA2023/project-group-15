@@ -1,7 +1,5 @@
 package com.example.seg_2105_project;
 
-import androidx.annotation.NonNull;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,6 +35,8 @@ public class User implements Serializable {
 
     public User() {}
 
+    /**GETTERS**/
+
     public String getFirstName() {
         return firstName;
     }
@@ -63,9 +63,7 @@ public class User implements Serializable {
     public Status getRegistrationStatus() { return registrationStatus; }
     public ArrayList<Appointment> getAppointments() { return appointments; }
 
-    public String toString() {
-        return getFirstName() + " " + getLastName();
-    }
+    /**SETTERS**/
 
     /*
      * Acts as a setter for registration status
@@ -74,66 +72,13 @@ public class User implements Serializable {
         this.registrationStatus = registrationStatus;
     }
 
+    /**OTHER METHODS**/
+
     /*
-     * Adds an appointment to the associated doctor and patient's list of appointments and updates Firebase
-     * @param  appointment  Appointment to be added to list and firebase
+     * Adds appointment to list
      */
     public void addAppointment(Appointment appointment) {
-
-        //Get associated patient and doctor
-        User doctor = appointment.getDoctor();
-        User patient = appointment.getPatient();
-
-        //Add appointment to lists
-        doctor.addAppointmentToList(appointment);
-        patient.addAppointmentToList(appointment);
-
-        //Update doctor in firebase
-        DatabaseReference doctorRef = FirebaseDatabase.getInstance().getReference("Doctors");
-        doctorRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //Look for doctor in Firebase
-                for (DataSnapshot doctorSnapshot : snapshot.getChildren()) {
-
-                    Doctor d = doctorSnapshot.getValue(Doctor.class);
-                    if (d.getEmail().equals(doctor.getEmail())) {
-                        //Update appointments
-                        DatabaseReference reference = doctorSnapshot.getRef();
-                        reference.child("appointments").setValue(doctor.getAppointments());
-                        break;
-                    }
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {}
-        });
-
-        //Update patient in firebase
-        DatabaseReference patientRef = FirebaseDatabase.getInstance().getReference("Patient");
-        patientRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //Look for patient in Firebase
-                for (DataSnapshot patientSnapshot : snapshot.getChildren()) {
-
-                    Patient p = patientSnapshot.getValue(Patient.class);
-                    if (p.getEmail().equals(patient.getEmail())) {
-                        //Update appointments
-                        DatabaseReference reference = patientSnapshot.getRef();
-                        reference.child("appointments").setValue(patient.getAppointments());
-                        break;
-                    }
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {}
-        });
-
+        this.appointments.add(appointment);
     }
 
     /*
@@ -148,11 +93,71 @@ public class User implements Serializable {
 
     }
 
+    public String toString() {
+        return getFirstName() + " " + getLastName();
+    }
+
+    /**CLASS METHODS**/
+
     /*
-    * Adds the appointment to the list
+     * Updates a certain attribute in Firebase
+     * @param  referencePath  "Patients" or "Doctors"
+     * @param  attributePath  Name of the attribute to be updated
+     * @param  attribute      Object of type attribute to overwrite current database data
+     * @param  user           User to have attribute updated
+     * @throws IllegalArgumentException   if arguments don't fit constraints specified
      */
-    private void addAppointmentToList(Appointment a) {
-        this.appointments.add(a);
+    protected static void updateFirebase(String referencePath, String attributePath, Object attribute, User user) {
+
+        //Argument validation
+        validateArguments(referencePath, attributePath, attribute, user);
+
+        //Get firebase reference
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference ref = firebaseDatabase.getReference(referencePath);
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                //Search through patients
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    User u = userSnapshot.getValue(user.getClass());
+                    if (u.getEmail().equals(user.getEmail())) {
+                        //Change status
+                        DatabaseReference reference = userSnapshot.getRef();
+                        reference.child(attributePath).setValue(attribute);
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+
+    }
+
+    /*
+    * Used to validate arguments of updateFirebase
+     */
+    private static void validateArguments(String referencePath, String attributePath, Object attribute, User user) {
+        if (!(referencePath.equals("Patients") || referencePath.equals("Doctors")) ||
+                !((attributePath.equals("firstName") && attribute instanceof String) ||
+                        (attributePath.equals("lastName") && attribute instanceof String) ||
+                        (attributePath.equals("email") && attribute instanceof String) ||
+                        (attributePath.equals("password") && attribute instanceof String) ||
+                        (attributePath.equals("phoneNumber") && attribute instanceof Long) ||
+                        (attributePath.equals("address") && attribute instanceof String) ||
+                        (attributePath.equals("registrationStatus") && attribute instanceof Status) ||
+                        (attributePath.equals("appointments") && attribute instanceof Appointment) ||
+                        (attributePath.equals("employee_number") && referencePath.equals("Doctors") && attribute instanceof Long) ||
+                        (attributePath.equals("specialties") && referencePath.equals("Doctors") && attribute instanceof ArrayList) ||
+                        (attributePath.equals("shifts") && referencePath.equals("Doctors") && attribute instanceof ArrayList) ||
+                        (attributePath.equals("autoApprove") && referencePath.equals("Doctors") && attribute instanceof Boolean) ||
+                        (attributePath.equals("healthCardNumber") && referencePath.equals("Patients") && attribute instanceof Long))) {
+            throw new IllegalArgumentException();
+        }
     }
 
 }

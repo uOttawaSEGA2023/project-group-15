@@ -23,7 +23,7 @@ public class Appointment {
     public Doctor getDoctor() { return doctor; }
     public Patient getPatient() { return patient; }
     public Status getStatus() { return status; }
-    public void setStatus(Status status) { this.status = status; }
+    public void updateStatus(Status status) { this.status = status; }
 
     /*
     * Adds appointment to doctor and patient appointment lists and updates Firebase

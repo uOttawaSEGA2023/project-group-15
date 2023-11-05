@@ -28,7 +28,7 @@ public class Doctor extends User {
     public boolean getAutoApprove() { return autoApprove; }
 
     /**SETTERS**/
-    public void setAutoApprove(boolean autoApprove) {
+    public void updateAutoApprove(boolean autoApprove) {
         this.autoApprove = autoApprove;
         updateFirebase("Doctors", "autoApprove", autoApprove, this);
     }

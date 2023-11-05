@@ -118,7 +118,7 @@ public class SignIn extends AppCompatActivity {
                         public void onComplete(Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                if (user != null) {
+                                if (user != null  && user.isEmailVerified()) {
 
                                     /*
                                     Check if the user is an administrator
@@ -193,6 +193,14 @@ public class SignIn extends AppCompatActivity {
                                             signInError.setVisibility(View.VISIBLE);
                                         }
                                     }
+                                }
+                                else {
+                                    /*
+                                    Handle unverified user
+                                    */
+                                    signInError.setText("Your account hasn't been verified\nPlease check your email");
+                                    signInError.setVisibility(View.VISIBLE);
+
                                 }
                             } else {
 

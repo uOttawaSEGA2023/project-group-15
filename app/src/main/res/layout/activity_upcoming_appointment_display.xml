@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UpcomingAppointmentDisplay">
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="251dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="92dp"
+        android:text="Upcoming Appointment"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="229dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="8dp"
+        android:text="Patient Information"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+    <TextView
+        android:id="@+id/patientInformation"
+        android:layout_width="287dp"
+        android:layout_height="249dp"
+        android:text=""
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView10"
+        app:layout_constraintVertical_bias="0.183" />
+
+    <Button
+        android:id="@+id/rejectAppointment"
+        android:layout_width="109dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="80dp"
+        android:onClick="onClickRejectAppointment"
+        android:text="Reject"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/patientInformation" />
+
+    <Button
+        android:id="@+id/acceptAppointment"
+        android:layout_width="109dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="80dp"
+        android:onClick="onClickAcceptAppointment"
+        android:text="Accept"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toStartOf="@+id/rejectAppointment"
+        app:layout_constraintHorizontal_bias="0.707"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/patientInformation" />
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="304dp"
+        android:backgroundTint="#B8B6B6"
+        android:onClick="onClickBackButton"
+        android:text="Back"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

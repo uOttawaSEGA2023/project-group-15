@@ -88,7 +88,7 @@ public class Doctor extends User {
                               listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                               @Override
                                     public void onItemClick(View view, int position) {
-                                            User selectedShift = (User) listView.getItemAtPosition(position);
+                                            User selectedShift = (Shift) listView.getItemAtPosition(position);
 
     In onclickdeleteShiftButton:
     System.out.println("Select shift to delete.");

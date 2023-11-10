@@ -66,6 +66,31 @@ public class Doctor extends User {
         updateFirebase("Doctors", "shifts", shifts, this);
     }
 
+
+    /*
+    *Deletes an existing shift from list
+     */
+    public void deleteShift(Shift shift){
+        this.shifts.remove(shift);
+        updateFirebase("Doctors", "shifts", shifts, this);
+    }
+
+    /*
+    For the Doctor Screen theres a button to view the shift list screen that has a deleteShiftbutton
+    Button deleteShiftButton;
+    (Initialize) In oncreate: deleteShiftButton = (Button) findViewByID(R.id.deleteShiftButton (name of button in xml);
+    In onclickdeleteShiftButton:
+    System.out.println("choose shift to delete");
+
+    System.out.println("Delete the selected shift?");
+    if(yes){
+    deleteShift();
+    }
+    else{
+    startActivity(new Intent(getApplicationContext(),ShiftsList.class));
+    }
+    */
+
     /**CLASS METHODS**/
 
     /*

@@ -39,4 +39,14 @@ public class DoctorScreen extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+    public void onClickUpcomingAppointments(View view) {
+        Intent intent = new Intent(getApplicationContext(), DoctorUpcomingAppointments.class);
+        startActivity(intent);
+    }
+
+    public void onClickPastAppointments(View view) {
+        Intent intent = new Intent(getApplicationContext(), DoctorPastAppointments.class);
+        startActivity(intent);
+    }
 }

@@ -118,7 +118,7 @@ public class SignIn extends AppCompatActivity {
                         public void onComplete(Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                if (user != null) {
+                                if (user != null  && user.isEmailVerified()) {
 
                                     /*
                                     Check if the user is an administrator
@@ -194,6 +194,14 @@ public class SignIn extends AppCompatActivity {
                                         }
                                     }
                                 }
+                                else {
+                                    /*
+                                    Handle unverified user
+                                    */
+                                    signInError.setText("Your account hasn't been verified\nPlease check your email");
+                                    signInError.setVisibility(View.VISIBLE);
+
+                                }
                             } else {
 
                                 /*
@@ -219,14 +227,14 @@ public class SignIn extends AppCompatActivity {
     /*
     Check if the registration status is "Approved"
      */
-    private boolean isApproved(User.RegistrationStatus status) {
-        return status == User.RegistrationStatus.APPROVED;
+    private boolean isApproved(Status status) {
+        return status == Status.APPROVED;
     }
 
     /*
     Check if the registration status is "Rejected"
     */
-    private boolean isRejected(User.RegistrationStatus status) {
-        return status == User.RegistrationStatus.REJECTED;
+    private boolean isRejected(Status status) {
+        return status == Status.REJECTED;
     }
 }

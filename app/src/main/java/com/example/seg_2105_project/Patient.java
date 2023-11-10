@@ -1,10 +1,6 @@
 package com.example.seg_2105_project;
 
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -18,8 +14,46 @@ public class Patient extends User {
         this.healthCardNumber = healthCardNumber;
     }
 
+    /**GETTERS**/
+
     public long getHealthCardNumber() {
         return healthCardNumber;
+    }
+
+    /**SETTERS**/
+
+    /*
+    * Acts as a setter and changes the registration status in Firebase
+     */
+    public void updateRegistrationStatus(Status registrationStatus) {
+        super.updateRegistrationStatus(registrationStatus);
+        updateFirebase("Patients", "registrationStatus", registrationStatus, this);
+    }
+
+    /**OTHER METHODS**/
+
+    /*
+    Displays all the information of this patient
+     */
+    @Override
+    public String display() {
+        return super.display() +
+                "\nHealth Card Number: " + healthCardNumber;
+    }
+
+    /**CLASS METHODS**/
+
+    /*
+    Reads through the database for patients and return Patient object if found
+     */
+    public static Patient getPatient(String email, String password, DataSnapshot dataSnapshot) {
+        for (DataSnapshot patientSnapshot : dataSnapshot.getChildren()) {
+            Patient patient = patientSnapshot.getValue(Patient.class);
+            if (patient.getEmail().equals(email) && patient.getPassword().equals(password)) {
+                return patient;
+            }
+        }
+        return null;
     }
 
     /*
@@ -27,9 +61,9 @@ public class Patient extends User {
     @param  status                      Registration status of patients
     @param  dataSnapshot                DataSnapshot of patient information in firebase
     @return                             An ArrayList of patients
-    @throws IllegalArguementException   if dataSnapshot is null or doesn't contain a snapshot for the patients
+    @throws IllegalArgumentException   if dataSnapshot is null or doesn't contain a snapshot for the patients
      */
-    public static ArrayList<User> getPatients(RegistrationStatus status, DataSnapshot dataSnapshot) {
+    public static ArrayList<User> getPatients(Status status, DataSnapshot dataSnapshot) {
 
         ArrayList<User> patients = new ArrayList<User>();
 
@@ -48,59 +82,6 @@ public class Patient extends User {
         }
         return patients;
 
-    }
-
-    /*
-    * Acts as a setter and changes the registration status in Firebase
-     */
-    public void updateRegistrationStatus(User.RegistrationStatus registrationStatus) {
-        super.updateRegistrationStatus(registrationStatus);
-
-        //Get firebase reference
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference ref = firebaseDatabase.getReference("Patients");
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                //Search through patients
-                for (DataSnapshot patient : dataSnapshot.getChildren()) {
-                    Patient p = patient.getValue(Patient.class);
-                    if (p.getEmail().equals(getEmail())) {
-                        //Change status
-                        DatabaseReference reference = patient.getRef();
-                        reference.child("registrationStatus").setValue(registrationStatus);
-
-                    }
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        });
-
-    }
-    /*
-    Reads through the database for patients and return Patient object if found
-     */
-    public static Patient getPatient(String email, String password, DataSnapshot dataSnapshot) {
-        for (DataSnapshot patientSnapshot : dataSnapshot.getChildren()) {
-            Patient patient = patientSnapshot.getValue(Patient.class);
-            if (patient.getEmail().equals(email) && patient.getPassword().equals(password)) {
-                return patient;
-            }
-        }
-        return null;
-    }
-
-    /*
-    Displays all the information of this patient
-     */
-    @Override
-    public String display() {
-        return super.display() +
-                "\nHealth Card Number: " + healthCardNumber;
     }
 
 }

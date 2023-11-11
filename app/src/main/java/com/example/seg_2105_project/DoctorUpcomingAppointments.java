@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class DoctorUpcomingAppointments extends AppCompatActivity {
     ArrayList<Appointment> appointments = new ArrayList<>();
@@ -30,10 +31,12 @@ public class DoctorUpcomingAppointments extends AppCompatActivity {
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         DatabaseReference doctorRef = db.getReference("Doctors");
 
+        //retrieve data for doctors
         doctorRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                appointments.addAll(User.getAppointment(Status.PENDING, snapshot));
+                Date currentDate = new Date();
+                appointments.addAll(User.getSpecificAppointments(snapshot, false, currentDate));
                 loadListView();
             }
 
@@ -49,14 +52,16 @@ public class DoctorUpcomingAppointments extends AppCompatActivity {
                 Appointment selectedAppointment = (Appointment) listView.getItemAtPosition(position);
 
                 Intent intent = new Intent(getApplicationContext(), UpcomingAppointmentDisplay.class);
-                intent.putExtra("Appointment", (CharSequence) selectedAppointment);
+                intent.putExtra("Appointment", selectedAppointment);
                 startActivity(intent);
             }
         });
 
 
     }
-
+    /**
+     * Adds all the upcoming appointments to listview layout
+     */
     private void loadListView() {
         ListView listView = findViewById(R.id.listViewUpcomingAppointments);
         ArrayAdapter<Appointment> arrayAdapterDoctor = new ArrayAdapter<Appointment>(getApplicationContext(),

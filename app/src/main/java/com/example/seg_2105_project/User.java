@@ -67,51 +67,6 @@ public class User implements Serializable {
         return appointments;
     }
 
-    /*
-     * Gives a list of appointments that are either past or upcoming
-     * @param  dataSnapshot                DataSnapshot of doctor information in firebase
-     * @param  passed                      boolean to indicate if it is a passed appointment or not
-     * @param  currentDate                 Current Date
-     * @return                             An ArrayList of appointments
-     * @throws IllegalArgumentException   if dataSnapshot is null or doesn't contain a snapshot for the doctors
-     */
-    public static ArrayList<Appointment> getSpecificAppointments(DataSnapshot dataSnapshot, boolean passed, Date currentDate) {
-        ArrayList<Appointment> specificAppointments = new ArrayList<>();
-
-        // Make sure dataSnapshot isn't null and contains the Doctor path
-        if (dataSnapshot.exists() && dataSnapshot.getRef().getKey().equals("Doctors")) {
-            for (DataSnapshot doctor : dataSnapshot.getChildren()) {
-                User d = doctor.getValue(Doctor.class);
-
-                // Check if d is not null and has appointments
-                if (d != null && d.getAppointments() != null) {
-                    ArrayList<Appointment> doctorAppointments = d.getAppointments();
-
-                    for (Appointment appointment : doctorAppointments) {
-                        // add upcoming appointments
-                        if (!passed) {
-                            // make sure appointment status is either pending or approved and the appointments time is greater than current time
-                            if ((appointment.getStatus() == Status.PENDING || appointment.getStatus() == Status.APPROVED) && currentDate.before(appointment.getDate())) {
-                                specificAppointments.add(appointment);
-                            }
-                        }
-                        // add past appointments
-                        else {
-                            // make sure appointment status is approved and the appointment time is less than current time
-                            if (appointment.getStatus() == Status.APPROVED && currentDate.after(appointment.getDate())) {
-                                specificAppointments.add(appointment);
-                            }
-                        }
-                    }
-                }
-            }
-        } else {
-            throw new IllegalArgumentException("dataSnapshot should not be null and should be from the Doctor path");
-        }
-
-        return specificAppointments;
-    }
-
 
     /**SETTERS**/
 

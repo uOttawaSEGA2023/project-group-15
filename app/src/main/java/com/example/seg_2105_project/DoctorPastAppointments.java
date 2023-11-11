@@ -37,7 +37,7 @@ public class DoctorPastAppointments extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Date currentDate = new Date();
-                appointments.addAll(User.getSpecificAppointments(snapshot, true, currentDate));
+                appointments.addAll(Doctor.getDoctorAppointments(snapshot, true, currentDate));
                 loadListView();
             }
 

@@ -61,7 +61,31 @@ public class User implements Serializable {
         return address;
     }
     public Status getRegistrationStatus() { return registrationStatus; }
-    public ArrayList<Appointment> getAppointments() { return appointments; }
+
+    public ArrayList<Appointment>  getAppointments() {
+        return appointments;
+    }
+    public static ArrayList<Appointment> getAppointment(Status status, DataSnapshot dataSnapshot) {
+        ArrayList<Appointment> pendingAppointments = new ArrayList<>();
+
+        //Make sure dataSnapshot isn't null and contains the Doctor path
+        if (dataSnapshot.exists() && dataSnapshot.getRef().getKey().equals("Doctors")) {
+            for (DataSnapshot doctor : dataSnapshot.getChildren()) {
+                User d = doctor.getValue(Doctor.class);
+                //Check appointment status and add it to list if it matches
+                ArrayList<Appointment> doctorAppointments = d.getAppointments();
+                for (Appointment appointment : doctorAppointments) {
+                    if(appointment.getStatus() == status) {
+                        pendingAppointments.add(appointment);
+                    }
+                }
+            }
+        }
+        else {
+            throw new IllegalArgumentException("dataSnapshot should not be null and should be from the Doctor path");
+        }
+        return pendingAppointments;
+    }
 
     /**SETTERS**/
 

@@ -23,15 +23,14 @@ public class UpcomingAppointmentDisplay extends AppCompatActivity {
     }
 
     public void onClickAcceptAppointment(View view){
-        //appointment is accepted -> add shift?
+        selectedAppt.updateStatus(Status.APPROVED);
 
         //go back to upcoming appointments list
         startActivity(new Intent(this, DoctorUpcomingAppointments.class));
     }
 
     public void onClickRejectAppointment(View view){
-        //appointment rejected -> idk the protocol
-
+        selectedAppt.updateStatus(Status.REJECTED);
 
         //go back to upcoming appointments list
         startActivity(new Intent(this, DoctorUpcomingAppointments.class));

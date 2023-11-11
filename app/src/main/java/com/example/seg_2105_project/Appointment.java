@@ -1,8 +1,9 @@
 package com.example.seg_2105_project;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Appointment {
+public class Appointment implements Serializable {
 
     private Date date;
     private Time time;
@@ -23,7 +24,11 @@ public class Appointment {
     public Doctor getDoctor() { return doctor; }
     public Patient getPatient() { return patient; }
     public Status getStatus() { return status; }
-    public void updateStatus(Status status) { this.status = status; }
+    public void updateStatus(Status status) {
+        this.status = status;
+        User.updateFirebase("Doctors", "appointments", doctor.getAppointments(), doctor);
+        User.updateFirebase("Patients", "appointments", patient.getAppointments(), patient);
+    }
 
     /*
     * Adds appointment to doctor and patient appointment lists and updates Firebase

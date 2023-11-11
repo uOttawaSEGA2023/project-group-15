@@ -8,6 +8,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class User implements Serializable {
 
@@ -61,7 +62,11 @@ public class User implements Serializable {
         return address;
     }
     public Status getRegistrationStatus() { return registrationStatus; }
-    public ArrayList<Appointment> getAppointments() { return appointments; }
+
+    public ArrayList<Appointment>  getAppointments() {
+        return appointments;
+    }
+
 
     /**SETTERS**/
 

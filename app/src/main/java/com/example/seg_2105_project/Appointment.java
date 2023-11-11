@@ -1,8 +1,9 @@
 package com.example.seg_2105_project;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Appointment {
+public class Appointment implements Serializable {
 
     private Date date;
     private Time time;

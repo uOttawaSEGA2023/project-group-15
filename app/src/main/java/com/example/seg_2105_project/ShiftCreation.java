@@ -47,6 +47,11 @@ public class ShiftCreation extends AppCompatActivity {
         timeStart = findViewById(R.id.timeStartInput);
         timeEnd = findViewById(R.id.timeEndInput);
 
+        // Initialize
+        yearCalendar = currentTime.get(Calendar.YEAR);
+        monthCalendar = currentTime.get(Calendar.MONTH);
+        dayCalendar = currentTime.get(Calendar.DAY_OF_MONTH);
+
 
         //Get doctor
         Intent intent = getIntent();

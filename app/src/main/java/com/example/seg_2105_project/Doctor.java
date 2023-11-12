@@ -11,7 +11,7 @@ import java.util.Date;
 public class Doctor extends User {
     private int employee_number;
     private ArrayList<String> specialties;
-    private ArrayList<Calendar> shifts;
+    private ArrayList<Shift> shifts;
     private boolean autoApprove;
 
     public Doctor() {}
@@ -26,7 +26,7 @@ public class Doctor extends User {
     /**GETTERS**/
     public int get_employee_number() { return employee_number; }
     public ArrayList<String> get_specialties() { return specialties; }
-    public ArrayList<Calendar> getShifts() { return shifts; }
+    public ArrayList<Shift> getShifts() { return shifts; }
     public boolean getAutoApprove() { return autoApprove; }
 
     /**SETTERS**/
@@ -63,7 +63,7 @@ public class Doctor extends User {
     /*
     * Adds shift to list
      */
-    public void addShift(Calendar shift) {
+    public void addShift(Shift shift) {
         this.shifts.add(shift);
         updateFirebase("Doctors", "shifts", shifts, this);
     }

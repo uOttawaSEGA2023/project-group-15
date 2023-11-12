@@ -43,7 +43,9 @@ public class Appointment implements Serializable {
     }
 
     public String toString() {
-        return "Name: " + patient.getFirstName() + " " + patient.getLastName() + "      Date: ";
+        String date = dateTime.get(Calendar.DAY_OF_MONTH) + "/" + dateTime.get(Calendar.MONTH) + "/" + dateTime.get(Calendar.YEAR);
+        String time = dateTime.get(Calendar.HOUR) + ":" + dateTime.get(Calendar.MINUTE);
+        return "Name: " + patient.getFirstName() + " " + patient.getLastName() + "      Date: " + date + " at " + time;
     }
 
 }

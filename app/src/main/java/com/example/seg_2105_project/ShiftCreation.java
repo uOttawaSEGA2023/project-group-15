@@ -135,16 +135,44 @@ public class ShiftCreation extends AppCompatActivity {
                     Toast.makeText(ShiftCreation.this, "Please select a different time", Toast.LENGTH_SHORT).show();
                 } else {
                     // add shift
-                    //doctor.addShift(calendar);
+                    Calendar shiftStart = Calendar.getInstance();
+                    Calendar shiftEnd = Calendar.getInstance();
+                    shiftStart.setTimeInMillis(calendar.getTimeInMillis());
+                    shiftEnd.setTimeInMillis(calendar.getTimeInMillis());
+                    shiftStart.set(Calendar.HOUR_OF_DAY, hoursStart);
+                    shiftStart.set(Calendar.MINUTE, minutesStart);
+                    shiftEnd.set(Calendar.HOUR_OF_DAY, hoursEnd);
+                    shiftEnd.set(Calendar.MINUTE, minutesEnd);
+                    Shift shiftToAdd = new Shift(shiftStart, shiftEnd);
+                    doctor.addShift(shiftToAdd);
+
 
                 }
             } else {
                 // add shift
-                //doctor.addShift(calendar);
+                Calendar shiftStart = Calendar.getInstance();
+                Calendar shiftEnd = Calendar.getInstance();
+                shiftStart.setTimeInMillis(calendar.getTimeInMillis());
+                shiftEnd.setTimeInMillis(calendar.getTimeInMillis());
+                shiftStart.set(Calendar.HOUR_OF_DAY, hoursStart);
+                shiftStart.set(Calendar.MINUTE, minutesStart);
+                shiftEnd.set(Calendar.HOUR_OF_DAY, hoursEnd);
+                shiftEnd.set(Calendar.MINUTE, minutesEnd);
+                Shift shiftToAdd = new Shift(shiftStart, shiftEnd);
+                doctor.addShift(shiftToAdd);
             }
         } else {
             // add shift
-            //doctor.addShift(calendar);
+            Calendar shiftStart = Calendar.getInstance();
+            Calendar shiftEnd = Calendar.getInstance();
+            shiftStart.setTimeInMillis(calendar.getTimeInMillis());
+            shiftEnd.setTimeInMillis(calendar.getTimeInMillis());
+            shiftStart.set(Calendar.HOUR_OF_DAY, hoursStart);
+            shiftStart.set(Calendar.MINUTE, minutesStart);
+            shiftEnd.set(Calendar.HOUR_OF_DAY, hoursEnd);
+            shiftEnd.set(Calendar.MINUTE, minutesEnd);
+            Shift shiftToAdd = new Shift(shiftStart, shiftEnd);
+            doctor.addShift(shiftToAdd);
         }
     }
 

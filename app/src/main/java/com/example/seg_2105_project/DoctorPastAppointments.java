@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class DoctorPastAppointments extends AppCompatActivity {
@@ -36,8 +37,7 @@ public class DoctorPastAppointments extends AppCompatActivity {
         doctorRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Date currentDate = new Date();
-                appointments.addAll(Doctor.getDoctorAppointments(snapshot, true, currentDate));
+                appointments.addAll(Doctor.getDoctorAppointments(snapshot, true, Calendar.getInstance()));
                 loadListView();
             }
 

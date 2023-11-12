@@ -5,22 +5,19 @@ import java.util.*;
 
 public class Appointment implements Serializable {
 
-    private Date date;
-    private Time time;
+    private Calendar dateTime;
     private Doctor doctor;
     private Patient patient;
     private Status status;
 
-    public Appointment(Date date, Time time, Doctor doctor, Patient patient) {
-        this.date = date;
-        this.time = time;
+    public Appointment(Calendar dateTime, Doctor doctor, Patient patient) {
+        this.dateTime = dateTime;
         this.doctor = doctor;
         this.patient = patient;
         this.status = Status.PENDING;
     }
 
-    public Date getDate() { return date; }
-    public Time getTime() { return time;}
+    public Calendar getDateTime() { return dateTime; }
     public Doctor getDoctor() { return doctor; }
     public Patient getPatient() { return patient; }
     public Status getStatus() { return status; }
@@ -43,6 +40,10 @@ public class Appointment implements Serializable {
         User.updateFirebase("Doctors", "appointments", doctor.getAppointments(), doctor);
         User.updateFirebase("Patients", "appointments", patient.getAppointments(), patient);
 
+    }
+
+    public String toString() {
+        return "Name: " + patient.getFirstName() + " " + patient.getLastName() + "      Date: ";
     }
 
 }

@@ -5,12 +5,13 @@ import androidx.annotation.NonNull;
 import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Doctor extends User {
     private int employee_number;
     private ArrayList<String> specialties;
-    private ArrayList<Shift> shifts;
+    private ArrayList<Calendar> shifts;
     private boolean autoApprove;
 
     public Doctor() {}
@@ -25,7 +26,7 @@ public class Doctor extends User {
     /**GETTERS**/
     public int get_employee_number() { return employee_number; }
     public ArrayList<String> get_specialties() { return specialties; }
-    public ArrayList<Shift> getShifts() { return shifts; }
+    public ArrayList<Calendar> getShifts() { return shifts; }
     public boolean getAutoApprove() { return autoApprove; }
 
     /**SETTERS**/
@@ -62,7 +63,7 @@ public class Doctor extends User {
     /*
     * Adds shift to list
      */
-    public void addShift(Shift shift) {
+    public void addShift(Calendar shift) {
         this.shifts.add(shift);
         updateFirebase("Doctors", "shifts", shifts, this);
     }
@@ -118,7 +119,7 @@ public class Doctor extends User {
      * @return                             An ArrayList of appointments
      * @throws IllegalArgumentException   if dataSnapshot is null or doesn't contain a snapshot for the doctors
      */
-    public static ArrayList<Appointment> getDoctorAppointments(DataSnapshot dataSnapshot, boolean passed, Date currentDate) {
+    public static ArrayList<Appointment> getDoctorAppointments(DataSnapshot dataSnapshot, boolean passed, Calendar currentDate) {
         ArrayList<Appointment> specificAppointments = new ArrayList<>();
 
         // Make sure dataSnapshot isn't null and contains the Doctor path
@@ -134,14 +135,14 @@ public class Doctor extends User {
                         // add upcoming appointments
                         if (!passed) {
                             // make sure appointment status is either pending or approved and the appointments time is greater than current time
-                            if ((appointment.getStatus() == Status.PENDING || appointment.getStatus() == Status.APPROVED) && currentDate.before(appointment.getDate())) {
+                            if ((appointment.getStatus() == Status.PENDING || appointment.getStatus() == Status.APPROVED) && currentDate.before(appointment.getDateTime())) {
                                 specificAppointments.add(appointment);
                             }
                         }
                         // add past appointments
                         else {
                             // make sure appointment status is approved and the appointment time is less than current time
-                            if (appointment.getStatus() == Status.APPROVED && currentDate.after(appointment.getDate())) {
+                            if (appointment.getStatus() == Status.APPROVED && currentDate.after(appointment.getDateTime())) {
                                 specificAppointments.add(appointment);
                             }
                         }

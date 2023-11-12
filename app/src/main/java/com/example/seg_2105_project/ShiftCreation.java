@@ -45,11 +45,6 @@ public class ShiftCreation extends AppCompatActivity {
         timeStart = findViewById(R.id.timeStartInput);
         timeEnd = findViewById(R.id.timeEndInput);
 
-        /*Calendar calendar2 = Calendar.getInstance();
-        calendar2.set(Calendar.HOUR_OF_DAY, 0);
-        Toast.makeText(this, " " +calendar2.get(Calendar.HOUR_OF_DAY) + "", Toast.LENGTH_SHORT).show();
-        */
-
 
         //Get doctor
         Intent intent = getIntent();

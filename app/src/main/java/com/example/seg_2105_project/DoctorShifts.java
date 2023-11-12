@@ -89,7 +89,6 @@ public class DoctorShifts extends AppCompatActivity {
                     for (DataSnapshot shiftSnapshot : dataSnapshot.getChildren()) {
                         Shift shift = shiftSnapshot.getValue(Shift.class);
                         if (shift != null) {
-                            // Assuming Shift class has a proper toString() method
                             shiftsList.add(shift.toString());
                         }
                     }

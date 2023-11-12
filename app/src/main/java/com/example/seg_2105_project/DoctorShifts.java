@@ -2,6 +2,7 @@ package com.example.seg_2105_project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.widget.Switch;
 import android.widget.TextView;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,9 +26,14 @@ public class DoctorShifts extends AppCompatActivity {
 
     private ListView listViewShifts;
     private Button buttonDeleteShift;
+    private Button buttonYesDeleteShift;
+    private Button buttonNoDeleteShift;
     private Button buttonAddShift;
     private ArrayAdapter<String> adapter;
     private ArrayList<String> shiftsList = new ArrayList<>();
+
+    public DoctorShifts() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +43,8 @@ public class DoctorShifts extends AppCompatActivity {
         // Initialize UI elements
         listViewShifts = findViewById(R.id.listViewShifts);
         buttonDeleteShift = findViewById(R.id.buttonDeleteShift);
+        buttonYesDeleteShift = findViewById(R.id.);
+        buttonNoDeleteShift = findViewById(R.id.);
         buttonAddShift = findViewById(R.id.buttonAddShift);
 
         // Initialize shifts list
@@ -60,43 +68,9 @@ public class DoctorShifts extends AppCompatActivity {
                 Shift selectedShift = (Shift) listViewShifts.getItemAtPosition(position);
             }
         });
-                    /*
-    For the Doctor Screen theres a button to view the shift list screen that has a deleteShiftbutton
-    Button yesDeleteShiftButton;
-    Button noDeleteShiftButton;
-    (Initialize) In oncreate:
-                              yesDeleteShiftButton = (Button) findViewByID(R.id.yesDeleteShiftButton (name of button in xml));
-                              noDeleteShiftButton = (Button) findViewByID(R.id.noDeleteShiftButton (name of button in xml));
 
-                              ListView listView = findViewById(R.id.listViewShifts);
-                              listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                              @Override
-                                    public void onItemClick(View view, int position) {
-                                            User selectedShift = (Shift) listView.getItemAtPosition(position);
 
-    In onclickdeleteShiftButton:
-    System.out.println("Select shift to delete.");
-    onItemClick();
-    System.out.println("Delete the selected shift?");
-    if(onclickyesDeleteShiftButton){
-            deleteShift(selectedShift);
-            TextView text = findViewById(R.id.textViewSelectShiftToDelete);
-            text.setVisibility(view.Invisible);
-    }
-    else{
-            startActivity(new Intent(getApplicationContext(),ShiftsList.class));
-            TextView text = findViewById(R.id.textViewSelectShiftToDelete);
-            text.setVisibility(view.Invisible);
-    }
-
-    create a switch
-    Switch autoApproveSwitch;
-    autoApproveSwitch = (Switch) findViewByID(R.id.autoApproveSwitch (name in xml));
-    onclickautoApproveSwitch
-    autoApprove = true;
-    */
-
-        public void onClickDButtonDeleteShift(){
+        public void onClickDButtonDeleteShift(View view){
             TextView text = findViewById(R.id.); //ask user if to select the shift to be deleted
             text.setVisibility(view.Visible);
             onItemClick();
@@ -113,6 +87,8 @@ public class DoctorShifts extends AppCompatActivity {
 
 
         }
+
+
 
         buttonDeleteShift.setOnClickListener(new View.OnClickListener() {
             @Override

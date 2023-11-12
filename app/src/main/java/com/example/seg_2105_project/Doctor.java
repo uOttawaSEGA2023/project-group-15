@@ -64,8 +64,15 @@ public class Doctor extends User {
     * Adds shift to list
      */
     public void addShift(Shift shift) {
-        this.shifts.add(shift);
+        if (shifts == null) {
+            this.shifts = new ArrayList<Shift>();
+            this.shifts.add(shift);
+        }
+        else {
+            this.shifts.add(shift);
+        }
         updateFirebase("Doctors", "shifts", shifts, this);
+
     }
 
     /**CLASS METHODS**/

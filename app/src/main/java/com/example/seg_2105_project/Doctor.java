@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Doctor extends User {
@@ -164,7 +165,7 @@ public class Doctor extends User {
      * @return                             An ArrayList of appointments
      * @throws IllegalArgumentException   if dataSnapshot is null or doesn't contain a snapshot for the doctors
      */
-    public static ArrayList<Appointment> getDoctorAppointments(DataSnapshot dataSnapshot, boolean passed, Date currentDate) {
+    public static ArrayList<Appointment> getDoctorAppointments(DataSnapshot dataSnapshot, boolean passed, Calendar currentDate) {
         ArrayList<Appointment> specificAppointments = new ArrayList<>();
 
         // Make sure dataSnapshot isn't null and contains the Doctor path
@@ -180,14 +181,14 @@ public class Doctor extends User {
                         // add upcoming appointments
                         if (!passed) {
                             // make sure appointment status is either pending or approved and the appointments time is greater than current time
-                            if ((appointment.getStatus() == Status.PENDING || appointment.getStatus() == Status.APPROVED) && currentDate.before(appointment.getDate())) {
+                            if ((appointment.getStatus() == Status.PENDING || appointment.getStatus() == Status.APPROVED) && currentDate.before(appointment.getDateTime())) {
                                 specificAppointments.add(appointment);
                             }
                         }
                         // add past appointments
                         else {
                             // make sure appointment status is approved and the appointment time is less than current time
-                            if (appointment.getStatus() == Status.APPROVED && currentDate.after(appointment.getDate())) {
+                            if (appointment.getStatus() == Status.APPROVED && currentDate.after(appointment.getDateTime())) {
                                 specificAppointments.add(appointment);
                             }
                         }

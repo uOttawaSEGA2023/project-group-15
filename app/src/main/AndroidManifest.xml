@@ -17,6 +17,10 @@
         android:theme="@style/Theme.SEG_2105_Project"
         tools:targetApi="31">
         <activity
+            android:name=".DoctorShifts"
+            android:exported="false">
+        </activity>
+        <activity
             android:name=".ShiftCreation"
             android:exported="false" />
         <activity

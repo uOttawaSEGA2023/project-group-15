@@ -11,6 +11,7 @@ public class WelcomeScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_screen);
+        //startActivity(new Intent(getApplicationContext(),ShiftCreation.class));
     }
 
     //method to direct user to the Sign In page

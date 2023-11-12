@@ -120,6 +120,7 @@ public class ShiftCreation extends AppCompatActivity {
             validShift = false;
         }
 
+        // If the day chosen is the current day, ensure that the shift time is after the current time
         if ((calendar.get(Calendar.YEAR) == currentTime.get(Calendar.YEAR)) && (calendar.get(Calendar.MONTH) == currentTime.get(Calendar.MONTH))
                 && (calendar.get(Calendar.DAY_OF_MONTH) == currentTime.get(Calendar.DAY_OF_MONTH))) {
             if (hoursStart < calendar.get(Calendar.HOUR_OF_DAY) || (hoursStart == calendar.get(Calendar.HOUR_OF_DAY) &&

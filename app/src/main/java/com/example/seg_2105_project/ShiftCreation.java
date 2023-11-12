@@ -59,19 +59,15 @@ public class ShiftCreation extends AppCompatActivity {
 
         //Load times to time inputs
         ArrayList<String> times = new ArrayList<>();
-        for (int i = 0; i <= 12; i ++) {
-            for (int j = 0; j <= 55; j += 5) {
-                if (j == 0 || j == 5)
-                    times.add(i + ":0" + j);
-                else
-                    times.add(i + ":" + j);
-            }
+        for (int i = 0; i <= 23; i ++) {
+            times.add(i + ":00");
+            times.add(i + ":30");
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
                 android.R.layout.simple_spinner_dropdown_item, times);
         timeStart.setAdapter(adapter);
         timeEnd.setAdapter(adapter);
-
+        
     }
 
     // Method to initialize calendar to a particular date

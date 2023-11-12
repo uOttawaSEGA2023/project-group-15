@@ -92,16 +92,6 @@ public class ShiftCreation extends AppCompatActivity {
         calendarView.setDate(milliseconds);
     }
 
-    // Method to get date value from calendarView (NOT NECESSARY FOR NOW)
-    /*
-    public void getDate() {
-        long date = calendarView.getDate();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yy", Locale.getDefault());
-        currentTime.setTimeInMillis(date);
-        String selected_date = simpleDateFormat.format(currentTime.getTime());
-        Toast.makeText(this,selected_date, Toast.LENGTH_SHORT).show();
-    }
-    */
 
     public void onClickConfirmDate(View view) {
         long date = calendarView.getDate();

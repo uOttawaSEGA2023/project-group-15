@@ -141,7 +141,8 @@ public class ShiftCreation extends AppCompatActivity {
             Shift shiftToAdd = new Shift(shiftStart, shiftEnd);
             doctor.addShift(shiftToAdd);
 
-            Intent intent = new Intent(getApplicationContext(), DoctorShifts.class);
+            Intent intent = new Intent(getApplicationContext(), DoctorScreen.class);
+            intent.putExtra("Doctor", doctor);
             startActivity(intent);
 
         }

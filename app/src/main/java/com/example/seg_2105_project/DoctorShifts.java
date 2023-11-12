@@ -40,7 +40,6 @@ public class DoctorShifts extends AppCompatActivity {
 
         // Initialize shifts list
         Doctor doctor = (Doctor) getIntent().getSerializableExtra("Doctor");
-
         ArrayList<Shift> shifts = doctor.getShifts();
         if (shifts != null) {
             for(Shift shift : shifts) {
@@ -63,6 +62,7 @@ public class DoctorShifts extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DoctorShifts.this, ShiftCreation.class);
+                intent.putExtra("Doctor", doctor);
                 startActivity(intent);
             }
         });

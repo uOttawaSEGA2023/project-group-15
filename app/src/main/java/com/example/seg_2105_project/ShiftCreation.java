@@ -22,11 +22,12 @@ public class ShiftCreation extends AppCompatActivity {
 
     Calendar calendar;
     CalendarView calendarView;
-    boolean validDate;
     Spinner timeStart;
     Spinner timeEnd;
 
     Button confirmDate;
+
+    Doctor doctor;
 
 
     @Override
@@ -35,25 +36,28 @@ public class ShiftCreation extends AppCompatActivity {
         setContentView(R.layout.activity_shift_creation);
         calendarView = findViewById(R.id.calendarView);
         currentTime = Calendar.getInstance();
+        // Restrict dates to be selected
         calendarView.setMinDate(currentTime.getTimeInMillis());
         confirmDate = findViewById(R.id.confirmDate);
         calendar = Calendar.getInstance();
         timeStart = findViewById(R.id.timeStartInput);
         timeEnd = findViewById(R.id.timeEndInput);
-        validDate = true;
+
+        /*Calendar calendar2 = Calendar.getInstance();
+        calendar2.set(Calendar.HOUR_OF_DAY, 0);
+        Toast.makeText(this, " " +calendar2.get(Calendar.HOUR_OF_DAY) + "", Toast.LENGTH_SHORT).show();
+        */
+
 
         //Get doctor
         Intent intent = getIntent();
         Doctor doctor = (Doctor) getIntent().getSerializableExtra("Doctor");
 
+        setDate(2001, 9, 12);
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
-                // Restrict dates to be selected
-                //validDate = checkValidDate(currentTime, year, month, day);
                 Toast.makeText(ShiftCreation.this, day + "/" + (month + 1) + "/" + year, Toast.LENGTH_SHORT).show();
-
-
             }
         });
 
@@ -94,27 +98,52 @@ public class ShiftCreation extends AppCompatActivity {
     */
 
     public void onClickConfirmDate() {
-        if (validDate) {
-            long date = calendarView.getDate();
-            Calendar calendar2 = Calendar.getInstance();
-           // calendar2.set(Calendar)
-            // restrict calendarView date value to date and not time
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yy", Locale.getDefault());
-            // If the day chosen is the same as the current day, then check if time chosen is valid
-            if (simpleDateFormat.format(date).equals(simpleDateFormat.format(currentTime.getTime()))) {
-                if (true)
-                // if time is valid
-                // addShift()
-                timeStart.getSelectedItem();
+        long date = calendarView.getDate();
+        calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(date);
 
-                // if time is not valid
-                Toast.makeText(ShiftCreation.this, "Please select a different time", Toast.LENGTH_SHORT).show();
+        // Parse start time
+        int hoursStart, minutesStart;
+        String selectedItemStart = (String) timeStart.getSelectedItem();
+        String[] timeValuesStart = selectedItemStart.split(":");
+        hoursStart = Integer.parseInt(timeValuesStart[0]);
+        minutesStart = Integer.parseInt(timeValuesStart[1]);
+
+        // Parse end time
+        int hoursEnd, minutesEnd;
+        String selectedItemEnd = (String) timeEnd.getSelectedItem();
+        String[] timeValuesEnd = selectedItemEnd.split(":");
+        hoursEnd = Integer.parseInt(timeValuesEnd[0]);
+        minutesEnd = Integer.parseInt(timeValuesEnd[1]);
+
+        // Ensure that the end time is after start time
+        if (hoursEnd < hoursStart) {
+            Toast.makeText(ShiftCreation.this, "Please select a different end time", Toast.LENGTH_SHORT).show();
+        } else if (hoursEnd == hoursStart) {
+            if (minutesEnd < minutesStart) {
+                Toast.makeText(ShiftCreation.this, "Please select a different end time", Toast.LENGTH_SHORT).show();
             }
-            // allow any time to be chosen
+        }
+        Toast.makeText(this, "Calendar year: " + calendar.get(Calendar.YEAR), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "currentTime year: " + currentTime.get(Calendar.YEAR), Toast.LENGTH_SHORT).show();
+        if ((calendar.get(Calendar.YEAR) == currentTime.get(Calendar.YEAR)) && (calendar.get(Calendar.MONTH) == currentTime.get(Calendar.MONTH)) && (calendar.get(Calendar.DAY_OF_MONTH) == currentTime.get(Calendar.DAY_OF_MONTH))) {
+            if (hoursStart <= calendar.get(Calendar.HOUR_OF_DAY)) {
+                Toast.makeText(ShiftCreation.this, "Please select a different time", Toast.LENGTH_SHORT).show();
+            } else if (hoursStart == calendar.get(Calendar.HOUR_OF_DAY)) {
+                if (minutesStart < calendar.get(Calendar.MINUTE)) {
+                    Toast.makeText(ShiftCreation.this, "Please select a different time", Toast.LENGTH_SHORT).show();
+                } else {
+                    // add shift
+                    doctor.addShift(calendar);
 
-            //addShift()
+                }
+            } else {
+                // add shift
+                doctor.addShift(calendar);
+            }
         } else {
-            Toast.makeText(ShiftCreation.this, "Please select a different date", Toast.LENGTH_SHORT).show();
+            // add shift
+            doctor.addShift(calendar);
         }
     }
 

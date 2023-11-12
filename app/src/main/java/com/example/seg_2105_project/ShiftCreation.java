@@ -141,6 +141,11 @@ public class ShiftCreation extends AppCompatActivity {
             shiftEnd.set(Calendar.MINUTE, minutesEnd);
             Shift shiftToAdd = new Shift(shiftStart, shiftEnd);
             doctor.addShift(shiftToAdd);
+
+            Intent intent = new Intent(getApplicationContext(), DoctorScreen.class);
+            intent.putExtra("Doctor", doctor);
+            startActivity(intent);
+
         }
 
     }

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -14,6 +15,7 @@ import com.google.firebase.auth.UserInfo;
 public class DoctorScreen extends AppCompatActivity {
 
     TextView welcomeMessage;
+    Doctor doctor;
     String name;///Doctor name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,9 @@ public class DoctorScreen extends AppCompatActivity {
             }
         }
 
+        //Get doctor
+        this.doctor = (Doctor) getIntent().getSerializableExtra("Doctor");
+
         welcomeMessage.setText( "Welcome " + name + "! You are logged in as a doctor ");
 
     }
@@ -42,16 +47,19 @@ public class DoctorScreen extends AppCompatActivity {
 
     public void onClickUpcomingAppointments(View view) {
         Intent intent = new Intent(getApplicationContext(), DoctorUpcomingAppointments.class);
+        intent.putExtra("Doctor", doctor);
         startActivity(intent);
     }
 
     public void onClickPastAppointments(View view) {
         Intent intent = new Intent(getApplicationContext(), DoctorPastAppointments.class);
+        intent.putExtra("Doctor", doctor);
         startActivity(intent);
     }
 
     public void onClickUpcomingShifts(View view) {
         Intent intent = new Intent(getApplicationContext(), DoctorShifts.class);
+        intent.putExtra("Doctor", doctor);
         startActivity(intent);
     }
 }

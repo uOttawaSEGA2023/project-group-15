@@ -145,6 +145,7 @@ public class SignIn extends AppCompatActivity {
                                                 Redirect to DoctorScreen when registration is approved
                                                  */
                                                 Intent intent = new Intent(getApplicationContext(), DoctorScreen.class);
+                                                intent.putExtra("Doctor", doctor);
                                                 startActivity(intent);
                                             } else if (isRejected(doctor.getRegistrationStatus())) {
 
@@ -168,6 +169,7 @@ public class SignIn extends AppCompatActivity {
                                                 Redirect to PatientScreen when registration is approved
                                                  */
                                                 Intent intent = new Intent(getApplicationContext(), PatientScreen.class);
+                                                intent.putExtra("Patient", patient);
                                                 startActivity(intent);
                                             } else if (isRejected(patient.getRegistrationStatus())) {
 

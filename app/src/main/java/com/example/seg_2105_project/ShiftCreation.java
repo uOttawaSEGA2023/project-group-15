@@ -54,8 +54,7 @@ public class ShiftCreation extends AppCompatActivity {
 
 
         //Get doctor
-        Intent intent = getIntent();
-        Doctor doctor = (Doctor) getIntent().getSerializableExtra("Doctor");
+        this.doctor = (Doctor) getIntent().getSerializableExtra("Doctor");
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override

@@ -36,10 +36,6 @@ public class DoctorScreen extends AppCompatActivity {
 
         welcomeMessage.setText( "Welcome " + name + "! You are logged in as a doctor ");
 
-        if (doctor.getShifts() != null) {
-            Toast.makeText(getApplicationContext(), doctor.getShifts().get(0).retrieveStart().toString(), Toast.LENGTH_SHORT).show();
-        }
-
     }
 
     public void onClickSignOutButton(View view) {
@@ -51,11 +47,13 @@ public class DoctorScreen extends AppCompatActivity {
 
     public void onClickUpcomingAppointments(View view) {
         Intent intent = new Intent(getApplicationContext(), DoctorUpcomingAppointments.class);
+        intent.putExtra("Doctor", doctor);
         startActivity(intent);
     }
 
     public void onClickPastAppointments(View view) {
         Intent intent = new Intent(getApplicationContext(), DoctorPastAppointments.class);
+        intent.putExtra("Doctor", doctor);
         startActivity(intent);
     }
 

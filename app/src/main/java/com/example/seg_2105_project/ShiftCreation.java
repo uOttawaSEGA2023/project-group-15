@@ -98,6 +98,7 @@ public class ShiftCreation extends AppCompatActivity {
         long date = calendarView.getDate();
         calendar = Calendar.getInstance();
         calendar.setTimeInMillis(date);
+        boolean validShift = true;
 
         // Parse start time
         int hoursStart, minutesStart;
@@ -114,49 +115,19 @@ public class ShiftCreation extends AppCompatActivity {
         minutesEnd = Integer.parseInt(timeValuesEnd[1]);
 
         // Ensure that the end time is after start time
-        if (hoursEnd < hoursStart) {
+        if ((hoursEnd < hoursStart) || ((hoursEnd == hoursStart) && (minutesEnd < minutesStart))){
             Toast.makeText(ShiftCreation.this, "Please select a different end time", Toast.LENGTH_SHORT).show();
-        } else if (hoursEnd == hoursStart) {
-            if (minutesEnd < minutesStart) {
-                Toast.makeText(ShiftCreation.this, "Please select a different end time", Toast.LENGTH_SHORT).show();
-            }
+            validShift = false;
         }
 
         if ((calendar.get(Calendar.YEAR) == currentTime.get(Calendar.YEAR)) && (calendar.get(Calendar.MONTH) == currentTime.get(Calendar.MONTH)) && (calendar.get(Calendar.DAY_OF_MONTH) == currentTime.get(Calendar.DAY_OF_MONTH))) {
-            if (hoursStart <= calendar.get(Calendar.HOUR_OF_DAY)) {
+            if (hoursStart <= calendar.get(Calendar.HOUR_OF_DAY) || (hoursStart == calendar.get(Calendar.HOUR_OF_DAY) &&
+                    minutesStart < calendar.get(Calendar.MINUTE))) {
                 Toast.makeText(ShiftCreation.this, "Please select a different time", Toast.LENGTH_SHORT).show();
-            } else if (hoursStart == calendar.get(Calendar.HOUR_OF_DAY)) {
-                if (minutesStart < calendar.get(Calendar.MINUTE)) {
-                    Toast.makeText(ShiftCreation.this, "Please select a different time", Toast.LENGTH_SHORT).show();
-                } else {
-                    // add shift
-                    Calendar shiftStart = Calendar.getInstance();
-                    Calendar shiftEnd = Calendar.getInstance();
-                    shiftStart.setTimeInMillis(calendar.getTimeInMillis());
-                    shiftEnd.setTimeInMillis(calendar.getTimeInMillis());
-                    shiftStart.set(Calendar.HOUR_OF_DAY, hoursStart);
-                    shiftStart.set(Calendar.MINUTE, minutesStart);
-                    shiftEnd.set(Calendar.HOUR_OF_DAY, hoursEnd);
-                    shiftEnd.set(Calendar.MINUTE, minutesEnd);
-                    Shift shiftToAdd = new Shift(shiftStart, shiftEnd);
-                    doctor.addShift(shiftToAdd);
-
-
-                }
-            } else {
-                // add shift
-                Calendar shiftStart = Calendar.getInstance();
-                Calendar shiftEnd = Calendar.getInstance();
-                shiftStart.setTimeInMillis(calendar.getTimeInMillis());
-                shiftEnd.setTimeInMillis(calendar.getTimeInMillis());
-                shiftStart.set(Calendar.HOUR_OF_DAY, hoursStart);
-                shiftStart.set(Calendar.MINUTE, minutesStart);
-                shiftEnd.set(Calendar.HOUR_OF_DAY, hoursEnd);
-                shiftEnd.set(Calendar.MINUTE, minutesEnd);
-                Shift shiftToAdd = new Shift(shiftStart, shiftEnd);
-                doctor.addShift(shiftToAdd);
+                validShift = false;
             }
-        } else {
+        }
+        if (validShift) {
             // add shift
             Calendar shiftStart = Calendar.getInstance();
             Calendar shiftEnd = Calendar.getInstance();
@@ -169,6 +140,7 @@ public class ShiftCreation extends AppCompatActivity {
             Shift shiftToAdd = new Shift(shiftStart, shiftEnd);
             doctor.addShift(shiftToAdd);
         }
+
     }
 
 }

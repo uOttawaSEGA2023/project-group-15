@@ -94,7 +94,6 @@ public class ShiftCreation extends AppCompatActivity {
 
 
     public void onClickConfirmDate(View view) {
-        long date = calendarView.getDate();
         calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, yearCalendar);
         calendar.set(Calendar.MONTH, monthCalendar);

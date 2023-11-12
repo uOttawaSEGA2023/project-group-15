@@ -10,6 +10,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -25,7 +27,7 @@ public class DoctorShifts extends AppCompatActivity {
     private Button buttonDeleteShift;
     private Button buttonAddShift;
     private ArrayAdapter<String> adapter;
-    private ArrayList<String> shiftsList;
+    private ArrayList<String> shiftsList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +40,17 @@ public class DoctorShifts extends AppCompatActivity {
         buttonAddShift = findViewById(R.id.buttonAddShift);
 
         // Initialize shifts list
-        shiftsList = new ArrayList<>();
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, shiftsList);
-        listViewShifts.setAdapter(adapter);
+        Doctor doctor = (Doctor) getIntent().getSerializableExtra("Doctor");
+
+        ArrayList<Shift> shifts = doctor.getShifts();
+        if (shifts != null) {
+            for(Shift shift : shifts) {
+                shiftsList.add(shift.toString());
+            }
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, shiftsList);
+            listViewShifts.setAdapter(adapter);
+        }
+
 
         // click listeners
         listViewShifts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -116,12 +126,14 @@ public class DoctorShifts extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DoctorShifts.this, ShiftCreation.class);
+                intent.putExtra("Doctor", doctor);
                 startActivity(intent);
             }
         });
 
         // Fetch shifts from Firebase
-        fetchShiftsFromFirebase();
+        //fetchShiftsFromFirebase();
+
     }
 
     /*
@@ -142,8 +154,10 @@ public class DoctorShifts extends AppCompatActivity {
                     shiftsList.clear();
 
                     for (DataSnapshot shiftSnapshot : dataSnapshot.getChildren()) {
-                        String shift = shiftSnapshot.getValue(String.class);
-                        shiftsList.add(shift);
+                        Shift shift = shiftSnapshot.getValue(Shift.class);
+                        if (shift != null) {
+                            shiftsList.add(shift.toString());
+                        }
                     }
 
                     adapter.notifyDataSetChanged();
@@ -156,4 +170,5 @@ public class DoctorShifts extends AppCompatActivity {
             });
         }
     }
+
 }

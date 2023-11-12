@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
@@ -98,7 +99,7 @@ public class ShiftCreation extends AppCompatActivity {
     }
     */
 
-    public void onClickConfirmDate() {
+    public void onClickConfirmDate(View view) {
         long date = calendarView.getDate();
         calendar = Calendar.getInstance();
         calendar.setTimeInMillis(date);
@@ -135,16 +136,16 @@ public class ShiftCreation extends AppCompatActivity {
                     Toast.makeText(ShiftCreation.this, "Please select a different time", Toast.LENGTH_SHORT).show();
                 } else {
                     // add shift
-                    doctor.addShift(calendar);
+                    //doctor.addShift(calendar);
 
                 }
             } else {
                 // add shift
-                doctor.addShift(calendar);
+                //doctor.addShift(calendar);
             }
         } else {
             // add shift
-            doctor.addShift(calendar);
+            //doctor.addShift(calendar);
         }
     }
 

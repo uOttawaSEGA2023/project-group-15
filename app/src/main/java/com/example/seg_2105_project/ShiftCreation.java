@@ -82,6 +82,7 @@ public class ShiftCreation extends AppCompatActivity {
 
     public void onClickConfirmDate() {
         if (validDate) {
+            // Check if time is valid
             //addShift()
         }
     }

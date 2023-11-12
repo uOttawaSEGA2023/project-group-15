@@ -4,10 +4,10 @@ import java.util.Date;
 
 public class Shift {
 
-    Date date;
+    long date;
     Time time;
 
-    public Shift(Date date, Time time) {
+    public Shift(long date, Time time) {
         this.date = date;
         this.time = time;
     }

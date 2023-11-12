@@ -139,7 +139,6 @@ public class ShiftCreation extends AppCompatActivity {
             shiftEnd.set(Calendar.HOUR_OF_DAY, hoursEnd);
             shiftEnd.set(Calendar.MINUTE, minutesEnd);
             Shift shiftToAdd = new Shift(shiftStart, shiftEnd);
-            Toast.makeText(this, "Minutes: " + shiftToAdd.end.get(Calendar.MINUTE), Toast.LENGTH_SHORT).show();
             doctor.addShift(shiftToAdd);
         }
 

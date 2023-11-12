@@ -87,8 +87,10 @@ public class DoctorShifts extends AppCompatActivity {
                     shiftsList.clear();
 
                     for (DataSnapshot shiftSnapshot : dataSnapshot.getChildren()) {
-                        String shift = shiftSnapshot.getValue(String.class);
-                        shiftsList.add(shift);
+                        Shift shift = shiftSnapshot.getValue(Shift.class);
+                        if (shift != null) {
+                            shiftsList.add(shift.toString());
+                        }
                     }
 
                     adapter.notifyDataSetChanged();
@@ -101,4 +103,5 @@ public class DoctorShifts extends AppCompatActivity {
             });
         }
     }
+
 }

@@ -52,7 +52,6 @@ public class ShiftCreation extends AppCompatActivity {
         Intent intent = getIntent();
         Doctor doctor = (Doctor) getIntent().getSerializableExtra("Doctor");
 
-        setDate(2001, 9, 12);
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {

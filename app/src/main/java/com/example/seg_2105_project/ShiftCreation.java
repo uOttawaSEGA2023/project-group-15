@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.Spinner;
@@ -33,8 +34,9 @@ public class ShiftCreation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shift_creation);
         calendarView = findViewById(R.id.calendarView);
-        confirmDate = findViewById(R.id.confirmDate);
         currentTime = Calendar.getInstance();
+        calendarView.setMinDate(currentTime.getTimeInMillis());
+        confirmDate = findViewById(R.id.confirmDate);
         calendar = Calendar.getInstance();
         timeStart = findViewById(R.id.timeStartInput);
         timeEnd = findViewById(R.id.timeEndInput);
@@ -48,12 +50,8 @@ public class ShiftCreation extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
                 // Restrict dates to be selected
-                validDate = checkValidDate(currentTime, year, month, day);
-                if (!validDate){
-                    Toast.makeText(ShiftCreation.this, "Please select a different date", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(ShiftCreation.this, day + "/" + (month + 1) + "/" + year, Toast.LENGTH_SHORT).show();
-                }
+                //validDate = checkValidDate(currentTime, year, month, day);
+                Toast.makeText(ShiftCreation.this, day + "/" + (month + 1) + "/" + year, Toast.LENGTH_SHORT).show();
 
 
             }
@@ -74,18 +72,6 @@ public class ShiftCreation extends AppCompatActivity {
         timeStart.setAdapter(adapter);
         timeEnd.setAdapter(adapter);
 
-    }
-
-    // Method to check if the selected date from the calendarView is valid (disregarding time)
-    private boolean checkValidDate(Calendar calendar1, int yearToCompare, int monthToCompare, int dayToCompare) {
-        if (calendar1.get(Calendar.YEAR) > yearToCompare) { return false; }
-        else if (calendar1.get(Calendar.YEAR) == yearToCompare) {
-            if (calendar1.get(Calendar.MONTH) > monthToCompare) { return false; }
-            else if (calendar1.get(Calendar.MONTH) == monthToCompare) {
-                if (calendar1.get(Calendar.DAY_OF_MONTH) > dayToCompare) { return false; }
-                else { return true; }
-            } else { return true; }
-        } else { return true; }
     }
 
     // Method to initialize calendar to a particular date
@@ -114,12 +100,16 @@ public class ShiftCreation extends AppCompatActivity {
     public void onClickConfirmDate() {
         if (validDate) {
             long date = calendarView.getDate();
+            Calendar calendar2 = Calendar.getInstance();
+           // calendar2.set(Calendar)
             // restrict calendarView date value to date and not time
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yy", Locale.getDefault());
             // If the day chosen is the same as the current day, then check if time chosen is valid
             if (simpleDateFormat.format(date).equals(simpleDateFormat.format(currentTime.getTime()))) {
+                if (true)
                 // if time is valid
                 // addShift()
+                timeStart.getSelectedItem();
 
                 // if time is not valid
                 Toast.makeText(ShiftCreation.this, "Please select a different time", Toast.LENGTH_SHORT).show();

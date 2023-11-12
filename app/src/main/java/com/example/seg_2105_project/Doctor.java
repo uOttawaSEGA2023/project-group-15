@@ -77,42 +77,7 @@ public class Doctor extends User {
         updateFirebase("Doctors", "shifts", shifts, this);
     }
 
-    /*
-    For the Doctor Screen theres a button to view the shift list screen that has a deleteShiftbutton
-    Button deleteShiftButton;
-    Button yesDeleteShiftButton;
-    Button noDeleteShiftButton;
-    (Initialize) In oncreate: deleteShiftButton = (Button) findViewByID(R.id.deleteShiftButton (name of button in xml));
-                              yesDeleteShiftButton = (Button) findViewByID(R.id.yesDeleteShiftButton (name of button in xml));
-                              noDeleteShiftButton = (Button) findViewByID(R.id.noDeleteShiftButton (name of button in xml));
 
-                              ListView listView = findViewById(R.id.listViewShifts);
-                              listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                              @Override
-                                    public void onItemClick(View view, int position) {
-                                            User selectedShift = (Shift) listView.getItemAtPosition(position);
-
-    In onclickdeleteShiftButton:
-    System.out.println("Select shift to delete.");
-    onItemClick();
-    System.out.println("Delete the selected shift?");
-    if(onclickyesDeleteShiftButton){
-            deleteShift(selectedShift);
-            TextView text = findViewById(R.id.textViewSelectShiftToDelete);
-            text.setVisibility(view.Invisible);
-    }
-    else{
-            startActivity(new Intent(getApplicationContext(),ShiftsList.class));
-            TextView text = findViewById(R.id.textViewSelectShiftToDelete);
-            text.setVisibility(view.Invisible);
-    }
-
-    create a switch
-    Switch autoApproveSwitch;
-    autoApproveSwitch = (Switch) findViewByID(R.id.autoApproveSwitch (name in xml));
-    onclickautoApproveSwitch
-    autoApprove = true;
-    */
 
     /**CLASS METHODS**/
 

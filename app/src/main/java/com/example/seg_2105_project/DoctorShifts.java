@@ -2,6 +2,7 @@ package com.example.seg_2105_project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.widget.TextView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -46,8 +47,62 @@ public class DoctorShifts extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Sedra your code should be going here!!!!!
+                Shift selectedShift = (Shift) listViewShifts.getItemAtPosition(position);
             }
         });
+                    /*
+    For the Doctor Screen theres a button to view the shift list screen that has a deleteShiftbutton
+    Button yesDeleteShiftButton;
+    Button noDeleteShiftButton;
+    (Initialize) In oncreate:
+                              yesDeleteShiftButton = (Button) findViewByID(R.id.yesDeleteShiftButton (name of button in xml));
+                              noDeleteShiftButton = (Button) findViewByID(R.id.noDeleteShiftButton (name of button in xml));
+
+                              ListView listView = findViewById(R.id.listViewShifts);
+                              listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                              @Override
+                                    public void onItemClick(View view, int position) {
+                                            User selectedShift = (Shift) listView.getItemAtPosition(position);
+
+    In onclickdeleteShiftButton:
+    System.out.println("Select shift to delete.");
+    onItemClick();
+    System.out.println("Delete the selected shift?");
+    if(onclickyesDeleteShiftButton){
+            deleteShift(selectedShift);
+            TextView text = findViewById(R.id.textViewSelectShiftToDelete);
+            text.setVisibility(view.Invisible);
+    }
+    else{
+            startActivity(new Intent(getApplicationContext(),ShiftsList.class));
+            TextView text = findViewById(R.id.textViewSelectShiftToDelete);
+            text.setVisibility(view.Invisible);
+    }
+
+    create a switch
+    Switch autoApproveSwitch;
+    autoApproveSwitch = (Switch) findViewByID(R.id.autoApproveSwitch (name in xml));
+    onclickautoApproveSwitch
+    autoApprove = true;
+    */
+
+        public void onClickDButtonDeleteShift(){
+            TextView text = findViewById(R.id.); //ask user if to select the shift to be deleted
+            text.setVisibility(view.Visible);
+            onItemClick();
+            TextView text = findViewById(R.id.); //confirm with user if they want to delete shift
+            if (onClickButtonYes) {
+                selectedShift.deleteshift();
+                text.setVisibility(view.Invisible);
+                text.setVisibility(view.Invisible);
+            }
+
+            else{
+                text.setVisibility(view.Invisible);
+            }
+
+
+        }
 
         buttonDeleteShift.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -31,6 +31,8 @@ public class ShiftCreation extends AppCompatActivity {
 
     Doctor doctor;
 
+    int yearCalendar, monthCalendar, dayCalendar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,9 @@ public class ShiftCreation extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
                 Toast.makeText(ShiftCreation.this, day + "/" + (month + 1) + "/" + year, Toast.LENGTH_SHORT).show();
+                yearCalendar = year;
+                monthCalendar = month;
+                dayCalendar = day;
             }
         });
 
@@ -97,8 +102,11 @@ public class ShiftCreation extends AppCompatActivity {
     public void onClickConfirmDate(View view) {
         long date = calendarView.getDate();
         calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(date);
+        calendar.set(Calendar.YEAR, yearCalendar);
+        calendar.set(Calendar.MONTH, monthCalendar);
+        calendar.set(Calendar.DAY_OF_MONTH, dayCalendar);
         boolean validShift = true;
+
 
         // Parse start time
         int hoursStart, minutesStart;
@@ -122,7 +130,7 @@ public class ShiftCreation extends AppCompatActivity {
 
         if ((calendar.get(Calendar.YEAR) == currentTime.get(Calendar.YEAR)) && (calendar.get(Calendar.MONTH) == currentTime.get(Calendar.MONTH))
                 && (calendar.get(Calendar.DAY_OF_MONTH) == currentTime.get(Calendar.DAY_OF_MONTH))) {
-            if (hoursStart <= calendar.get(Calendar.HOUR_OF_DAY) || (hoursStart == calendar.get(Calendar.HOUR_OF_DAY) &&
+            if (hoursStart < calendar.get(Calendar.HOUR_OF_DAY) || (hoursStart == calendar.get(Calendar.HOUR_OF_DAY) &&
                     minutesStart < calendar.get(Calendar.MINUTE))) {
                 Toast.makeText(ShiftCreation.this, "Please select a different time", Toast.LENGTH_SHORT).show();
                 validShift = false;
@@ -139,6 +147,7 @@ public class ShiftCreation extends AppCompatActivity {
             shiftEnd.set(Calendar.HOUR_OF_DAY, hoursEnd);
             shiftEnd.set(Calendar.MINUTE, minutesEnd);
             Shift shiftToAdd = new Shift(shiftStart, shiftEnd);
+            Toast.makeText(this, "Minutes: " + shiftToAdd.end.get(Calendar.MINUTE), Toast.LENGTH_SHORT).show();
             doctor.addShift(shiftToAdd);
         }
 

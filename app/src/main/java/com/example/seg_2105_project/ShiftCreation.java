@@ -120,7 +120,8 @@ public class ShiftCreation extends AppCompatActivity {
             validShift = false;
         }
 
-        if ((calendar.get(Calendar.YEAR) == currentTime.get(Calendar.YEAR)) && (calendar.get(Calendar.MONTH) == currentTime.get(Calendar.MONTH)) && (calendar.get(Calendar.DAY_OF_MONTH) == currentTime.get(Calendar.DAY_OF_MONTH))) {
+        if ((calendar.get(Calendar.YEAR) == currentTime.get(Calendar.YEAR)) && (calendar.get(Calendar.MONTH) == currentTime.get(Calendar.MONTH))
+                && (calendar.get(Calendar.DAY_OF_MONTH) == currentTime.get(Calendar.DAY_OF_MONTH))) {
             if (hoursStart <= calendar.get(Calendar.HOUR_OF_DAY) || (hoursStart == calendar.get(Calendar.HOUR_OF_DAY) &&
                     minutesStart < calendar.get(Calendar.MINUTE))) {
                 Toast.makeText(ShiftCreation.this, "Please select a different time", Toast.LENGTH_SHORT).show();

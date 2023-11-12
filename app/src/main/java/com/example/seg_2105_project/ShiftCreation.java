@@ -126,8 +126,7 @@ public class ShiftCreation extends AppCompatActivity {
                 Toast.makeText(ShiftCreation.this, "Please select a different end time", Toast.LENGTH_SHORT).show();
             }
         }
-        Toast.makeText(this, "Calendar year: " + calendar.get(Calendar.YEAR), Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, "currentTime year: " + currentTime.get(Calendar.YEAR), Toast.LENGTH_SHORT).show();
+
         if ((calendar.get(Calendar.YEAR) == currentTime.get(Calendar.YEAR)) && (calendar.get(Calendar.MONTH) == currentTime.get(Calendar.MONTH)) && (calendar.get(Calendar.DAY_OF_MONTH) == currentTime.get(Calendar.DAY_OF_MONTH))) {
             if (hoursStart <= calendar.get(Calendar.HOUR_OF_DAY)) {
                 Toast.makeText(ShiftCreation.this, "Please select a different time", Toast.LENGTH_SHORT).show();

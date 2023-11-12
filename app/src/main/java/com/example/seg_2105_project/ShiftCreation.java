@@ -3,23 +3,26 @@ package com.example.seg_2105_project;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 public class ShiftCreation extends AppCompatActivity {
 
     Calendar currentTime;
     Calendar calendar;
-
     CalendarView calendarView;
-
     boolean validDate;
+    Spinner timeStart;
+    Spinner timeEnd;
 
 
     @Override
@@ -29,8 +32,13 @@ public class ShiftCreation extends AppCompatActivity {
         calendarView = findViewById(R.id.calendarView);
         currentTime = Calendar.getInstance();
         calendar = Calendar.getInstance();
+        timeStart = findViewById(R.id.timeStartInput);
+        timeEnd = findViewById(R.id.timeEndInput);
         validDate = true;
 
+        //Get doctor
+        Intent intent = getIntent();
+        Doctor doctor = (Doctor) getIntent().getSerializableExtra("Doctor");
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -46,6 +54,22 @@ public class ShiftCreation extends AppCompatActivity {
 
             }
         });
+
+        //Load times to time inputs
+        ArrayList<String> times = new ArrayList<>();
+        for (int i = 0; i <= 12; i ++) {
+            for (int j = 0; j <= 55; j += 5) {
+                if (j == 0 || j == 5)
+                    times.add(i + ":0" + j);
+                else
+                    times.add(i + ":" + j);
+            }
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
+                android.R.layout.simple_spinner_dropdown_item, times);
+        timeStart.setAdapter(adapter);
+        timeEnd.setAdapter(adapter);
+
     }
 
     // Method to check if the selected date from the calendarView is value (disregarding time)

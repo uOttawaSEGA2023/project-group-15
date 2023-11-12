@@ -1,15 +1,24 @@
 package com.example.seg_2105_project;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
-public class Shift {
+public class Shift implements Serializable {
 
-    Calendar start;
-    Calendar end;
+    private Calendar start;
+    private Calendar end;
+    int year;
 
     public Shift(Calendar start, Calendar end) {
         this.start = start;
         this.end = end;
+        year = start.get(Calendar.YEAR);
+    }
+
+    public Shift() {}
+
+    public int getYear() {
+        return year;
     }
 
     public String toString() {

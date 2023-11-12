@@ -26,7 +26,7 @@ public class DoctorShifts extends AppCompatActivity {
     private Button buttonDeleteShift;
     private Button buttonAddShift;
     private ArrayAdapter<String> adapter;
-    private ArrayList<String> shiftsList;
+    private ArrayList<String> shiftsList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

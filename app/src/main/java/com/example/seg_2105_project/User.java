@@ -9,6 +9,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class User implements Serializable {
 
@@ -128,7 +130,7 @@ public class User implements Serializable {
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     User u = userSnapshot.getValue(user.getClass());
                     if (u.getEmail().equals(user.getEmail())) {
-                        //Change status
+
                         DatabaseReference reference = userSnapshot.getRef();
                         reference.child(attributePath).setValue(attribute);
 

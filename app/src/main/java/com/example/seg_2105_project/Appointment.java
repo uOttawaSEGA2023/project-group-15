@@ -9,6 +9,11 @@ public class Appointment implements Serializable {
     private Doctor doctor;
     private Patient patient;
     private Status status;
+    private int year;
+    private int month;
+    private int day;
+    private int hours;
+    private int minutes;
 
     public Appointment(Calendar dateTime, Doctor doctor, Patient patient) {
         this.dateTime = dateTime;
@@ -17,10 +22,25 @@ public class Appointment implements Serializable {
         this.status = Status.PENDING;
     }
 
-    public Calendar getDateTime() { return dateTime; }
+    public Appointment() {
+        dateTime = Calendar.getInstance();
+        dateTime.set(Calendar.YEAR, year);
+        dateTime.set(Calendar.MONTH, month);
+        dateTime.set(Calendar.DAY_OF_MONTH, day);
+        dateTime.set(Calendar.HOUR_OF_DAY, hours);
+        dateTime.set(Calendar.MINUTE, minutes);
+    }
+
+    public Calendar retrieveDateTime() { return dateTime; }
     public Doctor getDoctor() { return doctor; }
     public Patient getPatient() { return patient; }
     public Status getStatus() { return status; }
+    public int getYear() { return year; }
+    public int getMonth() { return month; }
+    public int getDay() { return day; }
+    public int getHours() { return hours; }
+    public int getMinutes() { return minutes; }
+
     public void updateStatus(Status status) {
         this.status = status;
         User.updateFirebase("Doctors", "appointments", doctor.getAppointments(), doctor);
@@ -43,9 +63,9 @@ public class Appointment implements Serializable {
     }
 
     public String toString() {
-        String date = dateTime.get(Calendar.DAY_OF_MONTH) + "/" + dateTime.get(Calendar.MONTH) + "/" + dateTime.get(Calendar.YEAR);
-        String time = dateTime.get(Calendar.HOUR) + ":" + dateTime.get(Calendar.MINUTE);
-        return "Name: " + patient.getFirstName() + " " + patient.getLastName() + "      Date: " + date + " at " + time;
+        String date = day + "/" + month + "/" + year;
+        String time = hours + ":" + minutes;
+        return "Name: " + patient.getFirstName() + " " + patient.getLastName() + "\t\tDate: " + date + " at " + time;
     }
 
 }

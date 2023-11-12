@@ -36,6 +36,9 @@ public class DoctorScreen extends AppCompatActivity {
 
         welcomeMessage.setText( "Welcome " + name + "! You are logged in as a doctor ");
 
+        if (doctor.getShifts() != null) {
+            Toast.makeText(getApplicationContext(), doctor.getShifts().get(0).retrieveStart().toString(), Toast.LENGTH_SHORT).show();
+        }
 
     }
 

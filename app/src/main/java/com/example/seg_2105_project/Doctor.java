@@ -142,14 +142,14 @@ public class Doctor extends User {
                         // add upcoming appointments
                         if (!passed) {
                             // make sure appointment status is either pending or approved and the appointments time is greater than current time
-                            if ((appointment.getStatus() == Status.PENDING || appointment.getStatus() == Status.APPROVED) && currentDate.before(appointment.getDateTime())) {
+                            if ((appointment.getStatus() == Status.PENDING || appointment.getStatus() == Status.APPROVED) && currentDate.before(appointment.retrieveDateTime())) {
                                 specificAppointments.add(appointment);
                             }
                         }
                         // add past appointments
                         else {
                             // make sure appointment status is approved and the appointment time is less than current time
-                            if (appointment.getStatus() == Status.APPROVED && currentDate.after(appointment.getDateTime())) {
+                            if (appointment.getStatus() == Status.APPROVED && currentDate.after(appointment.retrieveDateTime())) {
                                 specificAppointments.add(appointment);
                             }
                         }

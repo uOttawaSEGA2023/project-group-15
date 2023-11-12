@@ -115,7 +115,7 @@ public class ShiftCreation extends AppCompatActivity {
         minutesEnd = Integer.parseInt(timeValuesEnd[1]);
 
         // Ensure that the end time is after start time
-        if ((hoursEnd < hoursStart) || ((hoursEnd == hoursStart) && (minutesEnd < minutesStart))){
+        if ((hoursEnd < hoursStart) || ((hoursEnd == hoursStart) && (minutesEnd <= minutesStart))){
             Toast.makeText(ShiftCreation.this, "Please select a different end time", Toast.LENGTH_SHORT).show();
             validShift = false;
         }

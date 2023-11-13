@@ -75,6 +75,17 @@ public class Doctor extends User {
 
     }
 
+
+    /*
+    *Deletes an existing shift from list
+     */
+    public void deleteShift(Shift shift){
+        this.shifts.remove(shift);
+        updateFirebase("Doctors", "shifts", shifts, this);
+    }
+
+
+
     /**CLASS METHODS**/
 
     /*

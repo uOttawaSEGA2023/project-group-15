@@ -25,7 +25,7 @@ public class Doctor extends User {
 
     /**GETTERS**/
     public int getEmployeeNumber() { return employeeNumber; }
-    public ArrayList<String> get_specialties() { return specialties; }
+    public ArrayList<String> getSpecialties() { return specialties; }
     public ArrayList<Shift> getShifts() { return shifts; }
     public boolean getAutoApprove() { return autoApprove; }
 
@@ -50,10 +50,10 @@ public class Doctor extends User {
      */
     @Override
     public String display() {
-        String display = super.display() + "\nEmployee Number: " + getEmployeeNumber();
-        if (get_specialties() != null && !get_specialties().isEmpty()) {
-            for (int i = 0; i < get_specialties().size(); i++) {
-                display += get_specialties().get(i);
+        String display = super.display() + "\nEmployee Number: " + getEmployeeNumber() + "\nSpecialties: ";
+        if (getSpecialties() != null && !getSpecialties().isEmpty()) {
+            for (int i = 0; i < getSpecialties().size(); i++) {
+                display += getSpecialties().get(i);
             }
         }
         return display;

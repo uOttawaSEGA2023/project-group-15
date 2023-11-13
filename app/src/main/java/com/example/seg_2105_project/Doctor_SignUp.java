@@ -236,7 +236,7 @@ public class Doctor_SignUp extends AppCompatActivity {
             text = findViewById(R.id.textViewEmployeeNumberError);
             text.setVisibility(view.INVISIBLE);
         }
-        if (user.get_specialties().get(0).equals("")) {
+        if (user.getSpecialties().get(0).equals("")) {
             //Set visibility of error message to visible
             TextView text = findViewById(R.id.textViewSpecialtyError);
             text.setVisibility(view.VISIBLE);

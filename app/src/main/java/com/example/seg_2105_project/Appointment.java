@@ -20,6 +20,11 @@ public class Appointment implements Serializable {
         this.doctor = doctor;
         this.patient = patient;
         this.status = Status.PENDING;
+        this.year = dateTime.get(Calendar.YEAR);
+        this.month = dateTime.get(Calendar.MONTH);
+        this.day = dateTime.get(Calendar.DAY_OF_MONTH);
+        this.hours = dateTime.get(Calendar.HOUR);
+        this.minutes = dateTime.get(Calendar.MINUTE);
     }
 
     public Appointment() {

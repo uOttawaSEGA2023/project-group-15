@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class DoctorScreen extends AppCompatActivity {
@@ -43,23 +44,6 @@ public class DoctorScreen extends AppCompatActivity {
         this.doctor = (Doctor) getIntent().getSerializableExtra("Doctor");
 
         welcomeMessage.setText( "Welcome " + name + "! You are logged in as a doctor ");
-
-        /**TEST**/
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Patients");
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Appointment appointment = new Appointment(Calendar.getInstance(), doctor, Patient.getPatient("aniverma15@gmail.com", "password", snapshot));
-                appointment.bookAppointment();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-        /**TEST**/
-
 
     }
 

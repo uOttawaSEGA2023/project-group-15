@@ -21,7 +21,7 @@ public class User implements Serializable {
     private long phoneNumber;
     private String address;
     private Status registrationStatus;
-    private ArrayList<Appointment> appointments;
+    private ArrayList<Appointment> appointments = new ArrayList<>();
 
     public User(String firstName, String lastName, String email, String password, long phoneNumber, String address) {
 
@@ -32,13 +32,10 @@ public class User implements Serializable {
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.registrationStatus = Status.PENDING;
-        this.appointments = new ArrayList<>();
 
     }
 
-    public User() {
-        this.appointments = new ArrayList<>();
-    }
+    public User() { }
 
     /**GETTERS**/
 

@@ -9,7 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class Doctor extends User {
-    private int employee_number;
+    private int employeeNumber;
     private ArrayList<String> specialties;
     private ArrayList<Shift> shifts;
     private boolean autoApprove;
@@ -17,14 +17,14 @@ public class Doctor extends User {
     public Doctor() {}
     public Doctor(String firstName, String lastName, String email, String password, long phoneNumber, String address, int employee_number, ArrayList<String> specialties) {
         super(firstName, lastName, email, password, phoneNumber, address);
-        this.employee_number = employee_number;
+        this.employeeNumber = employee_number;
         this.specialties = specialties;
         this.shifts = new ArrayList<>();
         this.autoApprove = false;
     }
 
     /**GETTERS**/
-    public int get_employee_number() { return employee_number; }
+    public int getEmployeeNumber() { return employeeNumber; }
     public ArrayList<String> get_specialties() { return specialties; }
     public ArrayList<Shift> getShifts() { return shifts; }
     public boolean getAutoApprove() { return autoApprove; }
@@ -50,7 +50,7 @@ public class Doctor extends User {
      */
     @Override
     public String display() {
-        String display = super.display() + "\nEmployee Number: " + get_employee_number();
+        String display = super.display() + "\nEmployee Number: " + getEmployeeNumber();
         if (get_specialties() != null && !get_specialties().isEmpty()) {
             for (int i = 0; i < get_specialties().size(); i++) {
                 display += get_specialties().get(i);

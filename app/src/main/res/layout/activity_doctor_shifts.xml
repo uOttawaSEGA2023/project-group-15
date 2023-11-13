@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:textAlignment="center"
     tools:context=".DoctorShifts">
+
+    <Button
+        android:id="@+id/buttonNoDeleteShift"
+        android:layout_width="102dp"
+        android:layout_height="53dp"
+        android:layout_marginEnd="104dp"
+        android:layout_marginBottom="36dp"
+        android:text="No"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/textViewShiftsTitle"
@@ -39,7 +50,6 @@
         android:text="Add Shift"
         app:layout_constraintBottom_toTopOf="@+id/buttonDeleteShift"
         app:layout_constraintEnd_toEndOf="parent"
-
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/listViewShifts" />
@@ -49,12 +59,60 @@
         android:layout_width="292dp"
         android:layout_height="57dp"
         android:layout_marginTop="8dp"
-        android:text="Delete Shift"
         android:layout_marginBottom="16dp"
+        android:text="Delete Shift"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonAddShift" />
+
+
+    <Button
+        android:id="@+id/buttonYesDeleteShift"
+        android:layout_width="102dp"
+        android:layout_height="53dp"
+        android:layout_marginEnd="284dp"
+        android:layout_marginBottom="36dp"
+        android:text="Yes"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Switch
+        android:id="@+id/autoApproveSwitch"
+        android:layout_width="161dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="312dp"
+        android:layout_marginTop="16dp"
+        android:text="AutoApprove"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textConfirmation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="144dp"
+        android:layout_marginBottom="108dp"
+        android:text="Delete selected shift?"
+        android:textSize="20sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textWarning"
+        android:layout_width="67dp"
+        android:layout_height="152dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="4dp"
+        android:text="Please select the shift to delete first!"
+        android:textAlignment="center"
+        android:textColor="#E91E63"
+        android:textSize="18sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

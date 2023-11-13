@@ -28,6 +28,12 @@ public class DoctorShifts extends AppCompatActivity {
     private Button buttonDeleteShift;
     private Button buttonYesDeleteShift;
     private Button buttonNoDeleteShift;
+    private Switch autoApproveSwitch;
+
+    private Doctor doctor;
+
+    Shift selectedShift;
+
     private Button buttonAddShift;
     private ArrayAdapter<String> adapter;
     private ArrayList<String> shiftsList = new ArrayList<>();
@@ -43,12 +49,21 @@ public class DoctorShifts extends AppCompatActivity {
         // Initialize UI elements
         listViewShifts = findViewById(R.id.listViewShifts);
         buttonDeleteShift = findViewById(R.id.buttonDeleteShift);
-        buttonYesDeleteShift = findViewById(R.id.);
-        buttonNoDeleteShift = findViewById(R.id.);
         buttonAddShift = findViewById(R.id.buttonAddShift);
 
+        buttonYesDeleteShift = findViewById(R.id.buttonYesDeleteShift);
+        buttonNoDeleteShift = findViewById(R.id.buttonNoDeleteShift);
+        autoApproveSwitch = findViewById((R.id.autoApproveSwitch));
+
+        if(doctor.getAutoApprove()){
+            autoApproveSwitch.setChecked(true);
+        }
+        else{
+            autoApproveSwitch.setChecked(false);
+        }
+
         // Initialize shifts list
-        Doctor doctor = (Doctor) getIntent().getSerializableExtra("Doctor");
+        doctor = (Doctor) getIntent().getSerializableExtra("Doctor");
         ArrayList<Shift> shifts = doctor.getShifts();
         if (shifts != null) {
             for(Shift shift : shifts) {
@@ -63,40 +78,19 @@ public class DoctorShifts extends AppCompatActivity {
         listViewShifts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Sedra your code should be going here!!!!!
-                Shift selectedShift = (Shift) listViewShifts.getItemAtPosition(position);
+                selectedShift = (Shift) listViewShifts.getItemAtPosition(position);
             }
         });
 
 
-        public void onClickDButtonDeleteShift(View view){
-            TextView text = findViewById(R.id.); //ask user if to select the shift to be deleted
-            text.setVisibility(view.Visible);
-            onItemClick();
-            TextView text = findViewById(R.id.); //confirm with user if they want to delete shift
-            if (onClickButtonYes) {
-                selectedShift.deleteshift();
-                text.setVisibility(view.Invisible);
-                text.setVisibility(view.Invisible);
-            }
-
-            else{
-                text.setVisibility(view.Invisible);
-            }
-
-
-        }
-
-
-
-        buttonDeleteShift.setOnClickListener(new View.OnClickListener() {
+        /*buttonDeleteShift.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DoctorShifts.this, ShiftCreation.class);
                 intent.putExtra("Doctor", doctor);
                 startActivity(intent);
             }
-        });
+        });*/
 
         buttonAddShift.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,6 +138,50 @@ public class DoctorShifts extends AppCompatActivity {
                     // Handle errors
                 }
             });
+        }
+    }
+
+    public void onClickDeleteShiftButton(View view) {
+        TextView text1 = findViewById(R.id.textWarning);
+        TextView text2 = findViewById(R.id.textConfirmation); //confirm with user if they want to delete shift
+
+        if (selectedShift == null) {
+            text1.setVisibility(view.VISIBLE);
+        } else {
+            text1.setVisibility(View.INVISIBLE);
+            text2.setVisibility(View.VISIBLE);
+            buttonYesDeleteShift.setVisibility(View.VISIBLE);
+            buttonNoDeleteShift.setVisibility(View.VISIBLE);
+            buttonAddShift.setVisibility(View.INVISIBLE);
+            buttonDeleteShift.setVisibility(View.INVISIBLE);
+        }
+    }
+
+
+    public void onClickYesDeleteShiftButton(View view){
+        TextView text2 = findViewById(R.id.textConfirmation);
+        doctor.deleteShift(selectedShift);
+        text2.setVisibility(View.INVISIBLE);
+        buttonYesDeleteShift.setVisibility(View.INVISIBLE);
+        buttonNoDeleteShift.setVisibility(View.INVISIBLE);
+        buttonAddShift.setVisibility(View.VISIBLE);
+        buttonDeleteShift.setVisibility(View.VISIBLE);
+    }
+
+    public void onClickNoDeleteButton(View view){
+        TextView text2 = findViewById(R.id.textConfirmation);
+        text2.setVisibility(View.INVISIBLE);
+        buttonYesDeleteShift.setVisibility(View.INVISIBLE);
+        buttonNoDeleteShift.setVisibility(View.INVISIBLE);
+        buttonAddShift.setVisibility(View.VISIBLE);
+        buttonDeleteShift.setVisibility(View.VISIBLE);
+    }
+
+    public void onClickAutoApproveSwitch(View view) {
+        if (autoApproveSwitch.isChecked()) {
+            doctor.updateAutoApprove(true);
+        } else {
+            doctor.updateAutoApprove(false);
         }
     }
 

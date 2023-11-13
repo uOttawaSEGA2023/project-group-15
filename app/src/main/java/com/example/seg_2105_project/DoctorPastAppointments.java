@@ -31,13 +31,14 @@ public class DoctorPastAppointments extends AppCompatActivity {
 
         //obtaining references to the database
         FirebaseDatabase db = FirebaseDatabase.getInstance();
-        DatabaseReference doctorRef = db.getReference("Doctors");
+        DatabaseReference appointmentRef = db.getReference("Appointments");
 
         //retrieve data for doctors
-        doctorRef.addValueEventListener(new ValueEventListener() {
+        Doctor doctor = (Doctor) getIntent().getSerializableExtra("Doctor");
+        appointmentRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                appointments.addAll(Doctor.getDoctorAppointments(snapshot, true, Calendar.getInstance()));
+                appointments.addAll(doctor.getDoctorAppointments(snapshot, true, Calendar.getInstance()));
                 loadListView();
             }
 
@@ -65,9 +66,9 @@ public class DoctorPastAppointments extends AppCompatActivity {
      */
     private void loadListView() {
         ListView listView = findViewById(R.id.listViewPastAppointments);
-        ArrayAdapter<Appointment> arrayAdapterDoctor = new ArrayAdapter<Appointment>(getApplicationContext(),
+        ArrayAdapter<Appointment> arrayAdapter = new ArrayAdapter<Appointment>(getApplicationContext(),
                 android.R.layout.simple_list_item_single_choice, appointments);
         listView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
-        listView.setAdapter(arrayAdapterDoctor);
+        listView.setAdapter(arrayAdapter);
     }
 }

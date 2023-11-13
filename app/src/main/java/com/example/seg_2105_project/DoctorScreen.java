@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +21,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DoctorScreen extends AppCompatActivity {
 
@@ -46,21 +49,20 @@ public class DoctorScreen extends AppCompatActivity {
         welcomeMessage.setText( "Welcome " + name + "! You are logged in as a doctor ");
 
         /**TEST**/
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Patients");
-        ref.addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReferencePatients = firebaseDatabase.getReference("Patients");
+        databaseReferencePatients.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                Patient patient = Patient.getPatient("aniverma15@gmail.com", "password", snapshot);
+
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(Calendar.YEAR, 2020);
                 calendar.set(Calendar.MONTH, 12);
                 calendar.set(Calendar.DAY_OF_MONTH, 5);
-
-                Appointment appointment = new Appointment(calendar, doctor, Patient.getPatient("aniverma15@gmail.com", "password", snapshot));
-                //appointment.bookAppointment();
-                //ArrayList<Appointment> appointments = new ArrayList<>();
-                //appointments.add(appointment);
-                //User.updateFirebase("Doctors", "appointments", appointments, doctor);
-                //User.updateFirebase("Patients", "appointments", appointments, appointment.getPatient());
+                Appointment appointment = new Appointment(calendar, doctor, patient);
+                appointment.bookAppointment();
 
             }
 
@@ -69,6 +71,9 @@ public class DoctorScreen extends AppCompatActivity {
 
             }
         });
+
+
+
         /**TEST**/
 
     }

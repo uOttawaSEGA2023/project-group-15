@@ -21,7 +21,6 @@ public class User implements Serializable {
     private long phoneNumber;
     private String address;
     private Status registrationStatus;
-    private ArrayList<Appointment> appointments = new ArrayList<>();
 
     public User(String firstName, String lastName, String email, String password, long phoneNumber, String address) {
 
@@ -64,10 +63,6 @@ public class User implements Serializable {
     }
     public Status getRegistrationStatus() { return registrationStatus; }
 
-    public ArrayList<Appointment>  getAppointments() {
-        return appointments;
-    }
-
 
     /**SETTERS**/
 
@@ -79,13 +74,6 @@ public class User implements Serializable {
     }
 
     /**OTHER METHODS**/
-
-    /*
-     * Adds appointment to list
-     */
-    public void addAppointment(Appointment appointment) {
-        this.appointments.add(appointment);
-    }
 
     /*
     * Displays all the information of this user
@@ -156,7 +144,6 @@ public class User implements Serializable {
                         (attributePath.equals("phoneNumber") && attribute instanceof Long) ||
                         (attributePath.equals("address") && attribute instanceof String) ||
                         (attributePath.equals("registrationStatus") && attribute instanceof Status) ||
-                        (attributePath.equals("appointments")) ||
                         (attributePath.equals("employee_number") && referencePath.equals("Doctors") && attribute instanceof Long) ||
                         (attributePath.equals("specialties") && referencePath.equals("Doctors") && attribute instanceof ArrayList) ||
                         (attributePath.equals("shifts") && referencePath.equals("Doctors") && attribute instanceof ArrayList) ||

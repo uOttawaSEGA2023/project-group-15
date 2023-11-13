@@ -30,13 +30,14 @@ public class DoctorUpcomingAppointments extends AppCompatActivity {
 
         //obtaining references to the database
         FirebaseDatabase db = FirebaseDatabase.getInstance();
-        DatabaseReference doctorRef = db.getReference("Doctors");
+        DatabaseReference appointmentsRef = db.getReference("Appointments");
 
         //retrieve data for doctors
-        doctorRef.addValueEventListener(new ValueEventListener() {
+        Doctor doctor = (Doctor) getIntent().getSerializableExtra("Doctor");
+        appointmentsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                appointments.addAll(Doctor.getDoctorAppointments(snapshot, false, Calendar.getInstance()));
+                appointments.addAll(doctor.getDoctorAppointments(snapshot, false, Calendar.getInstance()));
                 loadListView();
             }
 

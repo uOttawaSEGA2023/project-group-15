@@ -137,11 +137,21 @@ public class Doctor extends User {
      * @return                             An ArrayList of appointments
      * @throws IllegalArgumentException   if dataSnapshot is null or doesn't contain a snapshot for the doctors
      */
-    public static ArrayList<Appointment> getDoctorAppointments(DataSnapshot dataSnapshot, boolean passed, Calendar currentDate) {
-        ArrayList<Appointment> specificAppointments = new ArrayList<>();
+    public ArrayList<Appointment> getDoctorAppointments(DataSnapshot dataSnapshot, boolean passed, Calendar currentDate) {
+        ArrayList<Appointment> appointments = new ArrayList<>();
+
+        //Add appointment this doctor is associated with
+        for (DataSnapshot appointmentSnapshot : dataSnapshot.getChildren()) {
+            Appointment appointment = appointmentSnapshot.getValue(Appointment.class);
+            if (appointment.getDoctor().getEmail().equals(this.getEmail())) {
+                appointments.add(appointment);
+            }
+        }
+
+        return appointments;
 
         // Make sure dataSnapshot isn't null and contains the Doctor path
-        if (dataSnapshot.exists() && dataSnapshot.getRef().getKey().equals("Doctors")) {
+        /*if (dataSnapshot.exists() && dataSnapshot.getRef().getKey().equals("Doctors")) {
             for (DataSnapshot doctor : dataSnapshot.getChildren()) {
                 User d = doctor.getValue(Doctor.class);
 
@@ -171,7 +181,7 @@ public class Doctor extends User {
             throw new IllegalArgumentException("dataSnapshot should not be null and should be from the Doctor path");
         }
 
-        return specificAppointments;
+        return specificAppointments;*/
     }
 
 

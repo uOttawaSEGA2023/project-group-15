@@ -1,5 +1,15 @@
 package com.example.seg_2105_project;
 
+import android.provider.ContactsContract;
+
+import androidx.annotation.NonNull;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.io.Serializable;
 import java.util.*;
 
@@ -14,6 +24,7 @@ public class Appointment implements Serializable {
     private int day;
     private int hours;
     private int minutes;
+    private int ID;
 
     public Appointment(Calendar dateTime, Doctor doctor, Patient patient) {
         this.dateTime = dateTime;
@@ -25,6 +36,7 @@ public class Appointment implements Serializable {
         this.day = dateTime.get(Calendar.DAY_OF_MONTH);
         this.hours = dateTime.get(Calendar.HOUR);
         this.minutes = dateTime.get(Calendar.MINUTE);
+        this.ID = (int) (Math.random()*100000);
     }
 
     public Appointment() {
@@ -45,11 +57,32 @@ public class Appointment implements Serializable {
     public int getDay() { return day; }
     public int getHours() { return hours; }
     public int getMinutes() { return minutes; }
+    public int getID() { return ID; }
 
     public void updateStatus(Status status) {
         this.status = status;
-        User.updateFirebase("Doctors", "appointments", doctor.getAppointments(), doctor);
-        User.updateFirebase("Patients", "appointments", patient.getAppointments(), patient);
+
+        //Access firebase
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = firebaseDatabase.getReference("Appointments");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //Search through appointments
+                for (DataSnapshot appointmentSnapshot: snapshot.getChildren()) {
+                    Appointment appointment = appointmentSnapshot.getValue(Appointment.class);
+                    if (appointment.getID() == ID) {
+                        //Change status
+                        appointmentSnapshot.getRef().child("status").setValue(status);
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
+
     }
 
     /*
@@ -57,20 +90,18 @@ public class Appointment implements Serializable {
     */
     public void bookAppointment() {
 
-        //Add appointment to lists
-        doctor.addAppointment(this);
-        patient.addAppointment(this);
-
-        //Update doctor and patient in firebase
-        User.updateFirebase("Doctors", "appointments", doctor.getAppointments(), doctor);
-        User.updateFirebase("Patients", "appointments", patient.getAppointments(), patient);
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = firebaseDatabase.getReference("Appointments");
+        databaseReference.push().setValue(this);
 
     }
 
     public String toString() {
         String date = day + "/" + month + "/" + year;
         String time = hours + ":" + minutes;
-        return "Name: " + patient.getFirstName() + " " + patient.getLastName() + "\t\tDate: " + date + " at " + time;
+        return "Patient: " + patient.getFirstName() + " " + patient.getLastName() +
+                "\nDoctor: " + doctor.getFirstName() + " " + doctor.getLastName() +
+                "\nDate: " + date + " at " + time;
     }
 
 }

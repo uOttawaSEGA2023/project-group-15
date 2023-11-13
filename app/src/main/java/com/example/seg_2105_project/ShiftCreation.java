@@ -115,11 +115,12 @@ public class ShiftCreation extends AppCompatActivity {
         minutesEnd = Integer.parseInt(timeValuesEnd[1]);
 
         // Ensure that the end time is after start time
-        if ((hoursEnd < hoursStart) || ((hoursEnd == hoursStart) && (minutesEnd < minutesStart))){
+        if ((hoursEnd < hoursStart) || ((hoursEnd == hoursStart) && (minutesEnd <= minutesStart))){
             Toast.makeText(ShiftCreation.this, "Please select a different end time", Toast.LENGTH_SHORT).show();
             validShift = false;
         }
 
+        // If the day chosen is the current day, ensure that the shift time is after the current time
         if ((calendar.get(Calendar.YEAR) == currentTime.get(Calendar.YEAR)) && (calendar.get(Calendar.MONTH) == currentTime.get(Calendar.MONTH))
                 && (calendar.get(Calendar.DAY_OF_MONTH) == currentTime.get(Calendar.DAY_OF_MONTH))) {
             if (hoursStart < calendar.get(Calendar.HOUR_OF_DAY) || (hoursStart == calendar.get(Calendar.HOUR_OF_DAY) &&

@@ -55,6 +55,7 @@ public class DoctorShifts extends AppCompatActivity {
         buttonNoDeleteShift = findViewById(R.id.buttonNoDeleteShift);
         autoApproveSwitch = findViewById((R.id.autoApproveSwitch));
 
+        //sets the switch to the correct initial value ("on" or "off") depending on the value of the autoApprove boolean
         if(doctor.getAutoApprove()){
             autoApproveSwitch.setChecked(true);
         }
@@ -141,6 +142,7 @@ public class DoctorShifts extends AppCompatActivity {
         }
     }
 
+    //Method is called if doctor wants to delete a selected shift
     public void onClickDeleteShiftButton(View view) {
         TextView text1 = findViewById(R.id.textWarning);
         TextView text2 = findViewById(R.id.textConfirmation); //confirm with user if they want to delete shift
@@ -158,6 +160,7 @@ public class DoctorShifts extends AppCompatActivity {
     }
 
 
+    //Method is called if doctor confirms the removal of a shift
     public void onClickYesDeleteShiftButton(View view){
         TextView text2 = findViewById(R.id.textConfirmation);
         doctor.deleteShift(selectedShift);
@@ -168,6 +171,7 @@ public class DoctorShifts extends AppCompatActivity {
         buttonDeleteShift.setVisibility(View.VISIBLE);
     }
 
+    //Method is called if doctor does not want to delete a selected shift
     public void onClickNoDeleteButton(View view){
         TextView text2 = findViewById(R.id.textConfirmation);
         text2.setVisibility(View.INVISIBLE);
@@ -177,6 +181,7 @@ public class DoctorShifts extends AppCompatActivity {
         buttonDeleteShift.setVisibility(View.VISIBLE);
     }
 
+    //allows the doctor to automatically approve future appointments
     public void onClickAutoApproveSwitch(View view) {
         if (autoApproveSwitch.isChecked()) {
             doctor.updateAutoApprove(true);

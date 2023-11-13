@@ -36,7 +36,9 @@ public class User implements Serializable {
 
     }
 
-    public User() {}
+    public User() {
+        this.appointments = new ArrayList<>();
+    }
 
     /**GETTERS**/
 
@@ -157,7 +159,7 @@ public class User implements Serializable {
                         (attributePath.equals("phoneNumber") && attribute instanceof Long) ||
                         (attributePath.equals("address") && attribute instanceof String) ||
                         (attributePath.equals("registrationStatus") && attribute instanceof Status) ||
-                        (attributePath.equals("appointments") && attribute instanceof Appointment) ||
+                        (attributePath.equals("appointments")) ||
                         (attributePath.equals("employee_number") && referencePath.equals("Doctors") && attribute instanceof Long) ||
                         (attributePath.equals("specialties") && referencePath.equals("Doctors") && attribute instanceof ArrayList) ||
                         (attributePath.equals("shifts") && referencePath.equals("Doctors") && attribute instanceof ArrayList) ||

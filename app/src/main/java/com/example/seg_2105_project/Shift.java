@@ -69,11 +69,11 @@ public class Shift implements Serializable {
 
     public Calendar retrieveEnd() {
         end = Calendar.getInstance();
-        end.set(Calendar.YEAR, year);
-        end.set(Calendar.YEAR, year);
-        end.set(Calendar.YEAR, year);
         end.set(Calendar.HOUR_OF_DAY, endHours);
         end.set(Calendar.MINUTE, endMinutes);
+        end.set(Calendar.YEAR, year);
+        end.set(Calendar.MONTH, month);
+        end.set(Calendar.DAY_OF_MONTH, day);
         return end;
     }
 

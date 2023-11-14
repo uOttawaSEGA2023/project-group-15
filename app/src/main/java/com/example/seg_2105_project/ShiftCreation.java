@@ -140,20 +140,24 @@ public class ShiftCreation extends AppCompatActivity {
         shiftEnd.set(Calendar.MINUTE, minutesEnd);
 
         //Check if shift conflict with another shift
-        for (Shift shift: doctor.getShifts()) {
-            Toast.makeText(ShiftCreation.this, "..", Toast.LENGTH_SHORT).show();
+        if (doctor.getShifts() != null && !doctor.getShifts().isEmpty()) {
+            for (Shift shift: doctor.getShifts()) {
 
-            if (shift.retrieveStart().get(Calendar.YEAR) == calendar.get(Calendar.YEAR) &&
-                shift.retrieveStart().get(Calendar.MONTH) == calendar.get(Calendar.MONTH) &&
-                shift.retrieveStart().get(Calendar.DAY_OF_MONTH) == calendar.get(Calendar.DAY_OF_MONTH) &&
-                ((shift.retrieveStart().before(shiftStart) && shift.retrieveEnd().after(shiftEnd)) ||
-                (shift.retrieveStart().before(shiftEnd) && shift.retrieveEnd().after(shiftEnd)) ||
-                (shift.retrieveStart().before(shiftStart) && shift.retrieveEnd().after(shiftStart)))) {
-                Toast.makeText(ShiftCreation.this, "Please select a different time", Toast.LENGTH_SHORT).show();
-                validShift = false;
+                if (shift.retrieveStart().get(Calendar.YEAR) == shiftStart.get(Calendar.YEAR) &&
+                        shift.retrieveStart().get(Calendar.MONTH) == shiftStart.get(Calendar.MONTH) &&
+                        shift.retrieveStart().get(Calendar.DAY_OF_MONTH) == shiftStart.get(Calendar.DAY_OF_MONTH) &&
+                        ((shift.retrieveStart().before(shiftStart) && shift.retrieveEnd().after(shiftEnd)) ||
+                                (shift.retrieveStart().before(shiftEnd) && shift.retrieveEnd().after(shiftEnd)) ||
+                                (shift.retrieveStart().before(shiftStart) && shift.retrieveEnd().after(shiftStart))) ||
+                        (shift.retrieveStart().after(shiftStart) && shift.retrieveEnd().before(shiftEnd))) {
+                    Toast.makeText(ShiftCreation.this, "Please select a different time. This conflicts with another shift.", Toast.LENGTH_SHORT).show();
+                    validShift = false;
+                    break;
+                }
+
             }
-
         }
+
 
 
         if (validShift) {

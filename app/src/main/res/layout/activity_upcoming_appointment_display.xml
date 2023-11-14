@@ -47,25 +47,23 @@
         android:id="@+id/rejectAppointment"
         android:layout_width="109dp"
         android:layout_height="53dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="80dp"
+        android:layout_marginTop="20dp"
         android:onClick="onClickRejectAppointment"
         android:text="Reject"
         android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/patientInformation" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/acceptAppointment" />
 
     <Button
         android:id="@+id/acceptAppointment"
         android:layout_width="109dp"
         android:layout_height="53dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="32dp"
         android:onClick="onClickAcceptAppointment"
         android:text="Accept"
         android:textSize="17sp"
-        app:layout_constraintEnd_toStartOf="@+id/rejectAppointment"
-        app:layout_constraintHorizontal_bias="0.707"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/rejectAppointment"
         app:layout_constraintTop_toBottomOf="@+id/patientInformation" />
 
     <Button

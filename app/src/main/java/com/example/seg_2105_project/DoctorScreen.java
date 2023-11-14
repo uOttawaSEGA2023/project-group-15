@@ -48,34 +48,6 @@ public class DoctorScreen extends AppCompatActivity {
 
         welcomeMessage.setText( "Welcome " + name + "! You are logged in as a doctor ");
 
-        /**TEST**/
-       /* FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReferencePatients = firebaseDatabase.getReference("Patients");
-        databaseReferencePatients.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                Patient patient = Patient.getPatient("aniverma15@gmail.com", "password", snapshot);
-
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.YEAR, 2027);
-                calendar.set(Calendar.MONTH, 10);
-                calendar.set(Calendar.DAY_OF_MONTH, 5);
-                Appointment appointment = new Appointment(calendar, doctor, patient);
-                appointment.bookAppointment();
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        }); */
-
-
-
-        /**TEST**/
-
     }
 
     public void onClickSignOutButton(View view) {

@@ -24,7 +24,7 @@ public class Appointment implements Serializable {
     private int day;
     private int hours;
     private int minutes;
-    private int ID;
+    private int id;
 
     public Appointment(Calendar dateTime, Doctor doctor, Patient patient) {
         this.dateTime = dateTime;
@@ -36,7 +36,7 @@ public class Appointment implements Serializable {
         this.day = dateTime.get(Calendar.DAY_OF_MONTH);
         this.hours = dateTime.get(Calendar.HOUR);
         this.minutes = dateTime.get(Calendar.MINUTE);
-        this.ID = (int) (Math.random()*100000);
+        this.id = (int) (Math.random()*100000);
     }
 
     public Appointment() { }
@@ -58,7 +58,7 @@ public class Appointment implements Serializable {
     public int getDay() { return day; }
     public int getHours() { return hours; }
     public int getMinutes() { return minutes; }
-    public int getID() { return ID; }
+    public int getID() { return id; }
 
     public void updateStatus(Status status) {
         this.status = status;
@@ -72,10 +72,10 @@ public class Appointment implements Serializable {
                 //Search through appointments
                 for (DataSnapshot appointmentSnapshot: snapshot.getChildren()) {
                     Appointment appointment = appointmentSnapshot.getValue(Appointment.class);
-                    if (appointment.getID() == ID) {
+                    if (appointment.getID() == id) {
                         //Change status
                         appointmentSnapshot.getRef().child("status").setValue(status);
-
+                        break;
                     }
                 }
             }
@@ -101,7 +101,8 @@ public class Appointment implements Serializable {
         String date = day + "/" + month + "/" + year;
         String time = hours + ":" + minutes;
         return "Patient: " + patient.getFirstName() + " " + patient.getLastName() +
-                " | Date: " + date + " at " + time;
+                " | Date: " + date + " at " + time +
+                " | Status " + status;
     }
 
 }

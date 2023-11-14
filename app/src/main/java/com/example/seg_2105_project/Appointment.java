@@ -60,29 +60,17 @@ public class Appointment implements Serializable {
     public int getMinutes() { return minutes; }
     public int getID() { return id; }
 
-    public void updateStatus(Status status) {
+    public void updateStatus(Status status, DataSnapshot snapshot) {
         this.status = status;
-
-        //Access firebase
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReference("Appointments");
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //Search through appointments
-                for (DataSnapshot appointmentSnapshot: snapshot.getChildren()) {
-                    Appointment appointment = appointmentSnapshot.getValue(Appointment.class);
-                    if (appointment.getID() == id) {
-                        //Change status
-                        appointmentSnapshot.getRef().child("status").setValue(status);
-                        break;
-                    }
-                }
+        //Search through appointments
+        for (DataSnapshot appointmentSnapshot: snapshot.getChildren()) {
+            Appointment appointment = appointmentSnapshot.getValue(Appointment.class);
+            if (appointment.getID() == id) {
+                //Change status
+                appointmentSnapshot.getRef().child("status").setValue(status);
+                return;
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {}
-        });
+        }
 
     }
 

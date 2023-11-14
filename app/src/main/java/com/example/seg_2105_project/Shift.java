@@ -21,9 +21,9 @@ public class Shift implements Serializable {
         this.year = start.get(Calendar.YEAR);
         this.month = start.get(Calendar.MONTH);
         this.day = start.get(Calendar.DAY_OF_MONTH);
-        this.startHours = start.get(Calendar.HOUR);
+        this.startHours = start.get(Calendar.HOUR_OF_DAY);
         this.startMinutes = start.get(Calendar.MINUTE);
-        this.endHours = end.get(Calendar.HOUR);
+        this.endHours = end.get(Calendar.HOUR_OF_DAY);
         this.endMinutes = end.get(Calendar.MINUTE);
     }
 

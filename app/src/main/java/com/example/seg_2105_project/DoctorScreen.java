@@ -49,7 +49,7 @@ public class DoctorScreen extends AppCompatActivity {
         welcomeMessage.setText( "Welcome " + name + "! You are logged in as a doctor ");
 
         /**TEST**/
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+       /* FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReferencePatients = firebaseDatabase.getReference("Patients");
         databaseReferencePatients.addValueEventListener(new ValueEventListener() {
             @Override
@@ -58,8 +58,8 @@ public class DoctorScreen extends AppCompatActivity {
                 Patient patient = Patient.getPatient("aniverma15@gmail.com", "password", snapshot);
 
                 Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.YEAR, 2020);
-                calendar.set(Calendar.MONTH, 12);
+                calendar.set(Calendar.YEAR, 2027);
+                calendar.set(Calendar.MONTH, 10);
                 calendar.set(Calendar.DAY_OF_MONTH, 5);
                 Appointment appointment = new Appointment(calendar, doctor, patient);
                 appointment.bookAppointment();
@@ -70,7 +70,7 @@ public class DoctorScreen extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });
+        }); */
 
 
 

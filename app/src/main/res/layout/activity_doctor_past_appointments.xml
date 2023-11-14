@@ -8,13 +8,26 @@
 
     <ListView
         android:id="@+id/listViewPastAppointments"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="2dp"
+        android:layout_width="393dp"
+        android:layout_height="516dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="9dp"
+        android:layout_marginBottom="76dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="83dp"
+        android:layout_marginTop="43dp"
+        android:layout_marginEnd="84dp"
+        android:text="PAST APPOINTMENTS"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -144,44 +144,29 @@ public class Doctor extends User {
         for (DataSnapshot appointmentSnapshot : dataSnapshot.getChildren()) {
             Appointment appointment = appointmentSnapshot.getValue(Appointment.class);
             if (appointment.getDoctor().getEmail().equals(this.getEmail())) {
-                appointments.add(appointment);
+                if (!passed) {
+                    System.out.println(currentDate);
+                    System.out.println(appointment.retrieveDateTime());
+                    boolean check = currentDate.before(appointment.retrieveDateTime());
+                    System.out.println(check);
+                    // make sure appointment status is either pending or approved and the appointments time is greater than current time
+                    if ((appointment.getStatus() == Status.PENDING || appointment.getStatus() == Status.APPROVED) && currentDate.before(appointment.retrieveDateTime())) {
+                        appointments.add(appointment);
+                        System.out.println("ADDED");
+                    }
+                }
+                // add past appointments
+                else {
+                    // make sure appointment status is approved and the appointment time is less than current time
+                    if (appointment.getStatus() == Status.APPROVED  && currentDate.after(appointment.retrieveDateTime())) {
+                        appointments.add(appointment);
+                    }
+                }
             }
         }
 
         return appointments;
 
-        // Make sure dataSnapshot isn't null and contains the Doctor path
-        /*if (dataSnapshot.exists() && dataSnapshot.getRef().getKey().equals("Doctors")) {
-            for (DataSnapshot doctor : dataSnapshot.getChildren()) {
-                User d = doctor.getValue(Doctor.class);
-
-                // Check if d is not null and has appointments
-                if (d != null && d.getAppointments() != null) {
-                    ArrayList<Appointment> doctorAppointments = d.getAppointments();
-
-                    for (Appointment appointment : doctorAppointments) {
-                        // add upcoming appointments
-                        if (!passed) {
-                            // make sure appointment status is either pending or approved and the appointments time is greater than current time
-                            if ((appointment.getStatus() == Status.PENDING || appointment.getStatus() == Status.APPROVED) && currentDate.before(appointment.retrieveDateTime())) {
-                                specificAppointments.add(appointment);
-                            }
-                        }
-                        // add past appointments
-                        else {
-                            // make sure appointment status is approved and the appointment time is less than current time
-                            if (appointment.getStatus() == Status.APPROVED && currentDate.after(appointment.retrieveDateTime())) {
-                                specificAppointments.add(appointment);
-                            }
-                        }
-                    }
-                }
-            }
-        } else {
-            throw new IllegalArgumentException("dataSnapshot should not be null and should be from the Doctor path");
-        }
-
-        return specificAppointments;*/
     }
 
 

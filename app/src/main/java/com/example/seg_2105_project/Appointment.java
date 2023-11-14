@@ -100,8 +100,7 @@ public class Appointment implements Serializable {
         String date = day + "/" + month + "/" + year;
         String time = hours + ":" + minutes;
         return "Patient: " + patient.getFirstName() + " " + patient.getLastName() +
-                "\nDoctor: " + doctor.getFirstName() + " " + doctor.getLastName() +
-                "\nDate: " + date + " at " + time;
+                " | Date: " + date + " at " + time;
     }
 
 }

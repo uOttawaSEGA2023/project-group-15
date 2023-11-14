@@ -145,14 +145,10 @@ public class Doctor extends User {
             Appointment appointment = appointmentSnapshot.getValue(Appointment.class);
             if (appointment.getDoctor().getEmail().equals(this.getEmail())) {
                 if (!passed) {
-                    System.out.println(currentDate);
-                    System.out.println(appointment.retrieveDateTime());
                     boolean check = currentDate.before(appointment.retrieveDateTime());
-                    System.out.println(check);
                     // make sure appointment status is either pending or approved and the appointments time is greater than current time
                     if ((appointment.getStatus() == Status.PENDING || appointment.getStatus() == Status.APPROVED) && currentDate.before(appointment.retrieveDateTime())) {
                         appointments.add(appointment);
-                        System.out.println("ADDED");
                     }
                 }
                 // add past appointments

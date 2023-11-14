@@ -55,6 +55,7 @@ public class DoctorPastAppointments extends AppCompatActivity {
 
                 Intent intent = new Intent(getApplicationContext(), PastAppointmentDisplay.class);
                 intent.putExtra("Appointment", selectedAppointment);
+                intent.putExtra("Doctor", doctor);
                 startActivity(intent);
             }
         });

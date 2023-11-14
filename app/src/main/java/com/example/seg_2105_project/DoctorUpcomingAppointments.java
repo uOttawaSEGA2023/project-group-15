@@ -54,6 +54,7 @@ public class DoctorUpcomingAppointments extends AppCompatActivity {
 
                 Intent intent = new Intent(getApplicationContext(), UpcomingAppointmentDisplay.class);
                 intent.putExtra("Appointment", selectedAppointment);
+                intent.putExtra("Doctor", doctor);
                 startActivity(intent);
             }
         });

@@ -39,16 +39,17 @@ public class Appointment implements Serializable {
         this.ID = (int) (Math.random()*100000);
     }
 
-    public Appointment() {
+    public Appointment() { }
+
+    public Calendar retrieveDateTime() {
         dateTime = Calendar.getInstance();
         dateTime.set(Calendar.YEAR, year);
         dateTime.set(Calendar.MONTH, month);
         dateTime.set(Calendar.DAY_OF_MONTH, day);
         dateTime.set(Calendar.HOUR_OF_DAY, hours);
         dateTime.set(Calendar.MINUTE, minutes);
+        return dateTime;
     }
-
-    public Calendar retrieveDateTime() { return dateTime; }
     public Doctor getDoctor() { return doctor; }
     public Patient getPatient() { return patient; }
     public Status getStatus() { return status; }

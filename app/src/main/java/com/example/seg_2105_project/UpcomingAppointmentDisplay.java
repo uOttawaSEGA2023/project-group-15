@@ -26,18 +26,23 @@ public class UpcomingAppointmentDisplay extends AppCompatActivity {
         selectedAppt.updateStatus(Status.APPROVED);
 
         //go back to upcoming appointments list
-        startActivity(new Intent(this, DoctorUpcomingAppointments.class));
+        Intent intent = new Intent(this, DoctorUpcomingAppointments.class);
+        intent.putExtra("Doctor", getIntent().getSerializableExtra("Doctor"));
+        startActivity(intent);
     }
 
     public void onClickRejectAppointment(View view){
         selectedAppt.updateStatus(Status.REJECTED);
 
         //go back to upcoming appointments list
-        startActivity(new Intent(this, DoctorUpcomingAppointments.class));
+        Intent intent = new Intent(this, DoctorUpcomingAppointments.class);
+        intent.putExtra("Doctor", getIntent().getSerializableExtra("Doctor"));
+        startActivity(intent);
     }
 
     public void onClickBackButton(View view){
-        Intent intent = new Intent(getApplicationContext(), DoctorUpcomingAppointments.class);
+        Intent intent = new Intent(this, DoctorUpcomingAppointments.class);
+        intent.putExtra("Doctor", getIntent().getSerializableExtra("Doctor"));
         startActivity(intent);
     }
 

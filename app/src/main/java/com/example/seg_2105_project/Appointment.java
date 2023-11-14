@@ -30,13 +30,18 @@ public class Appointment implements Serializable {
         this.dateTime = dateTime;
         this.doctor = doctor;
         this.patient = patient;
-        this.status = Status.PENDING;
         this.year = dateTime.get(Calendar.YEAR);
         this.month = dateTime.get(Calendar.MONTH);
         this.day = dateTime.get(Calendar.DAY_OF_MONTH);
         this.hours = dateTime.get(Calendar.HOUR);
         this.minutes = dateTime.get(Calendar.MINUTE);
         this.id = (int) (Math.random()*100000);
+
+        //Set status based on doctor preferences
+        if (doctor.getAutoApprove())
+            this.status = Status.APPROVED;
+        else
+            this.status = Status.PENDING;
     }
 
     public Appointment() { }

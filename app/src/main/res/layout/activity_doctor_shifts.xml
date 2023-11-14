@@ -15,6 +15,7 @@
         android:layout_marginBottom="36dp"
         android:text="No"
         android:visibility="invisible"
+        android:onClick="onClickNoDeleteButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -22,7 +23,7 @@
         android:id="@+id/textViewShiftsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         android:text="Shifts"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,6 +62,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"
         android:text="Delete Shift"
+        android:onClick="onClickDeleteShiftButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,18 +77,9 @@
         android:layout_marginBottom="36dp"
         android:text="Yes"
         android:visibility="invisible"
+        android:onClick="onClickYesDeleteShiftButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <Switch
-        android:id="@+id/autoApproveSwitch"
-        android:layout_width="161dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="312dp"
-        android:layout_marginTop="16dp"
-        android:text="AutoApprove"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textConfirmation"

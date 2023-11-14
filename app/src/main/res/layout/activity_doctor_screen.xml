@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".DoctorScreen">
 
+    <Switch
+        android:id="@+id/autoApproveSwitch2"
+        android:layout_width="170dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="236dp"
+        android:layout_marginTop="16dp"
+        android:onClick="onClickAutoApproveSwitch"
+        android:text="AutoApprove Appointments"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/welcomeMessage"
         android:gravity="center"

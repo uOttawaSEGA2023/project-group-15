@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,11 +30,14 @@ public class DoctorScreen extends AppCompatActivity {
     TextView welcomeMessage;
     Doctor doctor;
     String name;///Doctor name;
+    private Switch autoApproveSwitch;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_screen);
         welcomeMessage = findViewById(R.id.welcomeMessage);
+        autoApproveSwitch = findViewById((R.id.autoApproveSwitch2));
+
 
         //Get user profile
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -47,6 +51,15 @@ public class DoctorScreen extends AppCompatActivity {
         this.doctor = (Doctor) getIntent().getSerializableExtra("Doctor");
 
         welcomeMessage.setText( "Welcome " + name + "! You are logged in as a doctor ");
+
+
+        //sets the switch to the correct initial value ("on" or "off") depending on the value of the autoApprove boolean
+        if(doctor.getAutoApprove()){
+            autoApproveSwitch.setChecked(true);
+        }
+        else{
+            autoApproveSwitch.setChecked(false);
+        }
 
     }
 
@@ -73,5 +86,14 @@ public class DoctorScreen extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), DoctorShifts.class);
         intent.putExtra("Doctor", doctor);
         startActivity(intent);
+    }
+
+    //allows the doctor to automatically approve future appointments
+    public void onClickAutoApproveSwitch(View view) {
+        if (autoApproveSwitch.isChecked()) {
+            doctor.updateAutoApprove(true);
+        } else {
+            doctor.updateAutoApprove(false);
+        }
     }
 }

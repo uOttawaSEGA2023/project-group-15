@@ -28,7 +28,7 @@ public class DoctorShifts extends AppCompatActivity {
     private Button buttonDeleteShift;
     private Button buttonYesDeleteShift;
     private Button buttonNoDeleteShift;
-    private Switch autoApproveSwitch;
+    //private Switch autoApproveSwitch;
     private Doctor doctor;
     Shift selectedShift;
     private Button buttonAddShift;
@@ -49,7 +49,7 @@ public class DoctorShifts extends AppCompatActivity {
 
         buttonYesDeleteShift = findViewById(R.id.buttonYesDeleteShift);
         buttonNoDeleteShift = findViewById(R.id.buttonNoDeleteShift);
-        autoApproveSwitch = findViewById((R.id.autoApproveSwitch));
+        //autoApproveSwitch = findViewById((R.id.autoApproveSwitch));
 
         //sets the switch to the correct initial value ("on" or "off") depending on the value of the autoApprove boolean
         /*if(doctor.getAutoApprove()){
@@ -128,12 +128,12 @@ public class DoctorShifts extends AppCompatActivity {
     }
 
     //allows the doctor to automatically approve future appointments
-    public void onClickAutoApproveSwitch(View view) {
+    /*public void onClickAutoApproveSwitch(View view) {
         if (autoApproveSwitch.isChecked()) {
             doctor.updateAutoApprove(true);
         } else {
             doctor.updateAutoApprove(false);
         }
-    }
+    }*/
 
 }

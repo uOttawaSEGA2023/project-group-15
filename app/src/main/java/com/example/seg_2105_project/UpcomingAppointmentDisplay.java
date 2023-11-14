@@ -50,7 +50,6 @@ public class UpcomingAppointmentDisplay extends AppCompatActivity {
     }
 
     public void onClickAcceptAppointment(View view){
-        System.out.println("onClickAccept called");
         selectedAppt.updateStatus(Status.APPROVED, dataSnapshot);
 
         //go back to upcoming appointments list
@@ -60,7 +59,6 @@ public class UpcomingAppointmentDisplay extends AppCompatActivity {
     }
 
     public void onClickRejectAppointment(View view){
-        System.out.println("onClickReject called");
         selectedAppt.updateStatus(Status.REJECTED, dataSnapshot);
 
         //go back to upcoming appointments list

@@ -29,14 +29,10 @@ public class DoctorShifts extends AppCompatActivity {
     private Button buttonYesDeleteShift;
     private Button buttonNoDeleteShift;
     private Switch autoApproveSwitch;
-
     private Doctor doctor;
-
     Shift selectedShift;
-
     private Button buttonAddShift;
-    private ArrayAdapter<String> adapter;
-    private ArrayList<String> shiftsList = new ArrayList<>();
+    private ArrayAdapter<Shift> adapter;
 
     public DoctorShifts() {
     }
@@ -56,21 +52,18 @@ public class DoctorShifts extends AppCompatActivity {
         autoApproveSwitch = findViewById((R.id.autoApproveSwitch));
 
         //sets the switch to the correct initial value ("on" or "off") depending on the value of the autoApprove boolean
-        if(doctor.getAutoApprove()){
+        /*if(doctor.getAutoApprove()){
             autoApproveSwitch.setChecked(true);
         }
         else{
             autoApproveSwitch.setChecked(false);
-        }
+        }*/
 
         // Initialize shifts list
         doctor = (Doctor) getIntent().getSerializableExtra("Doctor");
         ArrayList<Shift> shifts = doctor.getShifts();
         if (shifts != null) {
-            for(Shift shift : shifts) {
-                shiftsList.add(shift.toString());
-            }
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, shiftsList);
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_single_choice, shifts);
             listViewShifts.setAdapter(adapter);
         }
 
@@ -84,15 +77,6 @@ public class DoctorShifts extends AppCompatActivity {
         });
 
 
-        /*buttonDeleteShift.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(DoctorShifts.this, ShiftCreation.class);
-                intent.putExtra("Doctor", doctor);
-                startActivity(intent);
-            }
-        });*/
-
         buttonAddShift.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,44 +86,6 @@ public class DoctorShifts extends AppCompatActivity {
             }
         });
 
-        // Fetch shifts from Firebase
-        //fetchShiftsFromFirebase();
-
-    }
-
-    /*
-     * Fetches shifts data from Firebase and updates the list view
-     */
-    private void fetchShiftsFromFirebase() {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        if (currentUser != null) {
-            String doctorId = currentUser.getUid();
-            DatabaseReference shiftsRef = FirebaseDatabase.getInstance().getReference("Doctors")
-                    .child(doctorId)
-                    .child("shifts");
-
-            shiftsRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    shiftsList.clear();
-
-                    for (DataSnapshot shiftSnapshot : dataSnapshot.getChildren()) {
-                        Shift shift = shiftSnapshot.getValue(Shift.class);
-                        if (shift != null) {
-                            shiftsList.add(shift.toString());
-                        }
-                    }
-
-                    adapter.notifyDataSetChanged();
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    // Handle errors
-                }
-            });
-        }
     }
 
     //Method is called if doctor wants to delete a selected shift

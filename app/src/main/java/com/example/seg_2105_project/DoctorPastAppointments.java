@@ -61,7 +61,19 @@ public class DoctorPastAppointments extends AppCompatActivity {
         });
 
 
+
+
     }
+
+    /**
+     * Redirects to the Doctor screen when the back button is clicked
+     */
+    public void onClickBackButton(View view){
+        Intent intent = new Intent(getApplicationContext(), DoctorScreen.class);
+        intent.putExtra("Doctor", getIntent().getSerializableExtra("Doctor"));
+        startActivity(intent);
+    }
+
     /**
      * Adds all the past appointments to listview layout
      */

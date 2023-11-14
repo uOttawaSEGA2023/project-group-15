@@ -21,28 +21,13 @@ public class Shift implements Serializable {
         this.year = start.get(Calendar.YEAR);
         this.month = start.get(Calendar.MONTH);
         this.day = start.get(Calendar.DAY_OF_MONTH);
-        this.startHours = start.get(Calendar.HOUR);
+        this.startHours = start.get(Calendar.HOUR_OF_DAY);
         this.startMinutes = start.get(Calendar.MINUTE);
-        this.endHours = end.get(Calendar.HOUR);
+        this.endHours = end.get(Calendar.HOUR_OF_DAY);
         this.endMinutes = end.get(Calendar.MINUTE);
     }
 
-    public Shift() {
-
-        start = Calendar.getInstance();
-        end = Calendar.getInstance();
-        start.set(Calendar.YEAR, year);
-        start.set(Calendar.MONTH, month);
-        start.set(Calendar.DAY_OF_MONTH, day);
-        end.set(Calendar.YEAR, year);
-        end.set(Calendar.YEAR, year);
-        end.set(Calendar.YEAR, year);
-        start.set(Calendar.HOUR_OF_DAY, startHours);
-        start.set(Calendar.MINUTE, startMinutes);
-        end.set(Calendar.HOUR_OF_DAY, endHours);
-        end.set(Calendar.MINUTE, endMinutes);
-
-    }
+    public Shift() {}
 
     public int getYear() {
         return year;
@@ -73,7 +58,23 @@ public class Shift implements Serializable {
     }
 
     public Calendar retrieveStart() {
+        start = Calendar.getInstance();
+        start.set(Calendar.HOUR_OF_DAY, startHours);
+        start.set(Calendar.MINUTE, startMinutes);
+        start.set(Calendar.YEAR, year);
+        start.set(Calendar.MONTH, month);
+        start.set(Calendar.DAY_OF_MONTH, day);
         return start;
+    }
+
+    public Calendar retrieveEnd() {
+        end = Calendar.getInstance();
+        end.set(Calendar.HOUR_OF_DAY, endHours);
+        end.set(Calendar.MINUTE, endMinutes);
+        end.set(Calendar.YEAR, year);
+        end.set(Calendar.MONTH, month);
+        end.set(Calendar.DAY_OF_MONTH, day);
+        return end;
     }
 
     public String toString() {

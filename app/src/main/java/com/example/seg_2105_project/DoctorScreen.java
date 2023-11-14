@@ -1,27 +1,43 @@
 package com.example.seg_2105_project;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DoctorScreen extends AppCompatActivity {
 
     TextView welcomeMessage;
     Doctor doctor;
     String name;///Doctor name;
+    private Switch autoApproveSwitch;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_screen);
         welcomeMessage = findViewById(R.id.welcomeMessage);
+        autoApproveSwitch = findViewById((R.id.autoApproveSwitch2));
+
 
         //Get user profile
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -35,6 +51,15 @@ public class DoctorScreen extends AppCompatActivity {
         this.doctor = (Doctor) getIntent().getSerializableExtra("Doctor");
 
         welcomeMessage.setText( "Welcome " + name + "! You are logged in as a doctor ");
+
+
+        //sets the switch to the correct initial value ("on" or "off") depending on the value of the autoApprove boolean
+        if(doctor.getAutoApprove()){
+            autoApproveSwitch.setChecked(true);
+        }
+        else{
+            autoApproveSwitch.setChecked(false);
+        }
 
     }
 
@@ -62,4 +87,40 @@ public class DoctorScreen extends AppCompatActivity {
         intent.putExtra("Doctor", doctor);
         startActivity(intent);
     }
+
+    //allows the doctor to automatically approve future appointments
+    public void onClickAutoApproveSwitch(View view) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Doctors");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (autoApproveSwitch.isChecked()) {
+                    doctor.updateAutoApprove(true, snapshot);
+
+                } else {
+                    doctor.updateAutoApprove(false, snapshot);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
+
+    }
+
+    private void test() {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Patients");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Patient patient = Patient.getPatient("aniverma15@gmail.com", "password", snapshot);
+                Appointment appointment = new Appointment(Calendar.getInstance(), doctor, patient);
+                appointment.bookAppointment();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
+    }
+
 }

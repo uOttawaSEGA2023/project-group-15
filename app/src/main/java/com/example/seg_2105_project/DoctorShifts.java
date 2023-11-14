@@ -2,6 +2,9 @@ package com.example.seg_2105_project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.widget.AbsListView;
+import android.widget.Switch;
+import android.widget.TextView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -24,9 +27,15 @@ public class DoctorShifts extends AppCompatActivity {
 
     private ListView listViewShifts;
     private Button buttonDeleteShift;
+    private Button buttonYesDeleteShift;
+    private Button buttonNoDeleteShift;
+    private Doctor doctor;
+    Shift selectedShift;
     private Button buttonAddShift;
-    private ArrayAdapter<String> adapter;
-    private ArrayList<String> shiftsList = new ArrayList<>();
+    private ArrayAdapter<Shift> adapter;
+
+    public DoctorShifts() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,34 +47,22 @@ public class DoctorShifts extends AppCompatActivity {
         buttonDeleteShift = findViewById(R.id.buttonDeleteShift);
         buttonAddShift = findViewById(R.id.buttonAddShift);
 
-        // Initialize shifts list
-        Doctor doctor = (Doctor) getIntent().getSerializableExtra("Doctor");
-        ArrayList<Shift> shifts = doctor.getShifts();
-        if (shifts != null) {
-            for(Shift shift : shifts) {
-                shiftsList.add(shift.toString());
-            }
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, shiftsList);
-            listViewShifts.setAdapter(adapter);
-        }
+        buttonYesDeleteShift = findViewById(R.id.buttonYesDeleteShift);
+        buttonNoDeleteShift = findViewById(R.id.buttonNoDeleteShift);
 
+
+        // Initialize shifts list
+        doctor = (Doctor) getIntent().getSerializableExtra("Doctor");
+        loadListView();
 
         // click listeners
         listViewShifts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Sedra your code should be going here!!!!!
+                selectedShift = (Shift) listViewShifts.getItemAtPosition(position);
             }
         });
 
-        buttonDeleteShift.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(DoctorShifts.this, ShiftCreation.class);
-                intent.putExtra("Doctor", doctor);
-                startActivity(intent);
-            }
-        });
 
         buttonAddShift.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,43 +73,55 @@ public class DoctorShifts extends AppCompatActivity {
             }
         });
 
-        // Fetch shifts from Firebase
-        //fetchShiftsFromFirebase();
-
     }
 
-    /*
-     * Fetches shifts data from Firebase and updates the list view
-     */
-    private void fetchShiftsFromFirebase() {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+    //Method is called if doctor wants to delete a selected shift
+    public void onClickDeleteShiftButton(View view) {
+        TextView text1 = findViewById(R.id.textWarning);
+        TextView text2 = findViewById(R.id.textConfirmation); //confirm with user if they want to delete shift
 
-        if (currentUser != null) {
-            String doctorId = currentUser.getUid();
-            DatabaseReference shiftsRef = FirebaseDatabase.getInstance().getReference("Doctors")
-                    .child(doctorId)
-                    .child("shifts");
+        if (selectedShift == null) {
+            text1.setVisibility(view.VISIBLE);
+        } else {
+            text1.setVisibility(View.INVISIBLE);
+            text2.setVisibility(View.VISIBLE);
+            buttonYesDeleteShift.setVisibility(View.VISIBLE);
+            buttonNoDeleteShift.setVisibility(View.VISIBLE);
+            buttonAddShift.setVisibility(View.INVISIBLE);
+            buttonDeleteShift.setVisibility(View.INVISIBLE);
+        }
+    }
 
-            shiftsRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    shiftsList.clear();
 
-                    for (DataSnapshot shiftSnapshot : dataSnapshot.getChildren()) {
-                        Shift shift = shiftSnapshot.getValue(Shift.class);
-                        if (shift != null) {
-                            shiftsList.add(shift.toString());
-                        }
-                    }
+    //Method is called if doctor confirms the removal of a shift
+    public void onClickYesDeleteShiftButton(View view){
+        TextView text2 = findViewById(R.id.textConfirmation);
+        doctor.deleteShift(selectedShift);
+        text2.setVisibility(View.INVISIBLE);
+        buttonYesDeleteShift.setVisibility(View.INVISIBLE);
+        buttonNoDeleteShift.setVisibility(View.INVISIBLE);
+        buttonAddShift.setVisibility(View.VISIBLE);
+        buttonDeleteShift.setVisibility(View.VISIBLE);
+        loadListView();
+        selectedShift = null;
+    }
 
-                    adapter.notifyDataSetChanged();
-                }
+    //Method is called if doctor does not want to delete a selected shift
+    public void onClickNoDeleteButton(View view){
+        TextView text2 = findViewById(R.id.textConfirmation);
+        text2.setVisibility(View.INVISIBLE);
+        buttonYesDeleteShift.setVisibility(View.INVISIBLE);
+        buttonNoDeleteShift.setVisibility(View.INVISIBLE);
+        buttonAddShift.setVisibility(View.VISIBLE);
+        buttonDeleteShift.setVisibility(View.VISIBLE);
+    }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    // Handle errors
-                }
-            });
+    private void loadListView() {
+        ArrayList<Shift> shifts = doctor.getShifts();
+        if (shifts != null) {
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_single_choice, shifts);
+            listViewShifts.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
+            listViewShifts.setAdapter(adapter);
         }
     }
 

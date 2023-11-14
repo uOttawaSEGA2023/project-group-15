@@ -30,13 +30,14 @@ public class DoctorUpcomingAppointments extends AppCompatActivity {
 
         //obtaining references to the database
         FirebaseDatabase db = FirebaseDatabase.getInstance();
-        DatabaseReference doctorRef = db.getReference("Doctors");
+        DatabaseReference appointmentsRef = db.getReference("Appointments");
 
         //retrieve data for doctors
-        doctorRef.addValueEventListener(new ValueEventListener() {
+        Doctor doctor = (Doctor) getIntent().getSerializableExtra("Doctor");
+        appointmentsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                appointments.addAll(Doctor.getDoctorAppointments(snapshot, false, Calendar.getInstance()));
+                appointments.addAll(doctor.getDoctorAppointments(snapshot, false, Calendar.getInstance()));
                 loadListView();
             }
 
@@ -53,11 +54,20 @@ public class DoctorUpcomingAppointments extends AppCompatActivity {
 
                 Intent intent = new Intent(getApplicationContext(), UpcomingAppointmentDisplay.class);
                 intent.putExtra("Appointment", selectedAppointment);
+                intent.putExtra("Doctor", doctor);
                 startActivity(intent);
             }
         });
 
 
+    }
+    /**
+     * Redirects to the Doctor screen when the back button is clicked
+     */
+    public void onClickBackButton(View view){
+        Intent intent = new Intent(getApplicationContext(), DoctorScreen.class);
+        intent.putExtra("Doctor", getIntent().getSerializableExtra("Doctor"));
+        startActivity(intent);
     }
     /**
      * Adds all the upcoming appointments to listview layout

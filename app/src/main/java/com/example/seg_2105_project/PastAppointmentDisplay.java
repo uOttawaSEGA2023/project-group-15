@@ -23,6 +23,7 @@ public class PastAppointmentDisplay extends AppCompatActivity {
 
     public void onClickBackButton(View view){
         Intent intent = new Intent(getApplicationContext(), DoctorPastAppointments.class);
+        intent.putExtra("Doctor", getIntent().getSerializableExtra("Doctor"));
         startActivity(intent);
     }
 }

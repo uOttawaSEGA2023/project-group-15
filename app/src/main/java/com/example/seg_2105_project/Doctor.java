@@ -3,6 +3,10 @@ package com.example.seg_2105_project;
 import androidx.annotation.NonNull;
 
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -30,9 +34,9 @@ public class Doctor extends User {
     public boolean getAutoApprove() { return autoApprove; }
 
     /**SETTERS**/
-    public void updateAutoApprove(boolean autoApprove) {
+    public void updateAutoApprove(boolean autoApprove, DataSnapshot snapshot) {
         this.autoApprove = autoApprove;
-        updateFirebase("Doctors", "autoApprove", autoApprove, this);
+        updateFirebase("Doctors", "autoApprove", autoApprove, this, snapshot);
     }
 
     /*

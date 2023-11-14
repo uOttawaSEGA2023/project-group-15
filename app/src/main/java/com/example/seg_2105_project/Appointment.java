@@ -80,7 +80,7 @@ public class Appointment implements Serializable {
     }
 
     /*
-    * Adds appointment to doctor and patient appointment lists and updates Firebase
+    * Adds appointment to Firebase
     */
     public void bookAppointment() {
 

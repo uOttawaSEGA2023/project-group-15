@@ -2,6 +2,7 @@ package com.example.seg_2105_project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.widget.AbsListView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.content.Intent;
@@ -52,12 +53,7 @@ public class DoctorShifts extends AppCompatActivity {
 
         // Initialize shifts list
         doctor = (Doctor) getIntent().getSerializableExtra("Doctor");
-        ArrayList<Shift> shifts = doctor.getShifts();
-        if (shifts != null) {
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_single_choice, shifts);
-            listViewShifts.setAdapter(adapter);
-        }
-
+        loadListView();
 
         // click listeners
         listViewShifts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -106,6 +102,8 @@ public class DoctorShifts extends AppCompatActivity {
         buttonNoDeleteShift.setVisibility(View.INVISIBLE);
         buttonAddShift.setVisibility(View.VISIBLE);
         buttonDeleteShift.setVisibility(View.VISIBLE);
+        loadListView();
+        selectedShift = null;
     }
 
     //Method is called if doctor does not want to delete a selected shift
@@ -116,6 +114,15 @@ public class DoctorShifts extends AppCompatActivity {
         buttonNoDeleteShift.setVisibility(View.INVISIBLE);
         buttonAddShift.setVisibility(View.VISIBLE);
         buttonDeleteShift.setVisibility(View.VISIBLE);
+    }
+
+    private void loadListView() {
+        ArrayList<Shift> shifts = doctor.getShifts();
+        if (shifts != null) {
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_single_choice, shifts);
+            listViewShifts.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
+            listViewShifts.setAdapter(adapter);
+        }
     }
 
 }

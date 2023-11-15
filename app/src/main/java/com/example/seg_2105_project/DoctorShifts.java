@@ -1,5 +1,6 @@
 package com.example.seg_2105_project;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.Calendar;
 
@@ -57,6 +58,13 @@ public class DoctorShifts extends AppCompatActivity {
 
         // Initialize shifts list
         doctor = (Doctor) getIntent().getSerializableExtra("Doctor");
+
+        ArrayList<Shift> shifts = doctor.getShifts();
+        for (Shift shift : shifts) {
+            if (shift.retrieveEnd().before(Calendar.getInstance())) {
+                shifts.remove(shift);
+            }
+        }
         loadListView();
 
         // click listeners
@@ -125,11 +133,11 @@ public class DoctorShifts extends AppCompatActivity {
         if (shifts != null) {
             // Sort array chronologically
             Collections.sort(shifts, Shift.getShiftComparator());
+
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_single_choice, shifts);
             listViewShifts.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
             listViewShifts.setAdapter(adapter);
         }
     }
-
 
 }

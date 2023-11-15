@@ -95,7 +95,7 @@ public class Shift implements Serializable {
     }
 
     public String toString() {
-        String date = day + "/" + month + "/" + year;
+        String date = day + "/" + (month + 1) + "/" + year;
         String startTime = "";
         String endTime = "";
 

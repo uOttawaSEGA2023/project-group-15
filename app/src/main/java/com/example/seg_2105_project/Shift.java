@@ -2,6 +2,7 @@ package com.example.seg_2105_project;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Comparator;
 
 public class Shift implements Serializable {
 
@@ -14,6 +15,18 @@ public class Shift implements Serializable {
     private int startMinutes;
     private int endHours;
     private int endMinutes;
+
+    // Nested class for comparing shifts
+    private static class ShiftComparator<T> implements Comparator<T> {
+        @Override
+        public int compare(T s1, T s2) {
+            Shift shift1 = (Shift) s1;
+            Shift shift2 = (Shift) s2;
+            Calendar shift1Start = shift1.retrieveStart();
+            Calendar shift2Start = shift2.retrieveStart();
+            return shift1Start.compareTo(shift2Start);
+        }
+    }
 
     public Shift(Calendar start, Calendar end) {
         this.start = start;
@@ -57,6 +70,10 @@ public class Shift implements Serializable {
         return endMinutes;
     }
 
+    // Static methods
+    // return a comparator for shifts
+    public static ShiftComparator getShiftComparator(){ return new ShiftComparator(); }
+
     public Calendar retrieveStart() {
         start = Calendar.getInstance();
         start.set(Calendar.HOUR_OF_DAY, startHours);
@@ -78,7 +95,7 @@ public class Shift implements Serializable {
     }
 
     public String toString() {
-        String date = day + "/" + month + "/" + year;
+        String date = day + "/" + (month + 1) + "/" + year;
         String startTime = "";
         String endTime = "";
 

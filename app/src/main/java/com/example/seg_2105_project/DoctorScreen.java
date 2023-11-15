@@ -108,19 +108,4 @@ public class DoctorScreen extends AppCompatActivity {
 
     }
 
-    private void test() {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Patients");
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Patient patient = Patient.getPatient("aniverma15@gmail.com", "password", snapshot);
-                Appointment appointment = new Appointment(Calendar.getInstance(), doctor, patient);
-                appointment.bookAppointment();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {}
-        });
-    }
-
 }

@@ -133,11 +133,15 @@ public class DoctorShifts extends AppCompatActivity {
         if (shifts != null) {
             // Sort array chronologically
             Collections.sort(shifts, Shift.getShiftComparator());
-
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_single_choice, shifts);
             listViewShifts.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
             listViewShifts.setAdapter(adapter);
         }
+    }
+    public void onClickBackButton(View view){
+        Intent intent = new Intent(this, DoctorScreen.class);
+        intent.putExtra("Doctor", doctor);
+        startActivity(intent);
     }
 
 }

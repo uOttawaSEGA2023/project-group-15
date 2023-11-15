@@ -173,4 +173,10 @@ public class ShiftCreation extends AppCompatActivity {
 
     }
 
+    public void onClickBackButton(View view){
+        Intent intent = new Intent(this, DoctorShifts.class);
+        intent.putExtra("Doctor", doctor);
+        startActivity(intent);
+    }
+
 }

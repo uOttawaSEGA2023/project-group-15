@@ -1,6 +1,7 @@
 package com.example.seg_2105_project;
 
 import androidx.appcompat.app.AppCompatActivity;
+import java.util.Calendar;
 
 import android.widget.AbsListView;
 import android.widget.Switch;
@@ -22,6 +23,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class DoctorShifts extends AppCompatActivity {
 
@@ -33,6 +36,7 @@ public class DoctorShifts extends AppCompatActivity {
     Shift selectedShift;
     private Button buttonAddShift;
     private ArrayAdapter<Shift> adapter;
+
 
     public DoctorShifts() {
     }
@@ -119,6 +123,8 @@ public class DoctorShifts extends AppCompatActivity {
     private void loadListView() {
         ArrayList<Shift> shifts = doctor.getShifts();
         if (shifts != null) {
+            // Sort array chronologically
+            Collections.sort(shifts, Shift.getShiftComparator());
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_single_choice, shifts);
             listViewShifts.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
             listViewShifts.setAdapter(adapter);

@@ -3,6 +3,8 @@ package com.example.seg_2105_project;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Shift implements Serializable {
 
@@ -15,6 +17,7 @@ public class Shift implements Serializable {
     private int startMinutes;
     private int endHours;
     private int endMinutes;
+    private Map<Calendar, Boolean> timeSlotAvailability;
 
     // Nested class for comparing shifts
     private static class ShiftComparator<T> implements Comparator<T> {
@@ -38,6 +41,7 @@ public class Shift implements Serializable {
         this.startMinutes = start.get(Calendar.MINUTE);
         this.endHours = end.get(Calendar.HOUR_OF_DAY);
         this.endMinutes = end.get(Calendar.MINUTE);
+        this.timeSlotAvailability = new HashMap<>();
     }
 
     public Shift() {}
@@ -69,6 +73,8 @@ public class Shift implements Serializable {
     public int getEndMinutes() {
         return endMinutes;
     }
+
+    public Map<Calendar, Boolean> getTimeSlotAvailability() { return timeSlotAvailability; }
 
     // Static methods
     // return a comparator for shifts

@@ -57,13 +57,6 @@ public class DoctorShifts extends AppCompatActivity {
 
         // Initialize shifts list
         doctor = (Doctor) getIntent().getSerializableExtra("Doctor");
-
-        ArrayList<Shift> shifts = doctor.getShifts();
-        for (Shift shift : shifts) {
-            if (shift.retrieveEnd().before(Calendar.getInstance())) {
-                shifts.remove(shift);
-            }
-        }
         loadListView();
 
         // click listeners
@@ -130,8 +123,14 @@ public class DoctorShifts extends AppCompatActivity {
     private void loadListView() {
         ArrayList<Shift> shifts = doctor.getShifts();
         if (shifts != null) {
-            // Sort array chronologically
-            Collections.sort(shifts, Shift.getShiftComparator());
+            //Remove shifts that have passed
+            for (Shift shift : shifts) {
+                if (shift.retrieveEnd().before(Calendar.getInstance())) {
+                    shifts.remove(shift);
+                }
+            }
+
+            // Display shifts in list view
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_single_choice, shifts);
             listViewShifts.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
             listViewShifts.setAdapter(adapter);

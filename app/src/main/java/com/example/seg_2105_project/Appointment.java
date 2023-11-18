@@ -38,8 +38,10 @@ public class Appointment implements Serializable {
         this.id = (int) (Math.random()*100000);
 
         //Set status based on doctor preferences
-        if (doctor.getAutoApprove())
+        if (doctor.getAutoApprove()) {
             this.status = Status.APPROVED;
+            doctor.updateShiftAvailability(retrieveDateTime(), false);
+        }
         else
             this.status = Status.PENDING;
     }
@@ -76,6 +78,12 @@ public class Appointment implements Serializable {
                 return;
             }
         }
+
+        //Update doctor's shift availability
+        if(status == Status.APPROVED)
+            doctor.updateShiftAvailability(retrieveDateTime(), false);
+        else if (status == Status.REJECTED)
+            doctor.updateShiftAvailability(retrieveDateTime(), true);
 
     }
 

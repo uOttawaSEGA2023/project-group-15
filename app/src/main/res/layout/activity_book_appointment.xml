@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
-        android:text="There are no time slots available on this date\nPlease a different date"
+        android:text="There are no time slots available on this date\nPlease select a different date"
         android:textAlignment="center"
         android:textSize="18dp"
         android:visibility="invisible"

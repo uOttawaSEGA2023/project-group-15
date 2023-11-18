@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -29,9 +31,7 @@ public class BookAppointment extends AppCompatActivity {
 
     Doctor doctor;
     Calendar date = Calendar.getInstance();
-    DataSnapshot appointmentSnapshot;
-    DataSnapshot doctorSnapshot;
-    DataSnapshot patientSnapshot;
+    String time;
     ListView listViewTimeSlots;
 
     @Override
@@ -42,93 +42,75 @@ public class BookAppointment extends AppCompatActivity {
         doctor = (Doctor) getIntent().getSerializableExtra("Doctor");
 
         //Initialize UI variables
-        CalendarView calendarView = findViewById(R.id.calendarViewShifts);
         listViewTimeSlots = findViewById(R.id.listViewTimeSlots);
-        displayCalendar(calendarView);
+        displayCalendar();
 
-        //Get database info
-        DatabaseReference databaseReferenceAppointments = FirebaseDatabase.getInstance().getReference("Appointments");
-        databaseReferenceAppointments.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                appointmentSnapshot = snapshot;
+        //Read date chosen
+        CalendarView calendarView = findViewById(R.id.calendarViewShifts);
+        calendarView.setOnDateChangeListener((calendarView1, year, month, day) -> {
+            date.set(Calendar.YEAR, year);
+            date.set(Calendar.MONTH, month);
+            date.set(Calendar.DAY_OF_MONTH, day);
+            ArrayList<String> timeSlots = getTimeSlots(date);
+
+            //Check if date has available time slots
+            if (!timeSlots.isEmpty()) {
+                //Set UI
+                TextView textView = findViewById(R.id.textViewSelectTimeSlot);
+                textView.setVisibility(View.VISIBLE);
+                listViewTimeSlots.setVisibility(View.VISIBLE);
+                loadListView(timeSlots);
+
+                TextView textViewUnavailable = findViewById(R.id.textViewSlotUnavailable);
+                textViewUnavailable.setVisibility(View.INVISIBLE);
+
             }
+            else {
+                //Set UI
+                TextView textViewUnavailable = findViewById(R.id.textViewSlotUnavailable);
+                textViewUnavailable.setVisibility(View.VISIBLE);
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {}
-        });
+                TextView textViewAvailable = findViewById(R.id.textViewSelectTimeSlot);
+                textViewAvailable.setVisibility(View.INVISIBLE);
+                listViewTimeSlots.setVisibility(View.INVISIBLE);
 
-        DatabaseReference databaseReferencePatients = FirebaseDatabase.getInstance().getReference("Patients");
-        databaseReferencePatients.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                patientSnapshot = snapshot;
             }
+            Button confirmButton = findViewById(R.id.buttonConfirmBooking);
+            confirmButton.setVisibility(View.INVISIBLE);
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {}
-        });
-
-        DatabaseReference databaseReferenceDoctors = FirebaseDatabase.getInstance().getReference("Doctors");
-        databaseReferenceDoctors.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                doctorSnapshot = snapshot;
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {}
         });
 
         //Read date chosen
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
-                date.set(Calendar.YEAR, year);
-                date.set(Calendar.MONTH, month);
-                date.set(Calendar.DAY_OF_MONTH, day);
-                ArrayList<Calendar> timeSlots = getTimeSlots(date);
+        listViewTimeSlots.setOnItemClickListener((adapterView, view, i, l) -> {
+            time = (String) listViewTimeSlots.getAdapter().getItem(i);
 
-                //Check if date has available time slots
-                if (!timeSlots.isEmpty()) {
-                    //Set UI
-                    TextView textView = findViewById(R.id.textViewSelectTimeSlot);
-                    textView.setVisibility(View.VISIBLE);
-                    listViewTimeSlots.setVisibility(View.VISIBLE);
-                    loadListView(timeSlots);
+            //Add time to date of appointment
+            date.set(Calendar.HOUR_OF_DAY, Integer.parseInt(time.substring(0,2)));
+            date.set(Calendar.MINUTE, Integer.parseInt(time.substring(3)));
 
-                    TextView textViewUnavailable = findViewById(R.id.textViewSlotUnavailable);
-                    textViewUnavailable.setVisibility(View.INVISIBLE);
-
-                }
-                else {
-                    //Set UI
-                    TextView textViewUnavailable = findViewById(R.id.textViewSlotUnavailable);
-                    textViewUnavailable.setVisibility(View.VISIBLE);
-
-                    TextView textViewAvailable = findViewById(R.id.textViewSelectTimeSlot);
-                    textViewAvailable.setVisibility(View.INVISIBLE);
-                    listViewTimeSlots.setVisibility(View.INVISIBLE);
-                }
-
-            }
+            //Allow user to confirm
+            Button confirmButton = findViewById(R.id.buttonConfirmBooking);
+            confirmButton.setVisibility(View.VISIBLE);
         });
-
 
     }
 
     public void onClickConfirmBooking(View view) {
-
+        //Create appointment and book it
+        Patient patient = (Patient) getIntent().getSerializableExtra("Patient");
+        Appointment appointment = new Appointment(date, doctor, patient);
+        appointment.bookAppointment();
+        Toast.makeText(getApplicationContext(), "Appointment Booked", Toast.LENGTH_SHORT).show();
     }
 
     /*
     Set the min and max date of the calendar based on doctor shifts
      */
-    private void displayCalendar(CalendarView calendarView) {
+    private void displayCalendar() {
+        CalendarView calendarView = findViewById(R.id.calendarViewShifts);
 
         //Find min and max date in doctor shifts
         ArrayList<Shift> shifts = doctor.getShifts();
-        Collections.sort(shifts, Shift.getShiftComparator());
         Calendar maxDate = shifts.get(shifts.size() - 1).retrieveStart();
         Calendar minDate = shifts.get(0).retrieveStart();
 
@@ -140,11 +122,11 @@ public class BookAppointment extends AppCompatActivity {
     /*
     Get available time slots for user to choose from
      */
-    private ArrayList<Calendar> getTimeSlots(Calendar date) {
+    private ArrayList<String> getTimeSlots(Calendar date) {
 
         //Go through doctor shifts to get those on date
         ArrayList<Shift> shifts = doctor.getShifts();
-        ArrayList<Calendar> timeSlots = new ArrayList<>();
+        ArrayList<String> timeSlots = new ArrayList<>();
         for (Shift shift : shifts) {
             //Check date of shift
             if (shift.retrieveStart().get(Calendar.DAY_OF_MONTH) ==  date.get(Calendar.DAY_OF_MONTH) &&
@@ -152,16 +134,21 @@ public class BookAppointment extends AppCompatActivity {
                     shift.retrieveStart().get(Calendar.YEAR) ==  date.get(Calendar.YEAR)) {
 
                 //Iterate through shift in 30 minute increments and check availability
-                Map<Calendar, Boolean> allTimeSlots = shift.getTimeSlotAvailability();
+                Map<String, Boolean> allTimeSlots = shift.getTimeSlotAvailability();
                 Calendar time = shift.retrieveStart();
                 while (time.before(shift.retrieveEnd())) {
-                    if (allTimeSlots.get(time)) //if slot is available, add it
-                        timeSlots.add(time);
+                    System.out.println(">>>>"+Shift.convertCalendarToStringTime(time));
+                    if (allTimeSlots.get(Shift.convertCalendarToStringTime(time))) //if slot is available, add it
+                        timeSlots.add(Shift.convertCalendarToStringTime(time));
 
                     //Increment
-                    if (time.get(Calendar.MINUTE) == 30)
-                        time.set(Calendar.HOUR, time.get(Calendar.HOUR) + 1);
-                    time.set(Calendar.MINUTE, 0);
+                    if (time.get(Calendar.MINUTE) == 30) {
+                        int hour = time.get(Calendar.HOUR_OF_DAY);
+                        time.set(Calendar.HOUR_OF_DAY, hour+1);
+                        time.set(Calendar.MINUTE, 0);
+                    }
+                    else
+                        time.set(Calendar.MINUTE, 30);
 
                 }
 
@@ -174,23 +161,25 @@ public class BookAppointment extends AppCompatActivity {
     /*
     Loads the list view with open time slots
      */
-    private void loadListView(ArrayList<Calendar> timeSlots) {
-        ArrayList<String> timeSlotsStr = new ArrayList<>();
-        for (Calendar time : timeSlots) {
+    private void loadListView(ArrayList<String> timeSlots) {
+        for (String slot : timeSlots) {
+            //Add end time to list view
+            int hour = Integer.parseInt(slot.substring(0, 2));
+            int minute = Integer.parseInt(slot.substring(3));
+            slot += " - ";
 
-            //Convert calendar time to string
-            String timeStr = "";
-            int hour = time.get(Calendar.HOUR);
-            int minute = time.get(Calendar.MINUTE);
-            if (hour < 10)
-                timeStr += ("0" + hour);
-            timeStr += ":";
-            if (minute == 0)
-                timeStr += "0";
-            timeStr += minute;
+            if (minute == 30) {
+                if (hour < 9)
+                    slot += "0";
+                slot += (hour + 1) + ":00";
+            }
+            else {
+                slot += (slot.substring(0, 2) + ":30");
+            }
 
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_single_choice, timeSlotsStr);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_single_choice, timeSlots);
         listViewTimeSlots.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
         listViewTimeSlots.setAdapter(adapter);
     }

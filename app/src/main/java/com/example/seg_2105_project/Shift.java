@@ -17,7 +17,7 @@ public class Shift implements Serializable {
     private int startMinutes;
     private int endHours;
     private int endMinutes;
-    private Map<Calendar, Boolean> timeSlotAvailability;
+    private Map<String, Boolean> timeSlots;
 
     // Nested class for comparing shifts
     private static class ShiftComparator<T> implements Comparator<T> {
@@ -32,7 +32,6 @@ public class Shift implements Serializable {
     }
 
     public Shift(Calendar start, Calendar end) {
-        this.start = start;
         this.end = end;
         this.year = start.get(Calendar.YEAR);
         this.month = start.get(Calendar.MONTH);
@@ -41,7 +40,23 @@ public class Shift implements Serializable {
         this.startMinutes = start.get(Calendar.MINUTE);
         this.endHours = end.get(Calendar.HOUR_OF_DAY);
         this.endMinutes = end.get(Calendar.MINUTE);
-        this.timeSlotAvailability = new HashMap<>();
+
+        //Initialize time slots to all available
+        this.timeSlots = new HashMap<>();
+        while (start.before(end)) {
+            timeSlots.put(convertCalendarToStringTime(start), true);
+
+            //Increment
+            if (start.get(Calendar.MINUTE) == 30) {
+                int hour = start.get(Calendar.HOUR_OF_DAY);
+                start.set(Calendar.HOUR_OF_DAY, hour+1);
+                start.set(Calendar.MINUTE, 0);
+            }
+            else
+                start.set(Calendar.MINUTE, 30);
+
+        }
+        this.start = retrieveStart();
     }
 
     public Shift() {}
@@ -74,54 +89,55 @@ public class Shift implements Serializable {
         return endMinutes;
     }
 
-    public Map<Calendar, Boolean> getTimeSlotAvailability() { return timeSlotAvailability; }
+    public Map<String, Boolean> getTimeSlotAvailability() { return timeSlots; }
 
     // Static methods
     // return a comparator for shifts
     public static ShiftComparator getShiftComparator(){ return new ShiftComparator(); }
 
     public Calendar retrieveStart() {
-        start = Calendar.getInstance();
-        start.set(Calendar.HOUR_OF_DAY, startHours);
-        start.set(Calendar.MINUTE, startMinutes);
-        start.set(Calendar.YEAR, year);
-        start.set(Calendar.MONTH, month);
-        start.set(Calendar.DAY_OF_MONTH, day);
+        if (start == null) {
+            start = Calendar.getInstance();
+            start.set(Calendar.HOUR_OF_DAY, startHours);
+            start.set(Calendar.MINUTE, startMinutes);
+            start.set(Calendar.YEAR, year);
+            start.set(Calendar.MONTH, month);
+            start.set(Calendar.DAY_OF_MONTH, day);
+        }
         return start;
     }
 
     public Calendar retrieveEnd() {
-        end = Calendar.getInstance();
-        end.set(Calendar.HOUR_OF_DAY, endHours);
-        end.set(Calendar.MINUTE, endMinutes);
-        end.set(Calendar.YEAR, year);
-        end.set(Calendar.MONTH, month);
-        end.set(Calendar.DAY_OF_MONTH, day);
+        if (end == null) {
+            end = Calendar.getInstance();
+            end.set(Calendar.HOUR_OF_DAY, endHours);
+            end.set(Calendar.MINUTE, endMinutes);
+            end.set(Calendar.YEAR, year);
+            end.set(Calendar.MONTH, month);
+            end.set(Calendar.DAY_OF_MONTH, day);
+        }
         return end;
     }
 
     public String toString() {
         String date = day + "/" + (month + 1) + "/" + year;
-        String startTime = "";
-        String endTime = "";
-
-        if (startHours < 10)
-            startTime += "0";
-        startTime += startHours + ":";
-
-        if (startMinutes < 10)
-            startTime += "0";
-        startTime += startMinutes;
-
-        if (endHours < 10)
-            endTime += "0";
-        endTime += endHours + ":";
-
-        if (endMinutes < 10)
-            endTime += "0";
-        endTime += endMinutes;
+        String startTime = convertCalendarToStringTime(retrieveStart());
+        String endTime = convertCalendarToStringTime(retrieveEnd());
 
         return date + " from " + startTime + " to " + endTime;
+    }
+
+    public static String convertCalendarToStringTime(Calendar time) {
+        String timeStr = "";
+        int hours = time.get(Calendar.HOUR_OF_DAY);
+        int minutes = time.get(Calendar.MINUTE);
+        if (hours < 10)
+            timeStr += "0";
+        timeStr += hours + ":";
+        if (minutes < 10)
+            timeStr += "0";
+        timeStr += minutes;
+        return timeStr;
     }
 
 }

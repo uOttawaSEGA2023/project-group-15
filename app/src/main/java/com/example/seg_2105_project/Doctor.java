@@ -3,6 +3,7 @@ package com.example.seg_2105_project;
 import com.google.firebase.database.DataSnapshot;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 
 public class Doctor extends User {
     private int employeeNumber;
@@ -26,6 +27,11 @@ public class Doctor extends User {
     public boolean getAutoApprove() { return autoApprove; }
 
     /**SETTERS**/
+    /*
+    * Acts as a setter for autoApprove and updates firebase
+    * @param  autoApprove  Boolean value to set autoApprove to
+    * @param  snapshot     DataSnapshot of database to update firebase with
+     */
     public void updateAutoApprove(boolean autoApprove, DataSnapshot snapshot) {
         this.autoApprove = autoApprove;
         updateFirebase("Doctors", "autoApprove", autoApprove, this, snapshot);
@@ -33,10 +39,31 @@ public class Doctor extends User {
 
     /*
      * Acts as a setter and changes the registration status in Firebase
+     * @param  registrationStatus   Status value to set registrationStatus to
      */
     public void updateRegistrationStatus(Status registrationStatus) {
         super.updateRegistrationStatus(registrationStatus);
         updateFirebase("Doctors", "registrationStatus", registrationStatus, this);
+    }
+
+    /*
+    * Acts as a setter and changes the availability of the time slots in doctor's shifts
+    * @param  date         Calendar date of shift to be updated
+    * @param  isAvailable  Boolean value indicating availability of time slot
+     */
+    public void updateShiftAvailability(Calendar date, boolean isAvailable) {
+
+        //Get shift at date
+        for(Shift shift : this.shifts) {
+            if (shift.retrieveStart().before(date) && shift.retrieveEnd().after(date)) {
+                //Change availability and update firebase
+                shift.getTimeSlotAvailability().put(Shift.convertCalendarToStringTime(date), isAvailable);
+                updateFirebase("Doctors", "shifts", shifts, this);
+                break;
+
+            }
+        }
+
     }
 
     /**OTHER METHODS**/
@@ -67,13 +94,14 @@ public class Doctor extends User {
         else {
             this.shifts.add(shift);
         }
+        Collections.sort(shifts, Shift.getShiftComparator());
         updateFirebase("Doctors", "shifts", shifts, this);
 
     }
 
 
     /*
-    *Deletes an existing shift from list
+    Deletes an existing shift from list
      */
     public void deleteShift(Shift shift){
         this.shifts.remove(shift);

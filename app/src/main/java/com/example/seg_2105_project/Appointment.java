@@ -33,7 +33,7 @@ public class Appointment implements Serializable {
         this.year = dateTime.get(Calendar.YEAR);
         this.month = dateTime.get(Calendar.MONTH);
         this.day = dateTime.get(Calendar.DAY_OF_MONTH);
-        this.hours = dateTime.get(Calendar.HOUR);
+        this.hours = dateTime.get(Calendar.HOUR_OF_DAY);
         this.minutes = dateTime.get(Calendar.MINUTE);
         this.id = (int) (Math.random()*100000);
 

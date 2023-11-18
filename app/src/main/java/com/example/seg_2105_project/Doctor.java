@@ -57,7 +57,7 @@ public class Doctor extends User {
         for(Shift shift : this.shifts) {
             if (shift.retrieveStart().before(date) && shift.retrieveEnd().after(date)) {
                 //Change availability and update firebase
-                shift.getTimeSlotAvailability().put(Shift.convertCalendarToStringTime(date), isAvailable);
+                shift.getTimeSlots().put(Shift.convertCalendarToStringTime(date), isAvailable);
                 updateFirebase("Doctors", "shifts", shifts, this);
                 break;
 

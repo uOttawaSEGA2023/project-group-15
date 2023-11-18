@@ -1,12 +1,10 @@
 package com.example.seg_2105_project;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
@@ -14,17 +12,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 
 public class BookAppointment extends AppCompatActivity {
@@ -134,10 +123,10 @@ public class BookAppointment extends AppCompatActivity {
                     shift.retrieveStart().get(Calendar.YEAR) ==  date.get(Calendar.YEAR)) {
 
                 //Iterate through shift in 30 minute increments and check availability
-                Map<String, Boolean> allTimeSlots = shift.getTimeSlotAvailability();
+                Map<String, Boolean> allTimeSlots = shift.getTimeSlots();
                 Calendar time = shift.retrieveStart();
                 while (time.before(shift.retrieveEnd())) {
-                    System.out.println(">>>>"+Shift.convertCalendarToStringTime(time));
+
                     if (allTimeSlots.get(Shift.convertCalendarToStringTime(time))) //if slot is available, add it
                         timeSlots.add(Shift.convertCalendarToStringTime(time));
 

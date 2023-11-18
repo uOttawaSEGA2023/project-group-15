@@ -89,7 +89,7 @@ public class Shift implements Serializable {
         return endMinutes;
     }
 
-    public Map<String, Boolean> getTimeSlotAvailability() { return timeSlots; }
+    public Map<String, Boolean> getTimeSlots() { return timeSlots; }
 
     // Static methods
     // return a comparator for shifts

@@ -75,15 +75,16 @@ public class Appointment implements Serializable {
             if (appointment.getID() == id) {
                 //Change status
                 appointmentSnapshot.getRef().child("status").setValue(status);
+
+                //Update doctor's shift availability
+                if(status == Status.APPROVED)
+                    doctor.updateShiftAvailability(retrieveDateTime(), false);
+                else if (status == Status.REJECTED)
+                    doctor.updateShiftAvailability(retrieveDateTime(), true);
+
                 return;
             }
         }
-
-        //Update doctor's shift availability
-        if(status == Status.APPROVED)
-            doctor.updateShiftAvailability(retrieveDateTime(), false);
-        else if (status == Status.REJECTED)
-            doctor.updateShiftAvailability(retrieveDateTime(), true);
 
     }
 
@@ -101,6 +102,10 @@ public class Appointment implements Serializable {
     public String toString() {
         String date = day + "/" + month + "/" + year;
         String time = hours + ":" + minutes;
+
+        if (minutes == 0)
+            time += "0";
+
         return "Patient: " + patient.getFirstName() + " " + patient.getLastName() +
                 " | Date: " + date + " at " + time +
                 " | Status " + status;

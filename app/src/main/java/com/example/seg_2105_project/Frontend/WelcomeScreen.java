@@ -1,10 +1,12 @@
-package com.example.seg_2105_project;
+package com.example.seg_2105_project.Frontend;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import com.example.seg_2105_project.R;
 
 public class WelcomeScreen extends AppCompatActivity {
     @Override

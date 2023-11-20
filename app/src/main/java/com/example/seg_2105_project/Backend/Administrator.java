@@ -1,4 +1,4 @@
-package com.example.seg_2105_project;
+package com.example.seg_2105_project.Backend;
 
 public class Administrator {
 

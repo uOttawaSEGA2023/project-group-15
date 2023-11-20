@@ -17,64 +17,64 @@
         android:theme="@style/Theme.SEG_2105_Project"
         tools:targetApi="31">
         <activity
-            android:name=".BookAppointment"
+            android:name=".Frontend.DoctorActivities.BookAppointment"
             android:exported="false" />
         <activity
-            android:name=".DoctorShifts"
+            android:name=".Frontend.DoctorActivities.DoctorShifts"
             android:exported="false"></activity>
         <activity
-            android:name=".ShiftCreation"
+            android:name=".Frontend.DoctorActivities.ShiftCreation"
             android:exported="false" />
         <activity
-            android:name=".PastAppointmentDisplay"
+            android:name=".Frontend.DoctorActivities.PastAppointmentDisplay"
             android:exported="false" />
         <activity
-            android:name=".UpcomingAppointmentDisplay"
+            android:name=".Frontend.DoctorActivities.UpcomingAppointmentDisplay"
             android:exported="false" />
         <activity
-            android:name=".DoctorPastAppointments"
+            android:name=".Frontend.DoctorActivities.DoctorPastAppointments"
             android:exported="false" />
         <activity
-            android:name=".DoctorUpcomingAppointments"
+            android:name=".Frontend.DoctorActivities.DoctorUpcomingAppointments"
             android:exported="false" />
         <activity
-            android:name=".RejectedUserInfoDisplay"
+            android:name=".Frontend.AdminActivities.RejectedUserInfoDisplay"
             android:exported="false" />
         <activity
-            android:name=".UserInfoDisplay"
+            android:name=".Frontend.AdminActivities.UserInfoDisplay"
             android:exported="false" />
         <activity
-            android:name=".RegistrationsInbox"
+            android:name=".Frontend.AdminActivities.RegistrationsInbox"
             android:exported="false" />
         <activity
-            android:name=".RejectedRegistrations"
+            android:name=".Frontend.AdminActivities.RejectedRegistrations"
             android:exported="false" />
         <activity
-            android:name=".Doctor_SignUp"
+            android:name=".Frontend.DoctorActivities.Doctor_SignUp"
             android:exported="false" />
         <activity
-            android:name=".WelcomeScreen"
+            android:name=".Frontend.WelcomeScreen"
             android:exported="false" />
         <activity
-            android:name=".SignUpPage"
+            android:name=".Frontend.SignUpPage"
             android:exported="false" />
         <activity
-            android:name=".AdminScreen"
+            android:name=".Frontend.AdminActivities.AdminScreen"
             android:exported="false" />
         <activity
-            android:name=".DoctorScreen"
+            android:name=".Frontend.DoctorActivities.DoctorScreen"
             android:exported="false" />
         <activity
-            android:name=".PatientScreen"
+            android:name=".Frontend.PatientActivites.PatientScreen"
             android:exported="false" />
         <activity
-            android:name=".SignIn"
+            android:name=".Frontend.SignIn"
             android:exported="false" />
         <activity
-            android:name=".PatientSignUp"
+            android:name=".Frontend.PatientActivites.PatientSignUp"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Frontend.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

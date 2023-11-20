@@ -1,4 +1,4 @@
-package com.example.seg_2105_project;
+package com.example.seg_2105_project.Backend;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

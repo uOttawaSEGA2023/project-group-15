@@ -1,4 +1,7 @@
-package com.example.seg_2105_project;
+package com.example.seg_2105_project.Frontend.AdminActivities;
+
+import com.example.seg_2105_project.Backend.*;
+import com.example.seg_2105_project.R;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,25 +22,36 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+public class RejectedRegistrations extends AppCompatActivity {
 
-public class RegistrationsInbox extends AppCompatActivity {
-    ArrayList<User> usersList = new ArrayList<>();
+    //Store users to display
+    ArrayList<User> users = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registrations_inbox);
+        setContentView(R.layout.activity_rejected_registrations);
 
-        //obtaining references to the database
-        FirebaseDatabase db = FirebaseDatabase.getInstance();
-        DatabaseReference patientRef = db.getReference("Patients");
-        DatabaseReference doctorRef = db.getReference("Doctors");
+        //Get references to database
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference patientsRef = firebaseDatabase.getReference("Patients");
+        DatabaseReference doctorsRef = firebaseDatabase.getReference("Doctors");
 
-        //retrieve data for patients
-        patientRef.addValueEventListener(new ValueEventListener() {
+        //Read data
+        patientsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //adds all patients with pending status to list
-                usersList.addAll(Patient.getPatients(Status.PENDING, snapshot));
+                users.addAll(Patient.getPatients(Status.REJECTED, snapshot));
+                loadListView();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
+        doctorsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                users.addAll(Doctor.getDoctors(Status.REJECTED, snapshot));
                 loadListView();
             }
 
@@ -45,50 +59,34 @@ public class RegistrationsInbox extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {}
         });
 
-        //retrieve data for doctors
-        doctorRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                usersList.addAll(Doctor.getDoctors(Status.PENDING, snapshot));
-                loadListView();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error){}
-        });
-
         //Get user that was clicked on
-        ListView listView = findViewById(R.id.listViewRegistrationRequests);
+        ListView listView = findViewById(R.id.listViewRejectedRegistrations);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView parent, View view, int position, long id) {
                 User selectedUser = (User) listView.getItemAtPosition(position);
-
-                Intent intent = new Intent(getApplicationContext(), UserInfoDisplay.class);
+                //pass selectedUser to next screen
+                Intent intent = new Intent(getApplicationContext(), RejectedUserInfoDisplay.class);
                 intent.putExtra("User", selectedUser);
                 startActivity(intent);
             }
         });
     }
 
-    /**
-     * Adds all the pending users to the list view in the layout
-     */
-    private void loadListView(){
-        ListView listView = findViewById(R.id.listViewRegistrationRequests);
-        ArrayAdapter<User> arrayAdapterDoctor = new ArrayAdapter<User>(getApplicationContext(),
-                android.R.layout.simple_list_item_single_choice, usersList);
-        listView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
-        listView.setAdapter(arrayAdapterDoctor);
-    }
-
-    /**
-     * Redirects to the admin screen when the back button is clicked
-     */
-    public void onClickBackButton(View view){
+    public void onClickBackButton(View view) {
         Intent intent = new Intent(getApplicationContext(), AdminScreen.class);
         startActivity(intent);
     }
 
+    /*
+    Populate list view with users
+     */
+    private void loadListView() {
+        ListView listView = findViewById(R.id.listViewRejectedRegistrations);
+        ArrayAdapter<User> arrayAdapterDoctor = new ArrayAdapter<User>(getApplicationContext(),
+                android.R.layout.simple_list_item_single_choice, users);
+        listView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
+        listView.setAdapter(arrayAdapterDoctor);
+    }
 
 }

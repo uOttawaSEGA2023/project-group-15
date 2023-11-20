@@ -1,4 +1,6 @@
-package com.example.seg_2105_project;
+package com.example.seg_2105_project.Frontend;
+
+import com.example.seg_2105_project.Backend.*;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

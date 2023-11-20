@@ -1,4 +1,8 @@
-package com.example.seg_2105_project;
+package com.example.seg_2105_project.Frontend.DoctorActivities;
+
+import com.example.seg_2105_project.Backend.*;
+import com.example.seg_2105_project.Frontend.*;
+import com.example.seg_2105_project.R;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -53,7 +57,7 @@ public class DoctorPastAppointments extends AppCompatActivity {
             public void onItemClick(AdapterView parent, View view, int position, long id) {
                 Appointment selectedAppointment = (Appointment) listView.getItemAtPosition(position);
 
-                Intent intent = new Intent(getApplicationContext(), PastAppointmentDisplay.class);
+                Intent intent = new Intent(getApplicationContext(), com.example.seg_2105_project.Frontend.DoctorActivities.PastAppointmentDisplay.class);
                 intent.putExtra("Appointment", selectedAppointment);
                 intent.putExtra("Doctor", doctor);
                 startActivity(intent);

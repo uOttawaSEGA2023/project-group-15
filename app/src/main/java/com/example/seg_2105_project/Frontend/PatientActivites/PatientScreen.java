@@ -1,4 +1,8 @@
-package com.example.seg_2105_project;
+package com.example.seg_2105_project.Frontend.PatientActivites;
+
+import com.example.seg_2105_project.Backend.*;
+import com.example.seg_2105_project.Frontend.*;
+import com.example.seg_2105_project.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,20 +13,30 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 
-public class AdminScreen extends AppCompatActivity {
+public class
+PatientScreen extends AppCompatActivity {
 
     TextView welcomeMessage;
-    String name;///Admin name;
+    String name;///patient name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_screen);
+        setContentView(R.layout.activity_patient_screen);
         welcomeMessage = findViewById(R.id.welcomeMessage);
+
+        //Get user profile
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        name = user.getDisplayName();
-        welcomeMessage.setText("Welcome, you are signed in as Administrator!");
+        if (user != null) {
+            for (UserInfo profile : user.getProviderData()) {
+                name = profile.getDisplayName();
+            }
+        }
+
+        welcomeMessage.setText( "Welcome " + name + "! You are logged in as a patient ");
+
     }
 
     public void onClickSignOutButton(View view) {
@@ -30,15 +44,5 @@ public class AdminScreen extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), WelcomeScreen.class);
         startActivity(intent);
 
-    }
-
-    public void onClickInboxRegistrations(View view) {
-        Intent intent = new Intent(getApplicationContext(), RegistrationsInbox.class);
-        startActivity(intent);
-    }
-
-    public void onClickRejectedRegistrations(View view) {
-        Intent intent = new Intent(getApplicationContext(), RejectedRegistrations.class);
-        startActivity(intent);
     }
 }

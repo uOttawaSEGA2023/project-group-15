@@ -1,4 +1,7 @@
-package com.example.seg_2105_project;
+package com.example.seg_2105_project.Frontend.AdminActivities;
+
+import com.example.seg_2105_project.Backend.*;
+import com.example.seg_2105_project.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;

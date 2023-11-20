@@ -1,6 +1,10 @@
-package com.example.seg_2105_project;
+package com.example.seg_2105_project.Frontend;
 
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.seg_2105_project.Backend.*;
+import com.example.seg_2105_project.Frontend.AdminActivities.*;
+import com.example.seg_2105_project.Frontend.DoctorActivities.*;
+import com.example.seg_2105_project.Frontend.PatientActivites.*;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.seg_2105_project.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -144,7 +149,7 @@ public class SignIn extends AppCompatActivity {
                                                 /*
                                                 Redirect to DoctorScreen when registration is approved
                                                  */
-                                                Intent intent = new Intent(getApplicationContext(), DoctorScreen.class);
+                                                Intent intent = new Intent(getApplicationContext(), com.example.seg_2105_project.Frontend.DoctorActivities.DoctorScreen.class);
                                                 intent.putExtra("Doctor", doctor);
                                                 startActivity(intent);
                                             } else if (isRejected(doctor.getRegistrationStatus())) {

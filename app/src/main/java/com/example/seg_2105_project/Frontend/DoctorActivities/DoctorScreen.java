@@ -1,4 +1,12 @@
-package com.example.seg_2105_project;
+package com.example.seg_2105_project.Frontend.DoctorActivities;
+
+import com.example.seg_2105_project.Backend.*;
+import com.example.seg_2105_project.Frontend.*;
+import com.example.seg_2105_project.R;
+
+import com.example.seg_2105_project.Backend.*;
+import com.example.seg_2105_project.Frontend.*;
+import com.example.seg_2105_project.R;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -83,7 +91,7 @@ public class DoctorScreen extends AppCompatActivity {
     }
 
     public void onClickUpcomingShifts(View view) {
-        Intent intent = new Intent(getApplicationContext(), DoctorShifts.class);
+        Intent intent = new Intent(getApplicationContext(), com.example.seg_2105_project.Frontend.DoctorActivities.DoctorShifts.class);
         intent.putExtra("Doctor", doctor);
         startActivity(intent);
     }

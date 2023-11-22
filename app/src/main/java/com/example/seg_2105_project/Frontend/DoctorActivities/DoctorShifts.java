@@ -29,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 
 public class DoctorShifts extends AppCompatActivity {
 
@@ -128,12 +129,14 @@ public class DoctorShifts extends AppCompatActivity {
         ArrayList<Shift> shifts = doctor.getShifts();
         if (shifts != null) {
             //Remove shifts that have passed
-            for (Shift shift : shifts) {
+            Iterator<Shift> iterator = shifts.iterator();
+            while (iterator.hasNext()) {
+                Shift shift = iterator.next();
                 if (shift.retrieveEnd().before(Calendar.getInstance())) {
-                    shifts.remove(shift);
+                    // Use the iterator to remove element
+                    iterator.remove();
                 }
             }
-
             // Display shifts in list view
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_single_choice, shifts);
             listViewShifts.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);

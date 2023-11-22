@@ -1,7 +1,7 @@
 package com.example.seg_2105_project.Frontend.DoctorActivities;
 
-import com.example.seg_2105_project.Backend.*;
-import com.example.seg_2105_project.Frontend.*;
+import com.example.seg_2105_project.Backend.Appointment;
+import com.example.seg_2105_project.Backend.Doctor;
 import com.example.seg_2105_project.R;
 
 import androidx.annotation.NonNull;
@@ -23,7 +23,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 public class DoctorUpcomingAppointments extends AppCompatActivity {
     ArrayList<Appointment> appointments = new ArrayList<>();

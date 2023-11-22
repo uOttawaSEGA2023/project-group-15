@@ -1,8 +1,5 @@
 package com.example.seg_2105_project.Frontend;
 
-import com.example.seg_2105_project.Backend.*;
-import com.example.seg_2105_project.Frontend.AdminActivities.*;
-import com.example.seg_2105_project.Frontend.DoctorActivities.*;
 import com.example.seg_2105_project.Frontend.PatientActivites.*;
 import com.example.seg_2105_project.R;
 

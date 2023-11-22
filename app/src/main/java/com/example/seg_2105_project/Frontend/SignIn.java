@@ -1,10 +1,6 @@
 package com.example.seg_2105_project.Frontend;
 
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.seg_2105_project.Backend.*;
-import com.example.seg_2105_project.Frontend.AdminActivities.*;
-import com.example.seg_2105_project.Frontend.DoctorActivities.*;
-import com.example.seg_2105_project.Frontend.PatientActivites.*;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,8 +8,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.seg_2105_project.Backend.Administrator;
+import com.example.seg_2105_project.Backend.Doctor;
+import com.example.seg_2105_project.Backend.Patient;
+import com.example.seg_2105_project.Backend.Status;
+import com.example.seg_2105_project.Frontend.PatientActivites.PatientScreen;
+import com.example.seg_2105_project.Frontend.AdminActivities.AdminScreen;
 import com.example.seg_2105_project.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

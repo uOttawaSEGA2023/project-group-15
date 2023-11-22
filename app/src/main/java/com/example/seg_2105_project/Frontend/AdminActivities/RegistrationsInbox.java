@@ -1,6 +1,9 @@
 package com.example.seg_2105_project.Frontend.AdminActivities;
 
-import com.example.seg_2105_project.Backend.*;
+import com.example.seg_2105_project.Backend.Doctor;
+import com.example.seg_2105_project.Backend.Patient;
+import com.example.seg_2105_project.Backend.Status;
+import com.example.seg_2105_project.Backend.User;
 import com.example.seg_2105_project.R;
 
 import androidx.annotation.NonNull;

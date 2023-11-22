@@ -1,7 +1,5 @@
 package com.example.seg_2105_project.Frontend.AdminActivities;
 
-import com.example.seg_2105_project.Frontend.*;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.seg_2105_project.Frontend.WelcomeScreen;
 import com.example.seg_2105_project.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

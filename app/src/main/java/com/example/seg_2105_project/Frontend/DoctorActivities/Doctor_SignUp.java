@@ -1,7 +1,7 @@
 package com.example.seg_2105_project.Frontend.DoctorActivities;
 
-import com.example.seg_2105_project.Backend.*;
-import com.example.seg_2105_project.Frontend.*;
+import com.example.seg_2105_project.Backend.Doctor;
+import com.example.seg_2105_project.Frontend.SignIn;
 import com.example.seg_2105_project.R;
 
 import androidx.appcompat.app.AppCompatActivity;

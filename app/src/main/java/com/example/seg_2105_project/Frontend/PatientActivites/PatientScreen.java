@@ -38,6 +38,11 @@ PatientScreen extends AppCompatActivity {
 
     }
 
+    public void onClickBookAppointment(View view) {
+        Intent intent = new Intent(getApplicationContext(), PatientBookAppointment.class);
+        startActivity(intent);
+    }
+
     public void onClickSignOutButton(View view) {
         //Transition to home screen of app
         Intent intent = new Intent(getApplicationContext(), WelcomeScreen.class);

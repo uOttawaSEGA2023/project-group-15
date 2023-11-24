@@ -17,11 +17,14 @@
         android:theme="@style/Theme.SEG_2105_Project"
         tools:targetApi="31">
         <activity
+            android:name=".Frontend.PatientActivites.PatientBookAppointment"
+            android:exported="false" />
+        <activity
             android:name=".Frontend.DoctorActivities.BookAppointment"
             android:exported="false" />
         <activity
             android:name=".Frontend.DoctorActivities.DoctorShifts"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".Frontend.DoctorActivities.ShiftCreation"
             android:exported="false" />

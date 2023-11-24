@@ -1,4 +1,4 @@
-package com.example.seg_2105_project.Frontend.PatientActivites;
+package com.example.seg_2105_project.Frontend.PatientActivities;
 
 import com.example.seg_2105_project.Backend.Patient;
 import com.example.seg_2105_project.Frontend.SignIn;
@@ -20,8 +20,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.*;
 
 public class PatientSignUp extends AppCompatActivity {
 

@@ -13,7 +13,7 @@ import com.example.seg_2105_project.Backend.Administrator;
 import com.example.seg_2105_project.Backend.Doctor;
 import com.example.seg_2105_project.Backend.Patient;
 import com.example.seg_2105_project.Backend.Status;
-import com.example.seg_2105_project.Frontend.PatientActivites.PatientScreen;
+import com.example.seg_2105_project.Frontend.PatientActivities.PatientScreen;
 import com.example.seg_2105_project.Frontend.AdminActivities.AdminScreen;
 import com.example.seg_2105_project.R;
 import com.google.android.gms.tasks.OnCompleteListener;

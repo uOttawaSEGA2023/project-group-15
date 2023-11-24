@@ -17,11 +17,17 @@
         android:theme="@style/Theme.SEG_2105_Project"
         tools:targetApi="31">
         <activity
+            android:name=".Frontend.PatientActivities.PastAppointments"
+            android:exported="false" />
+        <activity
+            android:name=".Frontend.PatientActivities.UpcomingAppointments"
+            android:exported="false" />
+        <activity
             android:name=".Frontend.DoctorActivities.BookAppointment"
             android:exported="false" />
         <activity
             android:name=".Frontend.DoctorActivities.DoctorShifts"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".Frontend.DoctorActivities.ShiftCreation"
             android:exported="false" />
@@ -65,13 +71,13 @@
             android:name=".Frontend.DoctorActivities.DoctorScreen"
             android:exported="false" />
         <activity
-            android:name=".Frontend.PatientActivites.PatientScreen"
+            android:name=".Frontend.PatientActivities.PatientScreen"
             android:exported="false" />
         <activity
             android:name=".Frontend.SignIn"
             android:exported="false" />
         <activity
-            android:name=".Frontend.PatientActivites.PatientSignUp"
+            android:name=".Frontend.PatientActivities.PatientSignUp"
             android:exported="false" />
         <activity
             android:name=".Frontend.MainActivity"

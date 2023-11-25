@@ -123,10 +123,10 @@ public class PatientBookAppointment extends AppCompatActivity {
             public void onItemClick(AdapterView parent, View view, int position, long id) {
                 Doctor selectedAppointment = (Doctor) listViewDoctors.getItemAtPosition(position);
                 //add intent for next class
-                /*
-                Intent intent = new Intent(getApplicationContext(), _____.class);
-                intent.putExtra("Doctor", doctor);
-                startActivity(intent); */
+
+                Intent intent = new Intent(getApplicationContext(), BookAppointment.class);
+                intent.putExtra("Doctor", selectedAppointment);
+                startActivity(intent);
             }
         });
     }

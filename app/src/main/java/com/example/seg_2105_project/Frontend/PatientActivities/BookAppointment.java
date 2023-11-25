@@ -1,4 +1,4 @@
-package com.example.seg_2105_project.Frontend.DoctorActivities;
+package com.example.seg_2105_project.Frontend.PatientActivities;
 
 import com.example.seg_2105_project.Backend.Appointment;
 import com.example.seg_2105_project.Backend.Doctor;

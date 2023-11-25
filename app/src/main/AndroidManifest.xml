@@ -23,7 +23,10 @@
             android:name=".Frontend.PatientActivities.UpcomingAppointments"
             android:exported="false" />
         <activity
-            android:name=".Frontend.DoctorActivities.BookAppointment"
+            android:name=".Frontend.PatientActivities.BookAppointment"
+            android:exported="false" />
+        <activity
+            android:name=".Frontend.PatientActivities.PatientBookAppointment"
             android:exported="false" />
         <activity
             android:name=".Frontend.DoctorActivities.DoctorShifts"

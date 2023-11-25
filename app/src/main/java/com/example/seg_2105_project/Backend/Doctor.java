@@ -10,6 +10,8 @@ public class Doctor extends User {
     private ArrayList<String> specialties;
     private ArrayList<Shift> shifts;
     private boolean autoApprove;
+    private float rating;
+    private int numOfRatings;
 
     public Doctor() {}
     public Doctor(String firstName, String lastName, String email, String password, long phoneNumber, String address, int employee_number, ArrayList<String> specialties) {
@@ -18,6 +20,7 @@ public class Doctor extends User {
         this.specialties = specialties;
         this.shifts = new ArrayList<>();
         this.autoApprove = false;
+        numOfRatings = 0;
     }
 
     /**GETTERS**/
@@ -187,6 +190,14 @@ public class Doctor extends User {
 
         return appointments;
 
+    }
+
+    public void updateRating(float ratingToAdd){
+        rating = (rating*numOfRatings + ratingToAdd)/(++numOfRatings);
+    }
+
+    public float getRating(){
+        return rating;
     }
 
 

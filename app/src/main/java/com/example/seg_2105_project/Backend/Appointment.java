@@ -25,6 +25,7 @@ public class Appointment implements Serializable {
     private int hours;
     private int minutes;
     private int id;
+    private boolean rated;
 
     public Appointment(Calendar dateTime, Doctor doctor, Patient patient) {
         this.dateTime = dateTime;
@@ -36,6 +37,8 @@ public class Appointment implements Serializable {
         this.hours = dateTime.get(Calendar.HOUR_OF_DAY);
         this.minutes = dateTime.get(Calendar.MINUTE);
         this.id = (int) (Math.random()*100000);
+
+        rated = false;
 
         //Set status based on doctor preferences
         if (doctor.getAutoApprove()) {
@@ -109,6 +112,17 @@ public class Appointment implements Serializable {
         DatabaseReference databaseReference = firebaseDatabase.getReference("Appointments");
         databaseReference.push().setValue(this);
 
+    }
+
+    public String getDateAndTime(){
+        return ("Date: " + day + "/" + month + "/" + year + " at " + hours + ":" + minutes) ;
+    }
+
+    public void rateDoctor(float rating){
+        if(!rated){
+            doctor.updateRating(rating);
+            rated = true;
+        }
     }
 
     public String toString() {

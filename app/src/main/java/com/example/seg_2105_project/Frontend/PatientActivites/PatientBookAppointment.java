@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
 import android.widget.ListView;
 import android.widget.SearchView;
 
@@ -29,8 +30,6 @@ import java.util.ArrayList;
 public class PatientBookAppointment extends AppCompatActivity {
 
     ListView listViewDoctors;
-    ArrayAdapter<String> arrayAdapter;
-
     ArrayList<Doctor> doctors = new ArrayList<>();
 
     ArrayAdapter<Doctor> arrayAdapterDoctor;
@@ -45,13 +44,55 @@ public class PatientBookAppointment extends AppCompatActivity {
         //obtaining references to the database
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         DatabaseReference doctorsRef = db.getReference("Doctors");
-        String target = "one"; //for testing
+
+        arrayAdapterDoctor = new ArrayAdapter<Doctor>(this, android.R.layout.simple_list_item_single_choice, doctors) {
+            @NonNull
+            @Override
+            public Filter getFilter() {
+                return new Filter() {
+                    @Override
+                    protected FilterResults performFiltering(CharSequence constraint) {
+                        String filterPattern = constraint.toString().toLowerCase().trim();
+                        ArrayList<Doctor> filteredDoctors = new ArrayList<>();
+
+                        for (Doctor doctor : doctors) {
+                            if (doctor.getSpecialties() != null) {
+                                for (String specialty : doctor.getSpecialties()) {
+                                    if (specialty.toLowerCase().contains(filterPattern)) {
+                                        System.out.println("search" +filterPattern);
+                                        System.out.println("specialty"+ specialty);
+                                        filteredDoctors.add(doctor);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        FilterResults results = new FilterResults();
+                        results.values = filteredDoctors;
+                        results.count = filteredDoctors.size();
+                        return results;
+                    }
+
+                    @Override
+                    protected void publishResults(CharSequence constraint, FilterResults results) {
+                        clear();
+                        addAll((ArrayList<Doctor>) results.values);
+                        notifyDataSetChanged();
+                    }
+                };
+            }
+        };
+
+        listViewDoctors.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
+        listViewDoctors.setAdapter(arrayAdapterDoctor);
 
 
         doctorsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
+                    doctors.clear();
                     for (DataSnapshot doctorSnapshot : snapshot.getChildren()) {
                         Doctor doctor = doctorSnapshot.getValue(Doctor.class);
 
@@ -60,10 +101,10 @@ public class PatientBookAppointment extends AppCompatActivity {
                             if (doctor.getSpecialties() != null) {
                                 // The doctor has the targeted specialty
                                 doctors.add(doctor);
-                                loadListView();
                             }
                         }
                     }
+                    arrayAdapterDoctor.notifyDataSetChanged();
                 } else {
                     // No doctors found in the database
                 }
@@ -90,17 +131,7 @@ public class PatientBookAppointment extends AppCompatActivity {
         });
     }
 
-    /**
-     * Adds all the doctors appointments to listview layout
-     */
-    private void loadListView() {
-        ListView listView = findViewById(R.id.listViewDoctors);
-        arrayAdapterDoctor = new ArrayAdapter<Doctor>(getApplicationContext(),
-                android.R.layout.simple_list_item_single_choice, doctors);
-        listView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
-        listView.setAdapter(arrayAdapterDoctor);
-    }
-
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
 

@@ -1,4 +1,4 @@
-package com.example.seg_2105_project.Frontend.PatientActivites;
+package com.example.seg_2105_project.Frontend.PatientActivities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

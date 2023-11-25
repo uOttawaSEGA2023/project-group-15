@@ -1,5 +1,7 @@
 package com.example.seg_2105_project.Backend;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -109,10 +111,9 @@ public class User implements Serializable {
         //Get firebase reference
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference ref = firebaseDatabase.getReference(referencePath);
-        ref.addValueEventListener(new ValueEventListener() {
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //Search through patients
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     User u = userSnapshot.getValue(user.getClass());
@@ -124,38 +125,11 @@ public class User implements Serializable {
 
                     }
                 }
-
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {}
+            public void onCancelled(@NonNull DatabaseError error) {}
         });
-
-    }
-
-    /*
-     * Updates a certain attribute in Firebase within event listeners to prevent infinite data changes
-     * @param  referencePath  "Patients" or "Doctors"
-     * @param  attributePath  Name of the attribute to be updated
-     * @param  attribute      Object of type attribute to overwrite current database data
-     * @param  user           User to have attribute updated
-     * @param  snapshot       DataSnapshot of firebase for updates within an event listener
-     * @throws IllegalArgumentException   if arguments don't fit constraints specified
-     */
-    protected static void updateFirebase(String referencePath, String attributePath, Object attribute, User user, DataSnapshot snapshot) {
-
-        //Argument validation
-        validateArguments(referencePath, attributePath, attribute, user);
-
-        //Search through users
-        for (DataSnapshot userSnapshot : snapshot.getChildren()) {
-            User u = userSnapshot.getValue(user.getClass());
-            if (u.getEmail().equals(user.getEmail())) {
-                DatabaseReference reference = userSnapshot.getRef();
-                reference.child(attributePath).setValue(attribute);
-                return;
-            }
-        }
 
     }
 

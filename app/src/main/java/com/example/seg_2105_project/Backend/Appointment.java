@@ -67,24 +67,36 @@ public class Appointment implements Serializable {
     public int getMinutes() { return minutes; }
     public int getID() { return id; }
 
-    public void updateStatus(Status status, DataSnapshot snapshot) {
+    public void updateStatus(Status status) {
         this.status = status;
-        //Search through appointments
-        for (DataSnapshot appointmentSnapshot: snapshot.getChildren()) {
-            Appointment appointment = appointmentSnapshot.getValue(Appointment.class);
-            if (appointment.getID() == id) {
-                //Change status
-                appointmentSnapshot.getRef().child("status").setValue(status);
 
-                //Update doctor's shift availability
-                if(status == Status.APPROVED)
-                    doctor.updateShiftAvailability(retrieveDateTime(), false);
-                else if (status == Status.REJECTED)
-                    doctor.updateShiftAvailability(retrieveDateTime(), true);
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = firebaseDatabase.getReference("Appointments");
 
-                return;
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //Search through appointments
+                for (DataSnapshot appointmentSnapshot: snapshot.getChildren()) {
+                    Appointment appointment = appointmentSnapshot.getValue(Appointment.class);
+                    if (appointment.getID() == id) {
+                        //Change status
+                        appointmentSnapshot.getRef().child("status").setValue(status);
+
+                        //Update doctor's shift availability
+                        if(status == Status.APPROVED)
+                            doctor.updateShiftAvailability(retrieveDateTime(), false);
+                        else if (status == Status.REJECTED)
+                            doctor.updateShiftAvailability(retrieveDateTime(), true);
+
+                        return;
+                    }
+                }
             }
-        }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
 
     }
 

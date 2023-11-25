@@ -8,8 +8,8 @@
 
     <ListView
         android:id="@+id/listViewDoctors"
-        android:layout_width="395dp"
-        android:layout_height="618dp"
+        android:layout_width="393dp"
+        android:layout_height="572dp"
         android:layout_marginEnd="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,5 +22,16 @@
         android:background="?attr/colorPrimary"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/Widget.AppCompat.Toolbar" />
+
+    <Button
+        android:id="@+id/buttonChangeSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search By Name"
+        android:onClick="onClickChangeSearch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

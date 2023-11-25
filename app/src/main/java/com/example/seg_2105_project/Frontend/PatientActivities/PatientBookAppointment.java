@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Filter;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -34,6 +35,7 @@ public class PatientBookAppointment extends AppCompatActivity {
     ListView listViewDoctors;
     ArrayList<Doctor> allDoctors = new ArrayList<>();
     ArrayAdapter<Doctor> arrayAdapterDoctor;
+    boolean searchBySpecialty = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +43,6 @@ public class PatientBookAppointment extends AppCompatActivity {
         setContentView(R.layout.activity_patient_book_appointment2);
 
         listViewDoctors = findViewById(R.id.listViewDoctors);
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -59,13 +60,25 @@ public class PatientBookAppointment extends AppCompatActivity {
                         String filterPattern = constraint.toString().toLowerCase().trim();
                         ArrayList<Doctor> filteredDoctors = new ArrayList<>();
 
-                        for (Doctor doctor : allDoctors) {
-                            if (doctor.getSpecialties() != null) {
-                                for (String specialty : doctor.getSpecialties()) {
-                                    if (specialty.toLowerCase().contains(filterPattern)) {
-                                        filteredDoctors.add(doctor);
-                                        break;
+                        if (searchBySpecialty) {
+                            //Check specialties of doctors
+                            for (Doctor doctor : allDoctors) {
+                                if (doctor.getSpecialties() != null) {
+                                    for (String specialty : doctor.getSpecialties()) {
+                                        if (specialty.toLowerCase().contains(filterPattern)) {
+                                            filteredDoctors.add(doctor);
+                                            break;
+                                        }
                                     }
+                                }
+                            }
+                        }
+                        else {
+                            //Check doctor names
+                            for (Doctor doctor : allDoctors) {
+                                String name = doctor.getFirstName().toLowerCase() + doctor.getLastName().toLowerCase();
+                                if (name.contains(filterPattern)) {
+                                    filteredDoctors.add(doctor);
                                 }
                             }
                         }
@@ -89,7 +102,7 @@ public class PatientBookAppointment extends AppCompatActivity {
         listViewDoctors.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
         listViewDoctors.setAdapter(arrayAdapterDoctor);
 
-
+        //Get doctors from firebase
         doctorsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -137,7 +150,7 @@ public class PatientBookAppointment extends AppCompatActivity {
 
         MenuItem menuItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) menuItem.getActionView();
-        searchView.setQueryHint("Type here to search for doctor by specialty");
+        searchView.setQueryHint("Search");
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -155,6 +168,23 @@ public class PatientBookAppointment extends AppCompatActivity {
         });
 
         return super.onCreateOptionsMenu(menu);
+
+    }
+
+    public void onClickChangeSearch(View view) {
+
+        Button button = findViewById(R.id.buttonChangeSearch);
+
+        //Change search filter
+        if (searchBySpecialty) {
+            button.setText("Search by Specialty");
+            searchBySpecialty = false;
+        }
+
+        else {
+            button.setText("Search by Name");
+            searchBySpecialty = true;
+        }
 
     }
 

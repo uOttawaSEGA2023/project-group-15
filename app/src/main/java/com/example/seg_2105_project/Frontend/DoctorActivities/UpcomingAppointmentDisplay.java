@@ -40,21 +40,10 @@ public class UpcomingAppointmentDisplay extends AppCompatActivity {
             acceptButton.setVisibility(View.INVISIBLE);
         }
 
-        //Get firebase snapshot
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Appointments");
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                dataSnapshot = snapshot;
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {}
-        });
     }
 
     public void onClickAcceptAppointment(View view){
-        selectedAppt.updateStatus(Status.APPROVED, dataSnapshot);
+        selectedAppt.updateStatus(Status.APPROVED);
 
         //go back to upcoming appointments list
         Intent intent = new Intent(this, DoctorUpcomingAppointments.class);
@@ -63,7 +52,7 @@ public class UpcomingAppointmentDisplay extends AppCompatActivity {
     }
 
     public void onClickRejectAppointment(View view){
-        selectedAppt.updateStatus(Status.REJECTED, dataSnapshot);
+        selectedAppt.updateStatus(Status.REJECTED);
 
         //go back to upcoming appointments list
         Intent intent = new Intent(this, DoctorUpcomingAppointments.class);

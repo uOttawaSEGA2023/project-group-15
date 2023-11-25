@@ -32,9 +32,9 @@ public class Doctor extends User {
     * @param  autoApprove  Boolean value to set autoApprove to
     * @param  snapshot     DataSnapshot of database to update firebase with
      */
-    public void updateAutoApprove(boolean autoApprove, DataSnapshot snapshot) {
+    public void updateAutoApprove(boolean autoApprove) {
         this.autoApprove = autoApprove;
-        updateFirebase("Doctors", "autoApprove", autoApprove, this, snapshot);
+        updateFirebase("Doctors", "autoApprove", autoApprove, this);
     }
 
     /*

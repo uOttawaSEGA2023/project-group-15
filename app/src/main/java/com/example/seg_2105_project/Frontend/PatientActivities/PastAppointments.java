@@ -3,6 +3,7 @@ package com.example.seg_2105_project.Frontend.PatientActivities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AbsListView;
@@ -50,7 +51,10 @@ public class PastAppointments extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                Appointment selectedAppointment = (Appointment) listView.getItemAtPosition(i);
+                Intent intent = new Intent(getApplicationContext(), PastAppointmentDisplay.class);
+                intent.putExtra("Appointment", selectedAppointment);
+                startActivity(intent);
             }
         });
     }

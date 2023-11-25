@@ -34,12 +34,17 @@ public class PatientBookAppointment extends AppCompatActivity {
 
     ArrayAdapter<Doctor> arrayAdapterDoctor;
 
+    SearchView searchView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_book_appointment2);
 
         listViewDoctors = findViewById(R.id.listViewDoctors);
+        searchView = findViewById(R.id.searchView);
+
+        listViewDoctors.setVisibility(View.GONE);
 
         //obtaining references to the database
         FirebaseDatabase db = FirebaseDatabase.getInstance();
@@ -49,18 +54,18 @@ public class PatientBookAppointment extends AppCompatActivity {
             @NonNull
             @Override
             public Filter getFilter() {
+                System.out.println("HERE");
                 return new Filter() {
                     @Override
                     protected FilterResults performFiltering(CharSequence constraint) {
                         String filterPattern = constraint.toString().toLowerCase().trim();
                         ArrayList<Doctor> filteredDoctors = new ArrayList<>();
 
+
                         for (Doctor doctor : doctors) {
                             if (doctor.getSpecialties() != null) {
                                 for (String specialty : doctor.getSpecialties()) {
                                     if (specialty.toLowerCase().contains(filterPattern)) {
-                                        System.out.println("search" +filterPattern);
-                                        System.out.println("specialty"+ specialty);
                                         filteredDoctors.add(doctor);
                                         break;
                                     }
@@ -80,6 +85,7 @@ public class PatientBookAppointment extends AppCompatActivity {
                         addAll((ArrayList<Doctor>) results.values);
                         notifyDataSetChanged();
                     }
+
                 };
             }
         };
@@ -133,10 +139,6 @@ public class PatientBookAppointment extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-
-        MenuItem menuItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) menuItem.getActionView();
         searchView.setQueryHint("Type here to search for doctor by specialty");
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -147,6 +149,7 @@ public class PatientBookAppointment extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String s) {
+                listViewDoctors.setVisibility(View.VISIBLE);
                 arrayAdapterDoctor.getFilter().filter(s);
                 return false;
             }

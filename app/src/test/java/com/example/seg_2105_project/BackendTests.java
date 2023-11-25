@@ -1,7 +1,19 @@
-package com.example.seg_2105_project.Backend;
+package com.example.seg_2105_project;
 
-import org.testng.annotations.Test;
-import static org.testng.Assert.*;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertFalse;
+
+import com.example.seg_2105_project.Backend.Administrator;
+import com.example.seg_2105_project.Backend.Appointment;
+import com.example.seg_2105_project.Backend.Doctor;
+import com.example.seg_2105_project.Backend.Patient;
+import com.example.seg_2105_project.Backend.Shift;
+import com.example.seg_2105_project.Backend.Status;
+import com.example.seg_2105_project.Backend.User;
+
+import org.junit.Test;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -86,7 +98,7 @@ public class BackendTests {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             actualStartInstant = Instant.ofEpochMilli(shift.retrieveStart().getTimeInMillis());
         }
-        assertEquals(expectedStartInstant, actualStartInstant, "Start time mismatch");
+        assertEquals("Start time mismatch", expectedStartInstant, actualStartInstant);
 
         Instant expectedEndInstant = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
@@ -96,7 +108,7 @@ public class BackendTests {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             actualEndInstant = Instant.ofEpochMilli(shift.retrieveEnd().getTimeInMillis());
         }
-        assertEquals(expectedEndInstant, actualEndInstant, "End time mismatch");
+        assertEquals("End time mismatch", expectedEndInstant, actualEndInstant);
     }
 
 

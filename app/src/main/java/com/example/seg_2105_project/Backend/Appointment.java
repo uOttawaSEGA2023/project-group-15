@@ -118,6 +118,9 @@ public class Appointment implements Serializable {
         return ("Date: " + day + "/" + month + "/" + year + " at " + hours + ":" + minutes) ;
     }
 
+    public boolean isRated(){
+        return rated;
+    }
     public void rateDoctor(float rating){
         if(!rated){
             doctor.updateRating(rating);

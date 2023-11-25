@@ -17,6 +17,8 @@ public class PastAppointmentDisplay extends AppCompatActivity {
     RatingBar rating;
     Doctor doctor;
     Appointment appt;
+    Button submitRating;
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,18 +34,25 @@ public class PastAppointmentDisplay extends AppCompatActivity {
         apptInfo.setText(information);
 
         rating = findViewById(R.id.ratingBar);
+        submitRating = findViewById(R.id.submitRating);
+        textView = findViewById(R.id.rateDoctorText);
+        if(appt.isRated()){
+            submitRating.setVisibility(View.INVISIBLE);
+            rating.setVisibility(View.INVISIBLE);
+            textView.setText("You have already rated this doctor.");
+        }
 
     }
 
     public void onClickSubmitRating(View view){
-        Float ratingNumber = rating.getRating();
-        appt.rateDoctor(ratingNumber);
+        //note: the if statement might not be necessary... check when testing
+        if(!appt.isRated()){
+            Float ratingNumber = rating.getRating();
+            appt.rateDoctor(ratingNumber);
+        }
 
-        Button button = findViewById(R.id.submitRating);
-        button.setVisibility(View.INVISIBLE);
+        submitRating.setVisibility(View.INVISIBLE);
         rating.setVisibility(View.INVISIBLE);
-
-        TextView textView = findViewById(R.id.rateDoctorText);
         textView.setText("You have already rated this doctor.");
     }
 }

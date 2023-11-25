@@ -3,6 +3,7 @@ package com.example.seg_2105_project.Backend;
 import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Patient extends User {
 
@@ -82,6 +83,37 @@ public class Patient extends User {
         }
         return patients;
 
+    }
+
+    public ArrayList<Appointment> getPatientAppointments(DataSnapshot snapshot, boolean pastAppointment, Calendar currentDate){
+
+        ArrayList<Appointment> appointmentList = new ArrayList<>();
+
+        for(DataSnapshot appointmentSnapshot : snapshot.getChildren()){
+            Appointment appt = appointmentSnapshot.getValue(Appointment.class);
+            if (appt.getPatient().getEmail().equals(this.getEmail())) {
+                //searching for past past appointments
+                if (pastAppointment) {
+                    boolean passed = currentDate.after(appt.retrieveDateTime());
+
+                    //add appointments to the list if they are approved and in the past
+                    if (passed && appt.getStatus() == Status.APPROVED) {
+                        appointmentList.add(appt);
+                    }
+                }
+                //searching for upcoming appointments
+                else {
+                    boolean upcoming = currentDate.before(appt.retrieveDateTime());
+
+                    //add appointments to the list if they are approved and upcoming
+                    if (upcoming && appt.getStatus() == Status.APPROVED) {
+                        appointmentList.add(appt);
+                    }
+                }
+            }
+        }
+
+        return appointmentList;
     }
 
 }

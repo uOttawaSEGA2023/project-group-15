@@ -96,21 +96,12 @@ public class DoctorScreen extends AppCompatActivity {
 
     //allows the doctor to automatically approve future appointments
     public void onClickAutoApproveSwitch(View view) {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Doctors");
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (autoApproveSwitch.isChecked()) {
-                    doctor.updateAutoApprove(true, snapshot);
+        if (autoApproveSwitch.isChecked()) {
+            doctor.updateAutoApprove(true);
 
-                } else {
-                    doctor.updateAutoApprove(false, snapshot);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {}
-        });
+        } else {
+            doctor.updateAutoApprove(false);
+        }
 
     }
 

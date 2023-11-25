@@ -1,6 +1,6 @@
 package com.example.seg_2105_project.Frontend;
 
-import com.example.seg_2105_project.Frontend.PatientActivites.*;
+import com.example.seg_2105_project.Frontend.PatientActivities.*;
 import com.example.seg_2105_project.R;
 
 import android.content.Intent;

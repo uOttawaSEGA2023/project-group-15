@@ -1,4 +1,4 @@
-package com.example.seg_2105_project.Frontend.PatientActivites;
+package com.example.seg_2105_project.Frontend.PatientActivities;
 
 import com.example.seg_2105_project.Frontend.WelcomeScreen;
 import com.example.seg_2105_project.R;

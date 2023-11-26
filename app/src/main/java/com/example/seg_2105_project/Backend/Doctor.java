@@ -1,6 +1,13 @@
 package com.example.seg_2105_project.Backend;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -21,6 +28,7 @@ public class Doctor extends User {
         this.shifts = new ArrayList<>();
         this.autoApprove = false;
         numOfRatings = 0;
+        rating = 0;
     }
 
     /**GETTERS**/
@@ -31,6 +39,7 @@ public class Doctor extends User {
     public float getRating(){
         return rating;
     }
+    public float getNumOfRatings() { return numOfRatings; }
 
     /**SETTERS**/
     /*
@@ -96,9 +105,11 @@ public class Doctor extends User {
     }
 
     public void updateRating(float ratingToAdd){
-        rating = (rating*numOfRatings + ratingToAdd)/(++numOfRatings);
+        numOfRatings ++;
+        rating = (rating*(numOfRatings-1) + ratingToAdd)/(numOfRatings);
         updateFirebase("Doctors", "rating", rating, this);
         updateFirebase("Doctors", "numOfRatings", numOfRatings, this);
+
     }
 
     /**OTHER METHODS**/

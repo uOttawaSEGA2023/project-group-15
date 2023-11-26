@@ -43,7 +43,7 @@ public class UpcomingAppointments extends AppCompatActivity {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                upcomingAppointments.addAll(patient.getPatientAppointments(snapshot, false, Calendar.getInstance()));
+                upcomingAppointments = patient.getPatientAppointments(snapshot, false, Calendar.getInstance());
                 loadListView();
             }
             @Override

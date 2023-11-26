@@ -46,7 +46,7 @@ public class customAppointmentAdapter extends BaseAdapter implements ListAdapter
         View viewConverted = view;
         if (viewConverted == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            viewConverted = inflater.inflate(R.layout.activity_patient_upcoming_appointments, null);
+            viewConverted = inflater.inflate(R.layout.activity_upcoming_appointment, null);
 
         }
 

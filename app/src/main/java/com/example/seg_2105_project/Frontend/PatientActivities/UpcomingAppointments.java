@@ -3,6 +3,7 @@ package com.example.seg_2105_project.Frontend.PatientActivities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AbsListView;
@@ -23,16 +24,18 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class UpcomingAppointments extends AppCompatActivity {
-    ArrayList<Appointment> upcomingAppointments;
+    ArrayList<Appointment> upcomingAppointments = new ArrayList<>();
     Patient patient;
-    ListView listView = findViewById(R.id.listViewPatientUpcomingAppointments);
+    ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_upcoming_appointments);
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Appointments");
+
+        listView = findViewById(R.id.listViewPatientUpcomingAppointments);
 
         patient = (Patient) getIntent().getSerializableExtra("Patient");
 

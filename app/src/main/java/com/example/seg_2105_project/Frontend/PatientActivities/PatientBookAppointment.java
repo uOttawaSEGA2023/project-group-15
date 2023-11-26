@@ -134,11 +134,11 @@ public class PatientBookAppointment extends AppCompatActivity {
         listViewDoctors.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView parent, View view, int position, long id) {
-                Doctor selectedAppointment = (Doctor) listViewDoctors.getItemAtPosition(position);
+                Doctor doctor = (Doctor) listViewDoctors.getItemAtPosition(position);
                 //add intent for next class
 
                 Intent intent = new Intent(getApplicationContext(), BookAppointment.class);
-                intent.putExtra("Doctor", selectedAppointment);
+                intent.putExtra("Doctor", doctor);
                 startActivity(intent);
             }
         });

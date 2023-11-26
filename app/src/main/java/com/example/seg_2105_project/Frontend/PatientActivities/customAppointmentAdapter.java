@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.seg_2105_project.Backend.Appointment;
+import com.example.seg_2105_project.Backend.Status;
 import com.example.seg_2105_project.R;
 
 import java.util.ArrayList;
@@ -70,7 +71,7 @@ public class customAppointmentAdapter extends BaseAdapter implements ListAdapter
                     Toast.makeText(context, "Cannot cancel appointment that is within the next hour", Toast.LENGTH_SHORT).show();
                 } else {
                     // Delete appointment & update appointment COMPLETE
-
+                    chosenAppointment.updateStatus(Status.REJECTED);
                     list.remove(position);
                     notifyDataSetChanged();
                 }

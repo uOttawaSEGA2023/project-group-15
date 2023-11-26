@@ -58,7 +58,30 @@ public class Doctor extends User {
 
         //Get shift at date
         for(Shift shift : this.shifts) {
-            if (shift.retrieveStart().before(date) && shift.retrieveEnd().after(date)) {
+            boolean sameStart = false, sameEnd = false;
+
+            //Check if day is same
+            if (shift.retrieveStart().get(Calendar.DAY_OF_MONTH) ==  date.get(Calendar.DAY_OF_MONTH) &&
+                    shift.retrieveStart().get(Calendar.MONTH) ==  date.get(Calendar.MONTH) &&
+                    shift.retrieveStart().get(Calendar.YEAR) ==  date.get(Calendar.YEAR)){
+
+                //Check if start time is same
+                if (shift.getStartHours() == date.get(Calendar.HOUR_OF_DAY) &&
+                    shift.getStartMinutes() == date.get(Calendar.MINUTE)) {
+                    sameStart = true;
+                }
+
+                //Check if end time is same
+                int endHours = date.get(Calendar.MINUTE) == 0 ? date.get(Calendar.HOUR_OF_DAY) :
+                                                                date.get(Calendar.HOUR_OF_DAY) + 1;
+                int endMinutes = date.get(Calendar.MINUTE) == 0 ? 30 : 0;
+                if (shift.getEndHours() == endHours && shift.getEndMinutes() == endMinutes) {
+                    sameEnd = true;
+                }
+
+            }
+
+            if ((shift.retrieveStart().before(date) || sameStart) && (shift.retrieveEnd().after(date) || sameEnd)) {
                 //Change availability and update firebase
                 shift.getTimeSlots().put(Shift.convertCalendarToStringTime(date), isAvailable);
                 updateFirebase("Doctors", "shifts", shifts, this);

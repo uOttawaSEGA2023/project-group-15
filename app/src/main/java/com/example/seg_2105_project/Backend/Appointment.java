@@ -41,12 +41,12 @@ public class Appointment implements Serializable {
         rated = false;
 
         //Set status based on doctor preferences
-        if (doctor.getAutoApprove()) {
+        if (doctor.getAutoApprove())
             this.status = Status.APPROVED;
-            doctor.updateShiftAvailability(retrieveDateTime(), false);
-        }
         else
             this.status = Status.PENDING;
+
+        doctor.updateShiftAvailability(retrieveDateTime(), false);
     }
 
     public Appointment() { }
@@ -87,9 +87,7 @@ public class Appointment implements Serializable {
                         appointmentSnapshot.getRef().child("status").setValue(status);
 
                         //Update doctor's shift availability
-                        if(status == Status.APPROVED)
-                            doctor.updateShiftAvailability(retrieveDateTime(), false);
-                        else if (status == Status.REJECTED)
+                        if (status == Status.REJECTED)
                             doctor.updateShiftAvailability(retrieveDateTime(), true);
 
                         return;

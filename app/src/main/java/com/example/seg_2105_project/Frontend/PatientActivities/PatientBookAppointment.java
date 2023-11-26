@@ -139,6 +139,7 @@ public class PatientBookAppointment extends AppCompatActivity {
 
                 Intent intent = new Intent(getApplicationContext(), BookAppointment.class);
                 intent.putExtra("Doctor", doctor);
+                intent.putExtra("Patient", getIntent().getSerializableExtra("Patient"));
                 startActivity(intent);
             }
         });

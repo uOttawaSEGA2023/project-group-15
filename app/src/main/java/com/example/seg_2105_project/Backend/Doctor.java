@@ -12,6 +12,7 @@ public class Doctor extends User {
     private boolean autoApprove;
     private float rating;
     private int numOfRatings;
+    private boolean canDelete;
 
     public Doctor() {}
     public Doctor(String firstName, String lastName, String email, String password, long phoneNumber, String address, int employee_number, ArrayList<String> specialties) {
@@ -21,6 +22,7 @@ public class Doctor extends User {
         this.shifts = new ArrayList<>();
         this.autoApprove = false;
         numOfRatings = 0;
+        this.canDelete = false;
     }
 
     /**GETTERS**/
@@ -31,6 +33,7 @@ public class Doctor extends User {
     public float getRating(){
         return rating;
     }
+    public boolean getCanDelete() {return canDelete; }
 
     /**SETTERS**/
     /*
@@ -139,10 +142,11 @@ public class Doctor extends User {
     Deletes an existing shift from list
      */
     public void deleteShift(Shift shift){
-        this.shifts.remove(shift);
-        updateFirebase("Doctors", "shifts", shifts, this);
+        if(canDelete){
+            this.shifts.remove(shift);
+            updateFirebase("Doctors", "shifts", shifts, this);
+        }
     }
-
 
 
     /**CLASS METHODS**/

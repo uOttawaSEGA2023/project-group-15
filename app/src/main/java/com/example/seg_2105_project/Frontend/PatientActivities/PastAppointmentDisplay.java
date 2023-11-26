@@ -39,7 +39,7 @@ public class PastAppointmentDisplay extends AppCompatActivity {
         if(appt.isRated()){
             submitRating.setVisibility(View.INVISIBLE);
             rating.setVisibility(View.INVISIBLE);
-            textView.setText("You have already rated this doctor.");
+            textView.setText("You have already rated this doctor");
         }
 
     }
@@ -53,6 +53,6 @@ public class PastAppointmentDisplay extends AppCompatActivity {
 
         submitRating.setVisibility(View.INVISIBLE);
         rating.setVisibility(View.INVISIBLE);
-        textView.setText("You have already rated this doctor.");
+        textView.setText("You have rated this doctor!");
     }
 }

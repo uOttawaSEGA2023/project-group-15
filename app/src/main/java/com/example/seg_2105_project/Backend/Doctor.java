@@ -28,6 +28,9 @@ public class Doctor extends User {
     public ArrayList<String> getSpecialties() { return specialties; }
     public ArrayList<Shift> getShifts() { return shifts; }
     public boolean getAutoApprove() { return autoApprove; }
+    public float getRating(){
+        return rating;
+    }
 
     /**SETTERS**/
     /*
@@ -90,6 +93,12 @@ public class Doctor extends User {
             }
         }
 
+    }
+
+    public void updateRating(float ratingToAdd){
+        rating = (rating*numOfRatings + ratingToAdd)/(++numOfRatings);
+        updateFirebase("Doctors", "rating", rating, this);
+        updateFirebase("Doctors", "numOfRatings", numOfRatings, this);
     }
 
     /**OTHER METHODS**/
@@ -204,7 +213,7 @@ public class Doctor extends User {
                 // add past appointments
                 else {
                     // make sure appointment status is approved and the appointment time is less than current time
-                    if (appointment.getStatus() == Status.APPROVED  && currentDate.after(appointment.retrieveDateTime())) {
+                    if (appointment.getStatus() == Status.APPROVED && currentDate.after(appointment.retrieveDateTime())) {
                         appointments.add(appointment);
                     }
                 }
@@ -213,14 +222,6 @@ public class Doctor extends User {
 
         return appointments;
 
-    }
-
-    public void updateRating(float ratingToAdd){
-        rating = (rating*numOfRatings + ratingToAdd)/(++numOfRatings);
-    }
-
-    public float getRating(){
-        return rating;
     }
 
 

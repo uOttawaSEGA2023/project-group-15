@@ -72,32 +72,10 @@ public class Appointment implements Serializable {
 
     public void updateStatus(Status status) {
         this.status = status;
-
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReference("Appointments");
-
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //Search through appointments
-                for (DataSnapshot appointmentSnapshot: snapshot.getChildren()) {
-                    Appointment appointment = appointmentSnapshot.getValue(Appointment.class);
-                    if (appointment.getID() == id) {
-                        //Change status
-                        appointmentSnapshot.getRef().child("status").setValue(status);
-
-                        //Update doctor's shift availability
-                        if (status == Status.REJECTED)
-                            doctor.updateShiftAvailability(retrieveDateTime(), true);
-
-                        return;
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {}
-        });
+        //Update doctor's shift availability
+        if (status == Status.REJECTED)
+            doctor.updateShiftAvailability(retrieveDateTime(), true);
+        updateFirebase("status", status);
 
     }
 
@@ -123,11 +101,12 @@ public class Appointment implements Serializable {
         if(!rated){
             doctor.updateRating(rating);
             rated = true;
+            updateFirebase("rated", true);
         }
     }
 
     public String toString() {
-        String date = day + "/" + month + "/" + year;
+        String date = day + "/" + (month+1) + "/" + year;
         String time = hours + ":" + minutes;
 
         if (minutes == 0)
@@ -136,6 +115,31 @@ public class Appointment implements Serializable {
         return "Patient: " + patient.getFirstName() + " " + patient.getLastName() +
                 " | Date: " + date + " at " + time +
                 " | Status " + status;
+    }
+
+    public void updateFirebase(String attributePath, Object attribute) {
+
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = firebaseDatabase.getReference("Appointments");
+
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //Search through appointments
+                for (DataSnapshot appointmentSnapshot: snapshot.getChildren()) {
+                    Appointment appointment = appointmentSnapshot.getValue(Appointment.class);
+                    if (appointment.getID() == id) {
+                        //Change status
+                        appointmentSnapshot.getRef().child(attributePath).setValue(attribute);
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
+
     }
 
 }

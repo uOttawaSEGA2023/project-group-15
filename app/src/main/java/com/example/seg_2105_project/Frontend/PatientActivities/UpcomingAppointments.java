@@ -58,7 +58,11 @@ public class UpcomingAppointments extends AppCompatActivity {
         });
     }
 
-
+    public void onClickBackButton(View view) {
+        Intent intent = new Intent(getApplicationContext(), PatientScreen.class);
+        intent.putExtra("Patient", patient);
+        startActivity(intent);
+    }
 
     private void loadListView() {
         ArrayAdapter<Appointment> arrayAdapterDoctor = new ArrayAdapter<Appointment>(getApplicationContext(),

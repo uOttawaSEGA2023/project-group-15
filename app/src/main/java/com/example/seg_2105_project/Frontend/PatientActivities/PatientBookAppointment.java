@@ -145,6 +145,12 @@ public class PatientBookAppointment extends AppCompatActivity {
         });
     }
 
+    public void onClickBackButton(View view) {
+        Intent intent = new Intent(getApplicationContext(), PatientScreen.class);
+        intent.putExtra("Patient", getIntent().getSerializableExtra("Patient"));
+        startActivity(intent);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);

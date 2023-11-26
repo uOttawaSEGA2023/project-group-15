@@ -24,9 +24,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class PastAppointments extends AppCompatActivity {
-    ArrayList<Appointment> pastAppointments = new ArrayList<>();
+    ArrayList<Appointment> pastAppointments;
     Patient patient;
-
     ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +35,7 @@ public class PastAppointments extends AppCompatActivity {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Appointments");
 
         listView = (ListView) findViewById(R.id.listViewPatientPastAppointments);
-
+        pastAppointments = new ArrayList<>();
         patient = (Patient) getIntent().getSerializableExtra("Patient");
 
         ref.addValueEventListener(new ValueEventListener() {
@@ -56,12 +55,17 @@ public class PastAppointments extends AppCompatActivity {
                 Appointment selectedAppointment = (Appointment) listView.getItemAtPosition(i);
                 Intent intent = new Intent(getApplicationContext(), PastAppointmentDisplay.class);
                 intent.putExtra("Appointment", selectedAppointment);
+                intent.putExtra("Patient", patient);
                 startActivity(intent);
             }
         });
     }
 
-
+    public void onClickBackButton(View view) {
+        Intent intent = new Intent(getApplicationContext(), PatientScreen.class);
+        intent.putExtra("Patient", patient);
+        startActivity(intent);
+    }
 
     private void loadListView() {
         ArrayAdapter<Appointment> arrayAdapterDoctor = new ArrayAdapter<Appointment>(getApplicationContext(),

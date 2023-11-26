@@ -51,12 +51,12 @@ public class customAppointmentAdapter extends BaseAdapter implements ListAdapter
         }
 
         // Handle TextView and display string from my list
-        TextView listItemText = (TextView)view.findViewById(R.id.list_appointment_string);
+        TextView listItemText = (TextView)viewConverted.findViewById(R.id.list_appointment_string);
         listItemText.setText((CharSequence) list.get(position).toString());
 
         // Handle button and add onClickListener
 
-        Button deleteButton = (Button) view.findViewById(R.id.deleteButton);
+        Button deleteButton = (Button) viewConverted.findViewById(R.id.deleteButton);
 
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override

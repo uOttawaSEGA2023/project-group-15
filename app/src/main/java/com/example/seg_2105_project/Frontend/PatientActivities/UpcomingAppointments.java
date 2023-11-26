@@ -35,9 +35,10 @@ public class UpcomingAppointments extends AppCompatActivity {
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Appointments");
 
-        listView = findViewById(R.id.listViewPatientUpcomingAppointments);
+        listView = (ListView) findViewById(R.id.listViewPatientUpcomingAppointments);
 
         patient = (Patient) getIntent().getSerializableExtra("Patient");
+
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -65,9 +66,17 @@ public class UpcomingAppointments extends AppCompatActivity {
     }
 
     private void loadListView() {
+        // ADDED----------------
+        customAppointmentAdapter arrayAdapter = new customAppointmentAdapter(upcomingAppointments, getApplicationContext());
+        listView.setAdapter(arrayAdapter);
+        //---------------------------------
+        /*
         ArrayAdapter<Appointment> arrayAdapterDoctor = new ArrayAdapter<Appointment>(getApplicationContext(),
                 android.R.layout.simple_list_item_single_choice, upcomingAppointments);
         listView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
         listView.setAdapter(arrayAdapterDoctor);
+
+         */
     }
+
 }

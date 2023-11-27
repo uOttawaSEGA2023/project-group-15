@@ -80,7 +80,7 @@ public class DoctorShifts extends AppCompatActivity {
         TextView text3 = findViewById(R.id.cannotDeleteShift); //error message displayed if the selected shift contains one or more booked appointments
 
         if (selectedShift == null) {
-            text1.setVisibility(view.VISIBLE);
+            text1.setVisibility(View.VISIBLE);
         }
         else if (selectedShift.getTimeSlots().containsValue(false)){
             text3.setVisibility(View.VISIBLE);

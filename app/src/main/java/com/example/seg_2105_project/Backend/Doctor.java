@@ -4,6 +4,7 @@ import com.google.firebase.database.DataSnapshot;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Map;
 
 public class Doctor extends User {
     private int employeeNumber;
@@ -12,7 +13,6 @@ public class Doctor extends User {
     private boolean autoApprove;
     private float rating;
     private int numOfRatings;
-    private boolean canDelete;
 
     public Doctor() {}
     public Doctor(String firstName, String lastName, String email, String password, long phoneNumber, String address, int employee_number, ArrayList<String> specialties) {
@@ -22,7 +22,6 @@ public class Doctor extends User {
         this.shifts = new ArrayList<>();
         this.autoApprove = false;
         numOfRatings = 0;
-        this.canDelete = false;
     }
 
     /**GETTERS**/
@@ -33,7 +32,7 @@ public class Doctor extends User {
     public float getRating(){
         return rating;
     }
-    public boolean getCanDelete() {return canDelete; }
+    //public boolean getCanDelete() {return canDelete; }
 
     /**SETTERS**/
     /*
@@ -142,7 +141,7 @@ public class Doctor extends User {
     Deletes an existing shift from list
      */
     public void deleteShift(Shift shift){
-        if(canDelete){
+        if(!(shift.getTimeSlots().containsValue(false))){
             this.shifts.remove(shift);
             updateFirebase("Doctors", "shifts", shifts, this);
         }

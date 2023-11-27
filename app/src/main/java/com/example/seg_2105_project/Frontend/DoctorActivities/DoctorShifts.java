@@ -77,10 +77,15 @@ public class DoctorShifts extends AppCompatActivity {
     public void onClickDeleteShiftButton(View view) {
         TextView text1 = findViewById(R.id.textWarning);
         TextView text2 = findViewById(R.id.textConfirmation); //confirm with user if they want to delete shift
+        TextView text3 = findViewById(R.id.cannotDeleteShift); //error message displayed if the selected shift contains one or more booked appointments
 
         if (selectedShift == null) {
             text1.setVisibility(view.VISIBLE);
-        } else {
+        }
+        else if (selectedShift.getTimeSlots().containsValue(false)){
+            text3.setVisibility(View.VISIBLE);
+
+        }else {
             text1.setVisibility(View.INVISIBLE);
             text2.setVisibility(View.VISIBLE);
             buttonYesDeleteShift.setVisibility(View.VISIBLE);

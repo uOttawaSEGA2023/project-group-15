@@ -41,7 +41,6 @@ public class Doctor extends User {
         return rating;
     }
     public float getNumOfRatings() { return numOfRatings; }
-    //public boolean getCanDelete() {return canDelete; }
 
     /**SETTERS**/
     /*

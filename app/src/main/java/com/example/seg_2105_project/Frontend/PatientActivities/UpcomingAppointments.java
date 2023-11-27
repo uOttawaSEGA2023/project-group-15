@@ -50,13 +50,6 @@ public class UpcomingAppointments extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {}
         });
 
-        //NOT IMPLEMENTED YET
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-            }
-        });
     }
 
     public void onClickBackButton(View view) {
@@ -66,17 +59,8 @@ public class UpcomingAppointments extends AppCompatActivity {
     }
 
     private void loadListView() {
-        // ADDED----------------
         customAppointmentAdapter arrayAdapter = new customAppointmentAdapter(upcomingAppointments, getApplicationContext());
         listView.setAdapter(arrayAdapter);
-        //---------------------------------
-        /*
-        ArrayAdapter<Appointment> arrayAdapterDoctor = new ArrayAdapter<Appointment>(getApplicationContext(),
-                android.R.layout.simple_list_item_single_choice, upcomingAppointments);
-        listView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
-        listView.setAdapter(arrayAdapterDoctor);
-
-         */
     }
 
 }

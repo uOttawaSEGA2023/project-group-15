@@ -91,15 +91,18 @@ public class Appointment implements Serializable {
     }
 
     public String getDateAndTime(){
-        return ("Date: " + day + "/" + month + "/" + year + " at " + hours + ":" + minutes) ;
+        String minutesStr = minutes + "";
+        if (minutes == 0) {
+            minutesStr += "0";
+        }
+        return ("Date: " + day + "/" + month + "/" + year + " at " + hours + ":" + minutesStr) ;
     }
 
     public boolean isRated(){
         return rated;
     }
-    public void rateDoctor(float rating){
+    public void rateDoctor(){
         if(!rated){
-            doctor.updateRating(rating);
             rated = true;
             updateFirebase("rated", true);
         }

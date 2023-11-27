@@ -163,6 +163,16 @@ public class PatientBookAppointment extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 arrayAdapterDoctor.getFilter().filter(s);
+
+                //Go directly to date selection if only one doctor appears for name search
+                if (listViewDoctors.getCount() == 1 && !searchBySpecialty) {
+                    Doctor doctor = (Doctor) listViewDoctors.getItemAtPosition(0);
+                    Intent intent = new Intent(getApplicationContext(), BookAppointment.class);
+                    intent.putExtra("Doctor", doctor);
+                    intent.putExtra("Patient", getIntent().getSerializableExtra("Patient"));
+                    startActivity(intent);
+                }
+
                 return false;
 
             }

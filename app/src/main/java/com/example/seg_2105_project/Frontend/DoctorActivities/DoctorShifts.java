@@ -81,9 +81,11 @@ public class DoctorShifts extends AppCompatActivity {
 
         if (selectedShift == null) {
             text1.setVisibility(View.VISIBLE);
+            text3.setVisibility(View.INVISIBLE);
         }
         else if (selectedShift.getTimeSlots().containsValue(false)){
             text3.setVisibility(View.VISIBLE);
+            text1.setVisibility(View.INVISIBLE);
 
         }else {
             text1.setVisibility(View.INVISIBLE);

@@ -134,14 +134,21 @@ public class PatientBookAppointment extends AppCompatActivity {
         listViewDoctors.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView parent, View view, int position, long id) {
-                Doctor selectedAppointment = (Doctor) listViewDoctors.getItemAtPosition(position);
+                Doctor doctor = (Doctor) listViewDoctors.getItemAtPosition(position);
                 //add intent for next class
 
                 Intent intent = new Intent(getApplicationContext(), BookAppointment.class);
-                intent.putExtra("Doctor", selectedAppointment);
+                intent.putExtra("Doctor", doctor);
+                intent.putExtra("Patient", getIntent().getSerializableExtra("Patient"));
                 startActivity(intent);
             }
         });
+    }
+
+    public void onClickBackButton(View view) {
+        Intent intent = new Intent(getApplicationContext(), PatientScreen.class);
+        intent.putExtra("Patient", getIntent().getSerializableExtra("Patient"));
+        startActivity(intent);
     }
 
     @Override
@@ -156,6 +163,16 @@ public class PatientBookAppointment extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 arrayAdapterDoctor.getFilter().filter(s);
+
+                //Go directly to date selection if only one doctor appears for name search
+                if (listViewDoctors.getCount() == 1 && !searchBySpecialty) {
+                    Doctor doctor = (Doctor) listViewDoctors.getItemAtPosition(0);
+                    Intent intent = new Intent(getApplicationContext(), BookAppointment.class);
+                    intent.putExtra("Doctor", doctor);
+                    intent.putExtra("Patient", getIntent().getSerializableExtra("Patient"));
+                    startActivity(intent);
+                }
+
                 return false;
 
             }

@@ -8,6 +8,7 @@ import com.example.seg_2105_project.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AbsListView;
@@ -81,7 +82,7 @@ public class BookAppointment extends AppCompatActivity {
 
             //Add time to date of appointment
             date.set(Calendar.HOUR_OF_DAY, Integer.parseInt(time.substring(0,2)));
-            date.set(Calendar.MINUTE, Integer.parseInt(time.substring(3)));
+            date.set(Calendar.MINUTE, Integer.parseInt(time.substring(3,5)));
 
             //Allow user to confirm
             Button confirmButton = findViewById(R.id.buttonConfirmBooking);
@@ -96,6 +97,17 @@ public class BookAppointment extends AppCompatActivity {
         Appointment appointment = new Appointment(date, doctor, patient);
         appointment.bookAppointment();
         Toast.makeText(getApplicationContext(), "Appointment Booked", Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(getApplicationContext(), PatientBookAppointment.class);
+        intent.putExtra("Patient", patient);
+        startActivity(intent);
+    }
+
+    public void onClickBack(View view) {
+        Intent intent = new Intent(getApplicationContext(), PatientScreen.class);
+        Patient patient = (Patient) getIntent().getSerializableExtra("Patient");
+        intent.putExtra("Patient", patient);
+        startActivity(intent);
     }
 
     /*
@@ -106,6 +118,13 @@ public class BookAppointment extends AppCompatActivity {
 
         //Find min and max date in doctor shifts
         ArrayList<Shift> shifts = doctor.getShifts();
+        if (shifts == null) {
+            //Doctor has no shifts
+            calendarView.setVisibility(View.INVISIBLE);
+            TextView textView = findViewById(R.id.textViewSelectDate);
+            textView.setText("This doctor has no available shifts");
+            return;
+        }
         Calendar maxDate = shifts.get(shifts.size() - 1).retrieveStart();
         Calendar minDate = shifts.get(0).retrieveStart();
 
@@ -133,9 +152,10 @@ public class BookAppointment extends AppCompatActivity {
                 Calendar time = shift.retrieveStart();
                 while (time.before(shift.retrieveEnd())) {
 
-                    if (allTimeSlots.get(Shift.convertCalendarToStringTime(time))) //if slot is available, add it
+                    if (allTimeSlots.containsKey(Shift.convertCalendarToStringTime(time)) &&
+                            allTimeSlots.get(Shift.convertCalendarToStringTime(time))) { //if slot is available, add it
                         timeSlots.add(Shift.convertCalendarToStringTime(time));
-
+                    }
                     //Increment
                     if (time.get(Calendar.MINUTE) == 30) {
                         int hour = time.get(Calendar.HOUR_OF_DAY);
@@ -157,6 +177,7 @@ public class BookAppointment extends AppCompatActivity {
     Loads the list view with open time slots
      */
     private void loadListView(ArrayList<String> timeSlots) {
+        ArrayList<String> timeSlotsDisplay = new ArrayList<>();
         for (String slot : timeSlots) {
             //Add end time to list view
             int hour = Integer.parseInt(slot.substring(0, 2));
@@ -171,10 +192,11 @@ public class BookAppointment extends AppCompatActivity {
             else {
                 slot += (slot.substring(0, 2) + ":30");
             }
+            timeSlotsDisplay.add(slot);
 
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_single_choice, timeSlots);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_single_choice, timeSlotsDisplay);
         listViewTimeSlots.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
         listViewTimeSlots.setAdapter(adapter);
     }

@@ -26,15 +26,16 @@ import java.util.Calendar;
 public class PastAppointments extends AppCompatActivity {
     ArrayList<Appointment> pastAppointments;
     Patient patient;
-
-    ListView listView = (ListView) findViewById(R.id.listViewPatientPastAppointments);
+    ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_past_appointments);
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Appointments");
 
+        listView = (ListView) findViewById(R.id.listViewPatientPastAppointments);
+        pastAppointments = new ArrayList<>();
         patient = (Patient) getIntent().getSerializableExtra("Patient");
 
         ref.addValueEventListener(new ValueEventListener() {
@@ -47,19 +48,24 @@ public class PastAppointments extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {}
         });
 
-        //NOT IMPLEMENTED YET
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Appointment selectedAppointment = (Appointment) listView.getItemAtPosition(i);
                 Intent intent = new Intent(getApplicationContext(), PastAppointmentDisplay.class);
                 intent.putExtra("Appointment", selectedAppointment);
+                intent.putExtra("Patient", patient);
                 startActivity(intent);
             }
         });
     }
 
-
+    public void onClickBackButton(View view) {
+        Intent intent = new Intent(getApplicationContext(), PatientScreen.class);
+        intent.putExtra("Patient", patient);
+        startActivity(intent);
+    }
 
     private void loadListView() {
         ArrayAdapter<Appointment> arrayAdapterDoctor = new ArrayAdapter<Appointment>(getApplicationContext(),

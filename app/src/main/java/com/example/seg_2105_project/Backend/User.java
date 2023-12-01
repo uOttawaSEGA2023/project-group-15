@@ -145,6 +145,8 @@ public class User implements Serializable {
                         (attributePath.equals("phoneNumber") && attribute instanceof Long) ||
                         (attributePath.equals("address") && attribute instanceof String) ||
                         (attributePath.equals("registrationStatus") && attribute instanceof Status) ||
+                        (attributePath.equals("rating") && referencePath.equals("Doctors") && attribute instanceof Float) ||
+                        (attributePath.equals("numOfRatings") && referencePath.equals("Doctors") && attribute instanceof Integer) ||
                         (attributePath.equals("employee_number") && referencePath.equals("Doctors") && attribute instanceof Long) ||
                         (attributePath.equals("specialties") && referencePath.equals("Doctors") && attribute instanceof ArrayList) ||
                         (attributePath.equals("shifts") && referencePath.equals("Doctors") && attribute instanceof ArrayList) ||

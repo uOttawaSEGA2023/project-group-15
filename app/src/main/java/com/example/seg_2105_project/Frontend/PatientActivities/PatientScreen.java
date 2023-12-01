@@ -14,17 +14,21 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
 
+import com.example.seg_2105_project.Backend.Patient;
+
 public class
 PatientScreen extends AppCompatActivity {
 
     TextView welcomeMessage;
     String name;///patient name;
+    Patient patient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_screen);
         welcomeMessage = findViewById(R.id.welcomeMessage);
+        patient = (Patient) getIntent().getSerializableExtra("Patient");
 
         //Get user profile
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -38,8 +42,21 @@ PatientScreen extends AppCompatActivity {
 
     }
 
+    public void onClickPatientUpcomingAppointments(View view) {
+        Intent intent = new Intent(getApplicationContext(), UpcomingAppointments.class);
+        intent.putExtra("Patient", patient);
+        startActivity(intent);
+    }
+
+    public void onClickPatientPastAppointments(View view) {
+        Intent intent = new Intent(getApplicationContext(), PastAppointments.class);
+        intent.putExtra("Patient", patient);
+        startActivity(intent);
+    }
+
     public void onClickBookAppointment(View view) {
         Intent intent = new Intent(getApplicationContext(), PatientBookAppointment.class);
+        intent.putExtra("Patient", patient);
         startActivity(intent);
     }
 

@@ -96,26 +96,22 @@ public class Shift implements Serializable {
     public static ShiftComparator getShiftComparator(){ return new ShiftComparator(); }
 
     public Calendar retrieveStart() {
-        if (start == null) {
-            start = Calendar.getInstance();
-            start.set(Calendar.HOUR_OF_DAY, startHours);
-            start.set(Calendar.MINUTE, startMinutes);
-            start.set(Calendar.YEAR, year);
-            start.set(Calendar.MONTH, month);
-            start.set(Calendar.DAY_OF_MONTH, day);
-        }
+        start = Calendar.getInstance();
+        start.set(Calendar.HOUR_OF_DAY, startHours);
+        start.set(Calendar.MINUTE, startMinutes);
+        start.set(Calendar.YEAR, year);
+        start.set(Calendar.MONTH, month);
+        start.set(Calendar.DAY_OF_MONTH, day);
         return start;
     }
 
     public Calendar retrieveEnd() {
-        if (end == null) {
-            end = Calendar.getInstance();
-            end.set(Calendar.HOUR_OF_DAY, endHours);
-            end.set(Calendar.MINUTE, endMinutes);
-            end.set(Calendar.YEAR, year);
-            end.set(Calendar.MONTH, month);
-            end.set(Calendar.DAY_OF_MONTH, day);
-        }
+        end = Calendar.getInstance();
+        end.set(Calendar.HOUR_OF_DAY, endHours);
+        end.set(Calendar.MINUTE, endMinutes);
+        end.set(Calendar.YEAR, year);
+        end.set(Calendar.MONTH, month);
+        end.set(Calendar.DAY_OF_MONTH, day);
         return end;
     }
 

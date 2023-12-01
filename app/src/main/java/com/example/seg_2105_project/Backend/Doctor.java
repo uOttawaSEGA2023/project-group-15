@@ -1,9 +1,17 @@
 package com.example.seg_2105_project.Backend;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Map;
 
 public class Doctor extends User {
     private int employeeNumber;
@@ -21,6 +29,7 @@ public class Doctor extends User {
         this.shifts = new ArrayList<>();
         this.autoApprove = false;
         numOfRatings = 0;
+        rating = 0;
     }
 
     /**GETTERS**/
@@ -28,6 +37,10 @@ public class Doctor extends User {
     public ArrayList<String> getSpecialties() { return specialties; }
     public ArrayList<Shift> getShifts() { return shifts; }
     public boolean getAutoApprove() { return autoApprove; }
+    public float getRating(){
+        return rating;
+    }
+    public float getNumOfRatings() { return numOfRatings; }
 
     /**SETTERS**/
     /*
@@ -58,7 +71,30 @@ public class Doctor extends User {
 
         //Get shift at date
         for(Shift shift : this.shifts) {
-            if (shift.retrieveStart().before(date) && shift.retrieveEnd().after(date)) {
+            boolean sameStart = false, sameEnd = false;
+
+            //Check if day is same
+            if (shift.retrieveStart().get(Calendar.DAY_OF_MONTH) ==  date.get(Calendar.DAY_OF_MONTH) &&
+                    shift.retrieveStart().get(Calendar.MONTH) ==  date.get(Calendar.MONTH) &&
+                    shift.retrieveStart().get(Calendar.YEAR) ==  date.get(Calendar.YEAR)){
+
+                //Check if start time is same
+                if (shift.getStartHours() == date.get(Calendar.HOUR_OF_DAY) &&
+                    shift.getStartMinutes() == date.get(Calendar.MINUTE)) {
+                    sameStart = true;
+                }
+
+                //Check if end time is same
+                int endHours = date.get(Calendar.MINUTE) == 0 ? date.get(Calendar.HOUR_OF_DAY) :
+                                                                date.get(Calendar.HOUR_OF_DAY) + 1;
+                int endMinutes = date.get(Calendar.MINUTE) == 0 ? 30 : 0;
+                if (shift.getEndHours() == endHours && shift.getEndMinutes() == endMinutes) {
+                    sameEnd = true;
+                }
+
+            }
+
+            if ((shift.retrieveStart().before(date) || sameStart) && (shift.retrieveEnd().after(date) || sameEnd)) {
                 //Change availability and update firebase
                 shift.getTimeSlots().put(Shift.convertCalendarToStringTime(date), isAvailable);
                 updateFirebase("Doctors", "shifts", shifts, this);
@@ -66,6 +102,14 @@ public class Doctor extends User {
 
             }
         }
+
+    }
+
+    public void updateRating(float ratingToAdd){
+        numOfRatings ++;
+        rating = (rating*(numOfRatings-1) + ratingToAdd)/(numOfRatings);
+        updateFirebase("Doctors", "rating", rating, this);
+        updateFirebase("Doctors", "numOfRatings", numOfRatings, this);
 
     }
 
@@ -107,8 +151,10 @@ public class Doctor extends User {
     Deletes an existing shift from list
      */
     public void deleteShift(Shift shift){
-        this.shifts.remove(shift);
-        updateFirebase("Doctors", "shifts", shifts, this);
+        if(!(shift.getTimeSlots().containsValue(false))){
+            this.shifts.remove(shift);
+            updateFirebase("Doctors", "shifts", shifts, this);
+        }
     }
 
 
@@ -181,7 +227,7 @@ public class Doctor extends User {
                 // add past appointments
                 else {
                     // make sure appointment status is approved and the appointment time is less than current time
-                    if (appointment.getStatus() == Status.APPROVED  && currentDate.after(appointment.retrieveDateTime())) {
+                    if (appointment.getStatus() == Status.APPROVED && currentDate.after(appointment.retrieveDateTime())) {
                         appointments.add(appointment);
                     }
                 }
@@ -190,14 +236,6 @@ public class Doctor extends User {
 
         return appointments;
 
-    }
-
-    public void updateRating(float ratingToAdd){
-        rating = (rating*numOfRatings + ratingToAdd)/(++numOfRatings);
-    }
-
-    public float getRating(){
-        return rating;
     }
 
 

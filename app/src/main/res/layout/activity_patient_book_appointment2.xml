@@ -27,11 +27,23 @@
         android:id="@+id/buttonChangeSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Search By Name"
         android:onClick="onClickChangeSearch"
+        android:text="Search By Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:backgroundTint="#B8B6B6"
+        android:onClick="onClickBackButton"
+        android:text="Back"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintEnd_toStartOf="@+id/buttonChangeSearch"
+        app:layout_constraintTop_toTopOf="@+id/buttonChangeSearch" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

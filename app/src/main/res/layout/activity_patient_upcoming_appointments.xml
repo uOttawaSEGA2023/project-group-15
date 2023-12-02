@@ -7,13 +7,25 @@
     tools:context=".Frontend.PatientActivities.UpcomingAppointments">
 
     <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/barlow"
+        android:text="Click to view details."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+    <TextView
         android:id="@+id/textView17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="92dp"
         android:text="Upcoming Appointments"
+        android:textStyle="bold"
         android:textAlignment="center"
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:fontFamily="@font/barlow_medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -39,6 +51,7 @@
         android:layout_marginTop="24dp"
         android:onClick="onClickBackButton"
         android:text="Back"
+        android:textSize="18dp"
         android:fontFamily="@font/barlow"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintStart_toStartOf="parent"

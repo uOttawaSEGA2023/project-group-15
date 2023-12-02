@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="88dp"
-        android:backgroundTint="#1F78AC"
+        android:backgroundTint="#1F7A8C"
         android:onClick="onClickSignOutButton"
         android:text="Sign Out"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -32,12 +32,12 @@
 
     <Button
         android:id="@+id/buttonBookAppointment"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="230dp"
+        android:layout_height="50dp"
         android:layout_marginStart="112dp"
         android:layout_marginEnd="113dp"
         android:layout_marginBottom="55dp"
+        android:backgroundTint="#022B3A"
         android:onClick="onClickBookAppointment"
         android:text="Book Appointment"
         app:layout_constraintBottom_toTopOf="@+id/signOutButton"
@@ -46,26 +46,26 @@
 
     <Button
         android:id="@+id/buttonPastAppointments"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="172dp"
-        android:text="Past Appointments"
+        android:layout_width="230dp"
+        android:layout_height="50dp"
+        android:backgroundTint="#022B3A"
         android:onClick="onClickPatientPastAppointments"
+        android:text="Past Appointments"
+        app:layout_constraintBottom_toTopOf="@+id/buttonBookAppointment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcomeMessage" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonUpcomingAppointments" />
 
     <Button
         android:id="@+id/buttonUpcomingAppointments"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:text="Upcoming Appointments"
+        android:layout_width="230dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="316dp"
+        android:backgroundTint="#022B3A"
         android:onClick="onClickPatientUpcomingAppointments"
+        android:text="Upcoming Appointments"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonPastAppointments" />
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

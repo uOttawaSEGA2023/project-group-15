@@ -20,11 +20,12 @@
 
     <TextView
         android:id="@+id/textView12"
-        android:layout_width="168dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="56dp"
+        android:layout_width="216dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="76dp"
+        android:fontFamily="@font/barlow"
         android:gravity="center"
-        android:text="Select a date for new shift:"
+        android:text="Select a date for new shift."
         android:textSize="17sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,6 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="168dp"
         android:backgroundTint="#1F7A8C"
+        android:fontFamily="@font/barlow"
         android:onClick="onClickConfirmDate"
         android:text="Confirm"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,7 +51,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
-        android:text="Enter the time for the shift:"
+        android:fontFamily="@font/barlow"
+        android:text="Enter the time for the shift."
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -80,6 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/barlow"
         android:text="Start Time"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timeStartInput" />
@@ -89,6 +93,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:fontFamily="@font/barlow"
         android:text="End Time"
         app:layout_constraintStart_toStartOf="@+id/timeEndInput"
         app:layout_constraintTop_toBottomOf="@+id/timeEndInput" />
@@ -97,13 +102,14 @@
         android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#B8B6B6"
         android:layout_marginStart="32dp"
         android:layout_marginTop="10dp"
+        android:backgroundTint="#B8B6B6"
         android:onClick="onClickBackButton"
         android:text="Back"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:fontFamily="@font/barlow" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

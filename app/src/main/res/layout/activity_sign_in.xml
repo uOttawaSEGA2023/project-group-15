@@ -11,6 +11,7 @@
         android:layout_width="174dp"
         android:layout_height="57dp"
         android:layout_marginBottom="88dp"
+        android:backgroundTint="#1F7A8C"
         android:onClick="onClickSignInButton"
         android:text="Sign in"
         android:textSize="23sp"

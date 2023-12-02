@@ -32,9 +32,10 @@
         android:id="@+id/listViewTimeSlots"
         android:layout_width="350dp"
         android:layout_height="179dp"
-        android:layout_marginStart="32dp"
         android:layout_marginTop="4dp"
         android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewSelectTimeSlot">
 
@@ -72,8 +73,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
-        android:text="Confirm"
         android:onClick="onClickConfirmBooking"
+        android:text="Confirm"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -86,8 +87,8 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
         android:backgroundTint="#B8B6B6"
-        android:text="Back"
         android:onClick="onClickBack"
+        android:text="Back"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

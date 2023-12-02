@@ -19,6 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#1F7A8C"
+        android:textSize="18dp"
         android:fontFamily="@font/barlow"
         android:textColor="@color/white"
         android:layout_alignParentRight="true"

@@ -42,6 +42,7 @@
         android:fontFamily="@font/barlow"
         android:onClick="onClickConfirmDate"
         android:text="Confirm"
+        android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendarView" />
@@ -105,11 +106,12 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="10dp"
         android:backgroundTint="#B8B6B6"
+        android:fontFamily="@font/barlow"
         android:onClick="onClickBackButton"
         android:text="Back"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:fontFamily="@font/barlow" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

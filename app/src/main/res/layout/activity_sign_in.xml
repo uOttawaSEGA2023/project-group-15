@@ -8,14 +8,14 @@
 
     <Button
         android:id="@+id/signInButton"
-        android:layout_width="174dp"
-        android:layout_height="57dp"
+        android:layout_width="153dp"
+        android:layout_height="47dp"
         android:layout_marginBottom="88dp"
         android:backgroundTint="#1F7A8C"
         android:fontFamily="@font/barlow"
         android:onClick="onClickSignInButton"
         android:text="Sign in"
-        android:textSize="23sp"
+        android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/barlow"
             android:text="Password"
-            android:textSize="20sp" />
+            android:textSize="18dp" />
 
         <EditText
             android:id="@+id/password"
@@ -78,7 +78,7 @@
             android:fontFamily="@font/barlow"
             android:hint="Enter your password"
             android:inputType="textPassword"
-            android:textSize="20sp" />
+            android:textSize="18dp" />
 
     </LinearLayout>
 
@@ -88,7 +88,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/barlow_medium"
         android:text="Sign in to HAMS"
-        android:textSize="30sp"
+        android:textSize="24dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"

@@ -34,6 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="88dp"
+        android:backgroundTint="#1F7A8C"
         android:onClick="onClickSignOutButton"
         android:text="Sign Out"
         app:layout_constraintBottom_toBottomOf="parent"

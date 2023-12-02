@@ -19,7 +19,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:background="#BFDBF7"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/Widget.AppCompat.Toolbar" />
 
@@ -27,6 +27,7 @@
         android:id="@+id/buttonChangeSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="#1F7A8C"
         android:onClick="onClickChangeSearch"
         android:text="Search By Name"
         app:layout_constraintEnd_toEndOf="parent"

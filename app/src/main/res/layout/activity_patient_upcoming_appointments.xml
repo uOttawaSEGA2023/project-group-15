@@ -22,8 +22,8 @@
 
     <ListView
         android:id="@+id/listViewPatientUpcomingAppointments"
-        android:layout_width="372dp"
-        android:layout_height="538dp"
+        android:layout_width="336dp"
+        android:layout_height="530dp"
         android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

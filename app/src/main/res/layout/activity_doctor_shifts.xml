@@ -16,6 +16,7 @@
         android:onClick="onClickNoDeleteButton"
         android:text="No"
         android:textSize="20dp"
+        android:backgroundTint="#1F7A8C"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/buttonAddShift"
         app:layout_constraintTop_toBottomOf="@+id/textConfirmation" />
@@ -82,6 +83,7 @@
         android:onClick="onClickYesDeleteShiftButton"
         android:text="Yes"
         android:textSize="20dp"
+        android:backgroundTint="#1F7A8C"
         android:visibility="invisible"
         app:layout_constraintEnd_toStartOf="@+id/buttonNoDeleteShift"
         app:layout_constraintTop_toBottomOf="@+id/textConfirmation" />

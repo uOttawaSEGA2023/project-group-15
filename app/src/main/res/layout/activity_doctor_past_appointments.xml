@@ -13,8 +13,10 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
         android:backgroundTint="#B8B6B6"
+        android:fontFamily="@font/barlow"
         android:onClick="onClickBackButton"
         android:text="Back"
+        android:textSize="18dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -36,6 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="108dp"
+        android:fontFamily="@font/barlow_medium"
         android:text="PAST APPOINTMENTS"
         android:textAlignment="center"
         android:textSize="24sp"

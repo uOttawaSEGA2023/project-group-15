@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="528dp"
+        android:fontFamily="@font/barlow_medium"
         android:gravity="center"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -24,8 +25,10 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="88dp"
         android:backgroundTint="#1F7A8C"
+        android:fontFamily="@font/barlow"
         android:onClick="onClickSignOutButton"
         android:text="Sign Out"
+        android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -36,8 +39,10 @@
         android:layout_height="50dp"
         android:layout_marginTop="329dp"
         android:backgroundTint="#022B3A"
+        android:fontFamily="@font/barlow"
         android:onClick="onClickInboxRegistrations"
         android:text="Inbox for Registrations"
+        android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -48,8 +53,10 @@
         android:layout_height="50dp"
         android:layout_marginTop="30dp"
         android:backgroundTint="#022B3A"
+        android:fontFamily="@font/barlow"
         android:onClick="onClickRejectedRegistrations"
         android:text="Rejected Registrations"
+        android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="@+id/inboxRegistrations"
         app:layout_constraintTop_toBottomOf="@+id/inboxRegistrations" />
 </androidx.constraintlayout.widget.ConstraintLayout>

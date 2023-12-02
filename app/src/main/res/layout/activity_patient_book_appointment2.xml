@@ -21,8 +21,10 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="#022B3A"
+        android:editTextColor="@color/white"
+        android:theme="@style/SearchViewStyle"
         app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/Widget.AppCompat.Toolbar"
+        app:popupTheme="@style/SearchViewStyle"
         app:titleTextColor="@color/navy" />
 
     <Button

@@ -41,7 +41,7 @@
         android:backgroundTint="#022B3A"
         android:fontFamily="@font/barlow"
         android:onClick="onClickInboxRegistrations"
-        android:text="Inbox for Registrations"
+        android:text="Pending Registrations"
         android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

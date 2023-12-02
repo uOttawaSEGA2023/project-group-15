@@ -86,13 +86,13 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="56dp"
+        android:layout_width="217dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
         android:text="Please enter your information"
-        android:textSize="20dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="18dp"
+        app:layout_constraintStart_toEndOf="@+id/backButton"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -178,8 +178,8 @@
         android:text="*Please enter first name"
         android:textColor="#f01616"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/editTextFirstName"
-        app:layout_constraintBottom_toTopOf="@+id/editTextFirstName" />
+        app:layout_constraintBottom_toTopOf="@+id/editTextFirstName"
+        app:layout_constraintEnd_toEndOf="@+id/editTextFirstName" />
 
     <TextView
         android:id="@+id/textViewLastNameError"
@@ -188,8 +188,8 @@
         android:text="*Please enter last name"
         android:textColor="#f01616"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/editTextLastName"
-        app:layout_constraintBottom_toTopOf="@+id/editTextLastName" />
+        app:layout_constraintBottom_toTopOf="@+id/editTextLastName"
+        app:layout_constraintEnd_toEndOf="@+id/editTextLastName" />
 
     <TextView
         android:id="@+id/textViewEmailError"
@@ -198,8 +198,8 @@
         android:text="*Please enter email"
         android:textColor="#f01616"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/editTextEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/editTextEmailAddress" />
+        app:layout_constraintBottom_toTopOf="@+id/editTextEmailAddress"
+        app:layout_constraintEnd_toEndOf="@+id/editTextEmailAddress" />
 
     <TextView
         android:id="@+id/textViewPasswordError"
@@ -228,8 +228,8 @@
         android:text="*Please enter address"
         android:textColor="#f01616"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/editTextPostalAddress"
-        app:layout_constraintBottom_toTopOf="@+id/editTextPostalAddress" />
+        app:layout_constraintBottom_toTopOf="@+id/editTextPostalAddress"
+        app:layout_constraintEnd_toEndOf="@+id/editTextPostalAddress" />
 
     <TextView
         android:id="@+id/textViewHealthNumberError"
@@ -241,5 +241,18 @@
         app:layout_constraintBottom_toTopOf="@+id/editTextHealthNumber"
         app:layout_constraintEnd_toEndOf="@+id/editTextHealthNumber" />
 
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#B8B6B6"
+        android:onClick="onClickBackButton"
+        android:text="Back"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -76,6 +76,7 @@
         android:onClick="onClickConfirmBooking"
         android:text="Confirm"
         android:visibility="invisible"
+        android:backgroundTint="#1F7A8C"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/listViewTimeSlots" />

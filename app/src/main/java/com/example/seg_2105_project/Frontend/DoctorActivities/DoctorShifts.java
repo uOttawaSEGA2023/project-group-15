@@ -90,6 +90,7 @@ public class DoctorShifts extends AppCompatActivity {
         }else {
             text1.setVisibility(View.INVISIBLE);
             text2.setVisibility(View.VISIBLE);
+            text3.setVisibility(View.INVISIBLE);
             buttonYesDeleteShift.setVisibility(View.VISIBLE);
             buttonNoDeleteShift.setVisibility(View.VISIBLE);
             buttonAddShift.setVisibility(View.INVISIBLE);
@@ -100,9 +101,9 @@ public class DoctorShifts extends AppCompatActivity {
 
     //Method is called if doctor confirms the removal of a shift
     public void onClickYesDeleteShiftButton(View view){
-        TextView text2 = findViewById(R.id.textConfirmation);
+        TextView textConfirm = findViewById(R.id.textConfirmation);
         doctor.deleteShift(selectedShift);
-        text2.setVisibility(View.INVISIBLE);
+        textConfirm.setVisibility(View.INVISIBLE);
         buttonYesDeleteShift.setVisibility(View.INVISIBLE);
         buttonNoDeleteShift.setVisibility(View.INVISIBLE);
         buttonAddShift.setVisibility(View.VISIBLE);

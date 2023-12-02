@@ -50,4 +50,9 @@ public class SignUpPage extends AppCompatActivity {
         Intent intent = new Intent(this, com.example.seg_2105_project.Frontend.DoctorActivities.Doctor_SignUp.class);
         startActivity(intent);
     }
+
+    public void onClickBackButton(View view) {
+        Intent intent = new Intent(getApplicationContext(), WelcomeScreen.class);
+        startActivity(intent);
+    }
 }

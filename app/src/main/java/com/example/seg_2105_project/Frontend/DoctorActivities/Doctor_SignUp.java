@@ -2,6 +2,7 @@ package com.example.seg_2105_project.Frontend.DoctorActivities;
 
 import com.example.seg_2105_project.Backend.Doctor;
 import com.example.seg_2105_project.Frontend.SignIn;
+import com.example.seg_2105_project.Frontend.SignUpPage;
 import com.example.seg_2105_project.R;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -86,6 +87,11 @@ public class Doctor_SignUp extends AppCompatActivity {
 
         }
 
+    }
+
+    public void onClickBackButton(View view) {
+        Intent intent = new Intent(getApplicationContext(), SignUpPage.class);
+        startActivity(intent);
     }
 
     /*

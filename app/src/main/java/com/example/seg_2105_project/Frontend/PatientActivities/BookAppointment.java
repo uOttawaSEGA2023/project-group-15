@@ -104,7 +104,7 @@ public class BookAppointment extends AppCompatActivity {
     }
 
     public void onClickBack(View view) {
-        Intent intent = new Intent(getApplicationContext(), PatientScreen.class);
+        Intent intent = new Intent(getApplicationContext(), PatientBookAppointment.class);
         Patient patient = (Patient) getIntent().getSerializableExtra("Patient");
         intent.putExtra("Patient", patient);
         startActivity(intent);
@@ -127,6 +127,18 @@ public class BookAppointment extends AppCompatActivity {
         }
         Calendar maxDate = shifts.get(shifts.size() - 1).retrieveStart();
         Calendar minDate = shifts.get(0).retrieveStart();
+
+        //Check if past shifts are still in system
+        if (minDate.before(Calendar.getInstance())) {
+            minDate = Calendar.getInstance();
+        }
+        //All shifts have passed
+        if (maxDate.before(Calendar.getInstance())) {
+            calendarView.setVisibility(View.INVISIBLE);
+            TextView textView = findViewById(R.id.textViewSelectDate);
+            textView.setText("This doctor has no available shifts");
+            return;
+        }
 
         calendarView.setMinDate(minDate.getTimeInMillis());
         calendarView.setMaxDate(maxDate.getTimeInMillis());

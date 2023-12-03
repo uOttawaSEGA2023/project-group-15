@@ -42,6 +42,41 @@ public class Doctor extends User {
     }
     public float getNumOfRatings() { return numOfRatings; }
 
+    /*
+     * Gives a list of appointments that are either past or upcoming
+     * @param  dataSnapshot                DataSnapshot of doctor information in firebase
+     * @param  passed                      boolean to indicate if it is a passed appointment or not
+     * @param  currentDate                 Current Date
+     * @return                             An ArrayList of appointments
+     */
+    public ArrayList<Appointment> getDoctorAppointments(DataSnapshot dataSnapshot, boolean passed, Calendar currentDate) {
+        ArrayList<Appointment> appointments = new ArrayList<>();
+
+        //Add appointment this doctor is associated with
+        for (DataSnapshot appointmentSnapshot : dataSnapshot.getChildren()) {
+            Appointment appointment = appointmentSnapshot.getValue(Appointment.class);
+            if (appointment.getDoctor().getEmail().equals(this.getEmail())) {
+                if (!passed) {
+                    boolean check = currentDate.before(appointment.retrieveDateTime());
+                    // make sure appointment status is either pending or approved and the appointments time is greater than current time
+                    if ((appointment.getStatus() == Status.PENDING || appointment.getStatus() == Status.APPROVED) && currentDate.before(appointment.retrieveDateTime())) {
+                        appointments.add(appointment);
+                    }
+                }
+                // add past appointments
+                else {
+                    // make sure appointment status is approved and the appointment time is less than current time
+                    if (appointment.getStatus() == Status.APPROVED && currentDate.after(appointment.retrieveDateTime())) {
+                        appointments.add(appointment);
+                    }
+                }
+            }
+        }
+
+        return appointments;
+
+    }
+
     /**SETTERS**/
     /*
     * Acts as a setter for autoApprove and updates firebase
@@ -157,8 +192,6 @@ public class Doctor extends User {
         }
     }
 
-
-
     /**CLASS METHODS**/
 
     /*
@@ -199,42 +232,6 @@ public class Doctor extends User {
             throw new IllegalArgumentException("dataSnapshot should not be null and should be from the Doctor path");
         }
         return doctors;
-
-    }
-
-    /*
-     * Gives a list of appointments that are either past or upcoming
-     * @param  dataSnapshot                DataSnapshot of doctor information in firebase
-     * @param  passed                      boolean to indicate if it is a passed appointment or not
-     * @param  currentDate                 Current Date
-     * @return                             An ArrayList of appointments
-     * @throws IllegalArgumentException   if dataSnapshot is null or doesn't contain a snapshot for the doctors
-     */
-    public ArrayList<Appointment> getDoctorAppointments(DataSnapshot dataSnapshot, boolean passed, Calendar currentDate) {
-        ArrayList<Appointment> appointments = new ArrayList<>();
-
-        //Add appointment this doctor is associated with
-        for (DataSnapshot appointmentSnapshot : dataSnapshot.getChildren()) {
-            Appointment appointment = appointmentSnapshot.getValue(Appointment.class);
-            if (appointment.getDoctor().getEmail().equals(this.getEmail())) {
-                if (!passed) {
-                    boolean check = currentDate.before(appointment.retrieveDateTime());
-                    // make sure appointment status is either pending or approved and the appointments time is greater than current time
-                    if ((appointment.getStatus() == Status.PENDING || appointment.getStatus() == Status.APPROVED) && currentDate.before(appointment.retrieveDateTime())) {
-                        appointments.add(appointment);
-                    }
-                }
-                // add past appointments
-                else {
-                    // make sure appointment status is approved and the appointment time is less than current time
-                    if (appointment.getStatus() == Status.APPROVED && currentDate.after(appointment.retrieveDateTime())) {
-                        appointments.add(appointment);
-                    }
-                }
-            }
-        }
-
-        return appointments;
 
     }
 

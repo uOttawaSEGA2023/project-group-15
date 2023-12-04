@@ -7,9 +7,8 @@
     tools:context=".Frontend.AdminActivities.RegistrationsInbox">
 
     <ListView
-        android:id="@+id/listViewRegistrationRequests"
-        android:layout_width="408dp"
-        android:layout_height="511dp"
+        android:id="@+id/listViewRegistrationRequests"android:layout_width="360dp"
+        android:layout_height="526dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.333"

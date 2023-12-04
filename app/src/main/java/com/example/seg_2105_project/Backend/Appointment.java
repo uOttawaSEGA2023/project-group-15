@@ -115,9 +115,10 @@ public class Appointment implements Serializable {
         if (minutes == 0)
             time += "0";
 
-        return "Patient: " + patient.getFirstName() + " " + patient.getLastName() +
-                " | Date: " + date + " at " + time +
-                " | Status " + status;
+        return "Dr. " + doctor.getLastName() +
+                " | Patient: " + patient.getFirstName() + " " + patient.getLastName() +
+                " | " + date + " at " + time +
+                " | " + status;
     }
 
     public void updateFirebase(String attributePath, Object attribute) {
